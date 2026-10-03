@@ -4,7 +4,10 @@
   is forwarded to the same path on the Hydrogen site set in Theme settings.
   Checkout, customer accounts and gift cards are served by Shopify and keep working.
 {%- endcomment -%}
-{%- assign target = settings.storefront_url | strip | remove_last: '/' -%}
+{%- assign target = settings.storefront_url | strip -%}
+{%- assign last_char = target | slice: -1 -%}
+{%- if last_char == '/' -%}{%- assign target = target | remove_last: '/' -%}{%- endif -%}
+{%- unless target contains '://' -%}{%- assign target = '' -%}{%- endunless -%}
 <!doctype html>
 <html lang="{{ request.locale.iso_code | default: 'fr' }}">
   <head>
