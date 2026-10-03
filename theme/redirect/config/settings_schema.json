@@ -1,0 +1,22 @@
+[
+  {
+    "name": "theme_info",
+    "theme_name": "HAMZA KING Redirect",
+    "theme_version": "1.0.0",
+    "theme_author": "HAMZA KING",
+    "theme_documentation_url": "https://github.com/liouae/HAMZA-KING",
+    "theme_support_url": "https://github.com/liouae/HAMZA-KING"
+  },
+  {
+    "name": "Hydrogen",
+    "settings": [
+      {
+        "type": "text",
+        "id": "storefront_url",
+        "label": "Adresse du site Hydrogen",
+        "info": "Ex. https://hamzaking.ma — toutes les pages de la boutique en ligne y sont redirigées.",
+        "default": ""
+      }
+    ]
+  }
+]

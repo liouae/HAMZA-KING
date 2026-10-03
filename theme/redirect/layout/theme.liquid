@@ -1,0 +1,34 @@
+{%- comment -%}
+  HAMZA KING — redirect theme.
+  The real storefront is the Hydrogen app (this repo). Every Online Store URL
+  is forwarded to the same path on the Hydrogen site set in Theme settings.
+  Checkout, customer accounts and gift cards are served by Shopify and keep working.
+{%- endcomment -%}
+{%- assign target = settings.storefront_url | strip | remove_last: '/' -%}
+<!doctype html>
+<html lang="{{ request.locale.iso_code | default: 'fr' }}">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <title>{{ shop.name }}</title>
+    {%- if target != blank and request.design_mode == false -%}
+      <link rel="canonical" href="{{ target }}{{ request.path }}">
+      <meta http-equiv="refresh" content="0;url={{ target }}{{ request.path }}">
+      <script>
+        location.replace({{ target | json }} + location.pathname + location.search + location.hash);
+      </script>
+    {%- endif -%}
+    {{ content_for_header }}
+  </head>
+  <body style="margin:0;min-height:100vh;display:grid;place-items:center;font:500 15px/1.5 system-ui,sans-serif;background:#f4f1ea;color:#12100e">
+    <main style="text-align:center;padding:24px">
+      <p style="letter-spacing:.2em;text-transform:uppercase;font-size:12px;margin:0 0 8px">{{ shop.name }}</p>
+      {%- if target != blank -%}
+        <p style="margin:0"><a href="{{ target }}{{ request.path }}" style="color:inherit">Continuer vers la boutique →</a></p>
+      {%- else -%}
+        <p style="margin:0">Boutique bientôt disponible.</p>
+      {%- endif -%}
+      <div hidden>{{ content_for_layout }}</div>
+    </main>
+  </body>
+</html>
