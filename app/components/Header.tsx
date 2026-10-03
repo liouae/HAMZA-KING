@@ -198,7 +198,7 @@ function BrandMegaPanel({
               Toutes les marques <IconArrow width={16} height={16} />
             </Link>
           </div>
-          <ul className="bmega-grid">
+          <ul className="bmega-grid" role="list">
             {BRANDS.map((b) => (
               <li key={b.handle}>
                 <Link

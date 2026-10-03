@@ -8,13 +8,13 @@ export const BRAND = {
   name: 'HAMZA KING',
   legalName: 'HAMZAKINGSTORE',
   tagline: 'Sneakers authentiques. Livrées partout au Maroc.',
-  instagram: 'https://www.instagram.com/hamza__king07__/',
-  tiktok: '',
-  email: 'hamza20king00@gmail.com',
+  instagram: 'https://instagram.com/',
+  tiktok: 'https://tiktok.com/',
+  email: 'contact@hamzakingstore.ma',
 };
 
 /** WhatsApp number in international format, digits only (e.g. 2126XXXXXXXX). */
-export const WHATSAPP_NUMBER = '212614719446';
+export const WHATSAPP_NUMBER = '212600000000';
 
 export const SHIPPING = {
   /** Free delivery threshold, in MAD. */

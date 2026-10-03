@@ -13,7 +13,7 @@ export function RecentlyViewed({exclude}: {exclude?: string}) {
 
   useEffect(() => {
     if (!key) return;
-    void fetcher.load(`/api/products?handles=${encodeURIComponent(key)}`);
+    fetcher.load(`/api/products?handles=${encodeURIComponent(key)}`);
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [key]);
 

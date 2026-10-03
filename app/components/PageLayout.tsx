@@ -179,7 +179,7 @@ function SearchAside() {
                   </div>
                   <div className="search-block">
                     <p className="eyebrow">Marques</p>
-                    <ul className="logo-grid logo-grid--search">
+                    <ul className="logo-grid logo-grid--search" role="list">
                       {BRANDS.map((b) => (
                         <li key={b.handle}>
                           <Link
@@ -319,7 +319,7 @@ function MobileMenuAside() {
                 </button>
                 <div className="mnav-sub">
                   <div>
-                    <ul className="logo-grid logo-grid--3">
+                    <ul className="logo-grid logo-grid--3" role="list">
                       {BRANDS.map((b) => (
                         <li key={b.handle}>
                           <Link

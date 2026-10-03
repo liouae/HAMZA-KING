@@ -1,19 +1,10 @@
-import {useEffect, useRef} from 'react';
+import {useEffect} from 'react';
 import {useAnalytics, useNonce} from '@shopify/hydrogen';
 import {useConsent} from '~/lib/ui';
 
-interface FacebookPixel {
-  (...args: unknown[]): void;
-  callMethod?: (...args: unknown[]) => void;
-  queue: unknown[][];
-  push?: FacebookPixel;
-  loaded: boolean;
-  version: string;
-}
-
 declare global {
   interface Window {
-    fbq?: FacebookPixel;
+    fbq?: (...args: unknown[]) => void;
     _fbq?: unknown;
   }
 }
@@ -29,38 +20,37 @@ export function MetaPixel({pixelId}: {pixelId?: string}) {
   const {ready} = register('Meta Pixel');
   const {consent} = useConsent();
   const enabled = Boolean(pixelId) && consent === 'accepted';
-  const consentAccepted = useRef(false);
-  useEffect(() => {
-    consentAccepted.current = enabled;
-  }, [enabled]);
 
   // Load the pixel script only after consent.
   useEffect(() => {
     if (!enabled || window.fbq) return;
     const id = pixelId!.replace(/[^0-9]/g, '');
-    const pixel = Object.assign(
-      (...args: unknown[]) => {
-        if (pixel.callMethod) pixel.callMethod(...args);
-        else pixel.queue.push(args);
-      },
-      {queue: [] as unknown[][], loaded: true, version: '2.0'},
-    ) as FacebookPixel;
-    pixel.push = pixel;
-    window.fbq = pixel;
-    if (!window._fbq) window._fbq = pixel;
-    const script = document.createElement('script');
-    script.async = true;
-    script.nonce = nonce;
-    script.src = 'https://connect.facebook.net/en_US/fbevents.js';
-    document.head.appendChild(script);
-    pixel('init', id);
-    pixel('track', 'PageView');
-  }, [enabled, pixelId, nonce]);
+    /* eslint-disable */
+    const f: any = window;
+    const n: any = (f.fbq = function () {
+      n.callMethod ? n.callMethod.apply(n, arguments) : n.queue.push(arguments);
+    });
+    if (!f._fbq) f._fbq = n;
+    n.push = n;
+    n.loaded = true;
+    n.version = '2.0';
+    n.queue = [];
+    const t = document.createElement('script');
+    t.async = true;
+    t.src = 'https://connect.facebook.net/en_US/fbevents.js';
+    document.head.appendChild(t);
+    f.fbq('init', id);
+    f.fbq('track', 'PageView');
+    /* eslint-enable */
+  }, [enabled, pixelId]);
 
   useEffect(() => {
-    const fbq = (...args: unknown[]) => {
-      if (consentAccepted.current) window.fbq?.(...args);
-    };
+    if (!enabled) {
+      ready();
+      return;
+    }
+
+    const fbq = (...args: unknown[]) => window.fbq?.(...args);
 
     // PageView is fired on init; route changes:
     subscribe('page_viewed', () => fbq('track', 'PageView'));
@@ -110,6 +100,7 @@ export function MetaPixel({pixelId}: {pixelId?: string}) {
     ready();
   }, [pixelId, subscribe, ready]);
 
+  void nonce;
   return null;
 }
 

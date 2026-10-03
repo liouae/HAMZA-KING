@@ -16,7 +16,7 @@ export function CartUpsell({
   const {close} = useAside();
   useEffect(() => {
     if (handle)
-      void fetcher.load(`/api/recommend?handle=${encodeURIComponent(handle)}`);
+      fetcher.load(`/api/recommend?handle=${encodeURIComponent(handle)}`);
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [handle]);
   const products = (fetcher.data?.products ?? [])
