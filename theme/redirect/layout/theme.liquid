@@ -11,7 +11,7 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width,initial-scale=1">
     <title>{{ shop.name }}</title>
-    {%- if target != blank and request.design_mode == false -%}
+    {%- if target != blank and request.design_mode == false and template.name != 'password' -%}
       <link rel="canonical" href="{{ target }}{{ request.path }}">
       <meta http-equiv="refresh" content="0;url={{ target }}{{ request.path }}">
       <script>
