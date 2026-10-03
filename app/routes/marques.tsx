@@ -68,7 +68,7 @@ export default function BrandsPage() {
 
       <section className="container" aria-label="Toutes les marques">
         {filtered.length ? (
-          <ul className="brand-cards" role="list">
+          <ul className="brand-cards">
             {filtered.map((b, i) => (
               <li
                 key={b.handle}
@@ -111,7 +111,7 @@ export default function BrandsPage() {
                     {b.tagline ? (
                       <p className="brand-card-tag">{b.tagline}</p>
                     ) : null}
-                    <ul className="brand-card-links" role="list">
+                    <ul className="brand-card-links">
                       {brandLinks(b.handle)
                         .slice(1, 4)
                         .map((l) => (
@@ -151,7 +151,7 @@ export default function BrandsPage() {
           {alpha.map(([letter, list]) => (
             <div key={letter} className="brands-az-group">
               <span className="brands-az-letter">{letter}</span>
-              <ul role="list">
+              <ul>
                 {list.map((b) => (
                   <li key={b.handle}>
                     <Link to={`/collections/${b.handle}`}>{b.name}</Link>

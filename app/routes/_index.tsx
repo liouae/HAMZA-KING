@@ -41,7 +41,7 @@ export const meta: Route.MetaFunction = () => {
         name: BRAND.name,
         url: SITE.url,
         logo: `${SITE.url}/brand/icon-512.png`,
-        sameAs: [BRAND.instagram, BRAND.tiktok],
+        sameAs: [BRAND.instagram, BRAND.tiktok].filter(Boolean),
         address: {
           '@type': 'PostalAddress',
           addressLocality: SITE.city,

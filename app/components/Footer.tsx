@@ -121,9 +121,11 @@ export function Footer(_props: FooterProps) {
           <a href={BRAND.instagram} target="_blank" rel="noreferrer">
             Instagram
           </a>
-          <a href={BRAND.tiktok} target="_blank" rel="noreferrer">
-            TikTok
-          </a>
+          {BRAND.tiktok ? (
+            <a href={BRAND.tiktok} target="_blank" rel="noreferrer">
+              TikTok
+            </a>
+          ) : null}
         </div>
       </div>
     </footer>

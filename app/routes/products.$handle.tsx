@@ -311,7 +311,7 @@ export default function Product() {
                 <div className="pdp-head-actions">
                   <button
                     className="icon-btn"
-                    onClick={share}
+                    onClick={() => void share()}
                     aria-label="Partager"
                   >
                     <IconShare />
