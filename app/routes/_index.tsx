@@ -102,12 +102,14 @@ export default function Homepage() {
       <CampaignHero product={heroProduct} />
       <BrandTicker />
 
-      <ProductRail
-        eyebrow="Fraîchement arrivées"
-        title="Nouveautés"
-        to="/collections/all?sort=newest"
-        products={newest}
-      />
+      {newest.length ? (
+        <ProductRail
+          eyebrow="Fraîchement arrivées"
+          title="Nouveautés"
+          to="/collections/all?sort=newest"
+          products={newest}
+        />
+      ) : null}
 
       <section
         className="universes container"
