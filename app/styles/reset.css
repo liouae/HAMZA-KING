@@ -1,0 +1,54 @@
+/* Minimal modern reset */
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+html,
+body,
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+p,
+ul,
+ol,
+li,
+figure,
+blockquote,
+dl,
+dd,
+fieldset {
+  margin: 0;
+  padding: 0;
+}
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  font-size: inherit;
+  font-weight: inherit;
+}
+ul[role='list'],
+ol[role='list'] {
+  list-style: none;
+}
+img,
+picture,
+video,
+svg {
+  max-width: 100%;
+}
+form {
+  margin: 0;
+}
+table {
+  border-collapse: collapse;
+}
+dialog {
+  padding: 0;
+}
