@@ -266,7 +266,7 @@ function CampaignHero({product}: {product?: CardProduct}) {
             className="hero-media"
             data={localPhoto(c.image)}
             alt="Coureur sur un sentier de l’Atlas au coucher du soleil"
-            sizes="(min-width: 64em) 60vw, 100vw"
+            sizes="(min-width: 48em) 55vw, 100vw"
             priority
           />
         ) : image ? (
@@ -274,7 +274,7 @@ function CampaignHero({product}: {product?: CardProduct}) {
             className="hero-product"
             data={image}
             alt={image.altText || product?.title || ''}
-            sizes="(min-width: 64em) 55vw, 100vw"
+            sizes="(min-width: 48em) 55vw, 100vw"
             loading="eager"
           />
         ) : null}
