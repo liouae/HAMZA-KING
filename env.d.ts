@@ -15,5 +15,8 @@ declare global {
     PUBLIC_CLARITY_ID?: string;
     PUBLIC_GOOGLE_SITE_VERIFICATION?: string;
     PUBLIC_META_DOMAIN_VERIFICATION?: string;
+    /** Dev Dashboard app (client credentials grant) used server-side to save reviews and check orders. Scopes: write_metaobjects, read_metaobjects, read_orders, read_products. */
+    PRIVATE_ADMIN_CLIENT_ID?: string;
+    PRIVATE_ADMIN_CLIENT_SECRET?: string;
   }
 }

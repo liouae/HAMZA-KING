@@ -37,6 +37,27 @@ export const TRACKING = {
   metaDomainVerification: '',
 };
 
+/**
+ * Public review platforms. Leave a value empty to hide it.
+ * - trustpilot.url: your public Trustpilot page, e.g. 'https://fr.trustpilot.com/review/hamzaking.ma'
+ * - trustpilot.businessUnitId: Trustpilot Business → Integrations → TrustBox (data-businessunit-id)
+ * - trustpilot.templateId: the TrustBox you're allowed to use (free plan = 1 widget)
+ * - googleReviewUrl: Google Business Profile → "Ask for reviews" share link
+ * - googleMapsUrl: the shop's Google Maps page (shows Google reviews)
+ */
+export const TRUST = {
+  trustpilot: {
+    url: '',
+    businessUnitId: '',
+    /** "Mini" TrustBox. Other common ones: Micro Star 5419b732fbfb950b10de65e5, Micro Review Count 5419b6a8b0d04a076446a9ad. */
+    templateId: '53aa8807dec7e10d38f59f36',
+  },
+  googleReviewUrl: '',
+  googleMapsUrl: '',
+  /** Show the reviews block on the home page from this many published reviews. */
+  homeMinReviews: 3,
+};
+
 /** Social profiles shown in the footer and on the contact page (empty URL = hidden). */
 export const SOCIALS = [
   {

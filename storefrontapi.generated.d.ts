@@ -473,6 +473,49 @@ export type MenuCollectionsQuery = {
   };
 };
 
+export type StoreReviewsQueryVariables = StorefrontAPI.Exact<{
+  country?: StorefrontAPI.InputMaybe<StorefrontAPI.CountryCode>;
+  language?: StorefrontAPI.InputMaybe<StorefrontAPI.LanguageCode>;
+}>;
+
+export type StoreReviewsQuery = {
+  metaobjects: {
+    nodes: Array<
+      Pick<StorefrontAPI.Metaobject, 'id'> & {
+        fields: Array<
+          Pick<StorefrontAPI.MetaobjectField, 'key' | 'value'> & {
+            reference?: StorefrontAPI.Maybe<
+              | {
+                  __typename:
+                    | 'Article'
+                    | 'Collection'
+                    | 'GenericFile'
+                    | 'Metaobject'
+                    | 'Model3d'
+                    | 'Page'
+                    | 'ProductVariant'
+                    | 'Video';
+                }
+              | ({__typename: 'MediaImage'} & {
+                  image?: StorefrontAPI.Maybe<
+                    Pick<
+                      StorefrontAPI.Image,
+                      'url' | 'altText' | 'width' | 'height'
+                    >
+                  >;
+                })
+              | ({__typename: 'Product'} & Pick<
+                  StorefrontAPI.Product,
+                  'handle' | 'title'
+                >)
+            >;
+          }
+        >;
+      }
+    >;
+  };
+};
+
 export type HomeNewestQueryVariables = StorefrontAPI.Exact<{
   country?: StorefrontAPI.InputMaybe<StorefrontAPI.CountryCode>;
   language?: StorefrontAPI.InputMaybe<StorefrontAPI.LanguageCode>;
@@ -974,6 +1017,25 @@ export type CartRecommendQuery = {
       }
     >
   >;
+};
+
+export type ReviewProductsQueryVariables = StorefrontAPI.Exact<{
+  country?: StorefrontAPI.InputMaybe<StorefrontAPI.CountryCode>;
+  language?: StorefrontAPI.InputMaybe<StorefrontAPI.LanguageCode>;
+}>;
+
+export type ReviewProductsQuery = {
+  products: {nodes: Array<Pick<StorefrontAPI.Product, 'handle' | 'title'>>};
+};
+
+export type ReviewProductQueryVariables = StorefrontAPI.Exact<{
+  handle: StorefrontAPI.Scalars['String']['input'];
+  country?: StorefrontAPI.InputMaybe<StorefrontAPI.CountryCode>;
+  language?: StorefrontAPI.InputMaybe<StorefrontAPI.LanguageCode>;
+}>;
+
+export type ReviewProductQuery = {
+  product?: StorefrontAPI.Maybe<Pick<StorefrontAPI.Product, 'id' | 'title'>>;
 };
 
 export type ArticleQueryVariables = StorefrontAPI.Exact<{
@@ -2338,6 +2400,10 @@ interface GeneratedQueryTypes {
     return: MenuCollectionsQuery;
     variables: MenuCollectionsQueryVariables;
   };
+  '#graphql\n  query StoreReviews($country: CountryCode, $language: LanguageCode)\n  @inContext(country: $country, language: $language) {\n    metaobjects(type: "hk_review", first: 250, sortKey: "updated_at", reverse: true) {\n      nodes {\n        id\n        fields {\n          key\n          value\n          reference {\n            __typename\n            ... on Product {\n              handle\n              title\n            }\n            ... on MediaImage {\n              image {\n                url\n                altText\n                width\n                height\n              }\n            }\n          }\n        }\n      }\n    }\n  }\n': {
+    return: StoreReviewsQuery;
+    variables: StoreReviewsQueryVariables;
+  };
   '#graphql\n  query HomeNewest($country: CountryCode, $language: LanguageCode)\n  @inContext(country: $country, language: $language) {\n    newest: products(first: 12, sortKey: CREATED_AT, reverse: true) {\n      nodes {\n        ...ProductCard\n      }\n    }\n  }\n  #graphql\n  fragment CardMoney on MoneyV2 {\n    amount\n    currencyCode\n  }\n  fragment CardImage on Image {\n    id\n    url\n    altText\n    width\n    height\n  }\n  fragment ProductCard on Product {\n    id\n    handle\n    title\n    vendor\n    productType\n    tags\n    publishedAt\n    featuredImage {\n      ...CardImage\n    }\n    images(first: 2) {\n      nodes {\n        ...CardImage\n      }\n    }\n    priceRange {\n      minVariantPrice {\n        ...CardMoney\n      }\n      maxVariantPrice {\n        ...CardMoney\n      }\n    }\n    compareAtPriceRange {\n      maxVariantPrice {\n        ...CardMoney\n      }\n    }\n    options(first: 3) {\n      name\n      optionValues {\n        name\n        swatch {\n          color\n        }\n      }\n    }\n    variants(first: 40) {\n      nodes {\n        id\n        availableForSale\n        selectedOptions {\n          name\n          value\n        }\n        price {\n          ...CardMoney\n        }\n        compareAtPrice {\n          ...CardMoney\n        }\n        image {\n          ...CardImage\n        }\n      }\n    }\n  }\n\n': {
     return: HomeNewestQuery;
     variables: HomeNewestQueryVariables;
@@ -2361,6 +2427,14 @@ interface GeneratedQueryTypes {
   '#graphql\n  #graphql\n  fragment CardMoney on MoneyV2 {\n    amount\n    currencyCode\n  }\n  fragment CardImage on Image {\n    id\n    url\n    altText\n    width\n    height\n  }\n  fragment ProductCard on Product {\n    id\n    handle\n    title\n    vendor\n    productType\n    tags\n    publishedAt\n    featuredImage {\n      ...CardImage\n    }\n    images(first: 2) {\n      nodes {\n        ...CardImage\n      }\n    }\n    priceRange {\n      minVariantPrice {\n        ...CardMoney\n      }\n      maxVariantPrice {\n        ...CardMoney\n      }\n    }\n    compareAtPriceRange {\n      maxVariantPrice {\n        ...CardMoney\n      }\n    }\n    options(first: 3) {\n      name\n      optionValues {\n        name\n        swatch {\n          color\n        }\n      }\n    }\n    variants(first: 40) {\n      nodes {\n        id\n        availableForSale\n        selectedOptions {\n          name\n          value\n        }\n        price {\n          ...CardMoney\n        }\n        compareAtPrice {\n          ...CardMoney\n        }\n        image {\n          ...CardImage\n        }\n      }\n    }\n  }\n\n  query CartRecommend($handle: String!, $country: CountryCode, $language: LanguageCode)\n  @inContext(country: $country, language: $language) {\n    productRecommendations(productHandle: $handle) {\n      ...ProductCard\n    }\n  }\n': {
     return: CartRecommendQuery;
     variables: CartRecommendQueryVariables;
+  };
+  '#graphql\n  query ReviewProducts($country: CountryCode, $language: LanguageCode)\n  @inContext(country: $country, language: $language) {\n    products(first: 100, sortKey: TITLE) {\n      nodes {\n        handle\n        title\n      }\n    }\n  }\n': {
+    return: ReviewProductsQuery;
+    variables: ReviewProductsQueryVariables;
+  };
+  '#graphql\n  query ReviewProduct($handle: String!, $country: CountryCode, $language: LanguageCode)\n  @inContext(country: $country, language: $language) {\n    product(handle: $handle) {\n      id\n      title\n    }\n  }\n': {
+    return: ReviewProductQuery;
+    variables: ReviewProductQueryVariables;
   };
   '#graphql\n  query Article(\n    $articleHandle: String!\n    $blogHandle: String!\n    $country: CountryCode\n    $language: LanguageCode\n  ) @inContext(language: $language, country: $country) {\n    blog(handle: $blogHandle) {\n      handle\n      articleByHandle(handle: $articleHandle) {\n        handle\n        title\n        contentHtml\n        publishedAt\n        author: authorV2 {\n          name\n        }\n        image {\n          id\n          altText\n          url\n          width\n          height\n        }\n        seo {\n          description\n          title\n        }\n      }\n    }\n  }\n': {
     return: ArticleQuery;

@@ -47,6 +47,7 @@ import {
 } from '~/lib/content';
 import {pushRecentlyViewed} from '~/lib/ui';
 import {redirectIfHandleIsLocalized} from '~/lib/redirect';
+import {loadStoreReviews, mergeReviews} from '~/lib/reviews';
 
 export const meta: Route.MetaFunction = ({data}) => {
   const p = data?.product;
@@ -55,9 +56,7 @@ export const meta: Route.MetaFunction = ({data}) => {
   const description = p.seo?.description || p.description?.slice(0, 155) || '';
   const image = p.images?.nodes?.[0]?.url ?? '';
   const variant = p.selectedOrFirstAvailableVariant;
-  const stats = reviewStats(
-    parseReviews(p.reviews?.references?.nodes as never),
-  );
+  const stats = reviewStats(data?.reviews ?? []);
   return [
     {title},
     {name: 'description', content: description},
@@ -165,14 +164,20 @@ async function loadCriticalData({context, params, request}: Route.LoaderArgs) {
   const {storefront} = context;
   if (!handle) throw new Error('Expected product handle to be defined');
 
-  const [{product}] = await Promise.all([
+  const [{product}, storeReviews] = await Promise.all([
     storefront.query(PRODUCT_QUERY, {
       variables: {handle, selectedOptions: getSelectedProductOptions(request)},
     }),
+    loadStoreReviews(storefront),
   ]);
   if (!product?.id) throw new Response(null, {status: 404});
   redirectIfHandleIsLocalized(request, {handle, data: product});
-  return {product};
+  // Reviews attached to the product + approved reviews that name this pair.
+  const reviews = mergeReviews(
+    parseReviews(product.reviews?.references?.nodes as never),
+    storeReviews.filter((r) => r.product?.handle === product.handle),
+  );
+  return {product, reviews};
 }
 
 function loadDeferredData(
@@ -224,7 +229,7 @@ function mfJson<T>(fields: Metafield[], key: string, fallback: T): T {
 }
 
 export default function Product() {
-  const {product, recommended} = useLoaderData<typeof loader>();
+  const {product, recommended, reviews} = useLoaderData<typeof loader>();
 
   const selectedVariant = useOptimisticVariant(
     product.selectedOrFirstAvailableVariant,
@@ -317,7 +322,6 @@ export default function Product() {
     }
   }
 
-  const reviews = parseReviews(product.reviews?.references?.nodes as never);
   const rating = reviewStats(reviews);
 
   const qty = selectedVariant?.quantityAvailable ?? null;
@@ -591,7 +595,11 @@ export default function Product() {
         image={images[0]}
       />
 
-      <ProductReviews reviews={reviews} productTitle={title} />
+      <ProductReviews
+        reviews={reviews}
+        productTitle={title}
+        productHandle={product.handle}
+      />
 
       <Suspense fallback={null}>
         <Await resolve={recommended}>

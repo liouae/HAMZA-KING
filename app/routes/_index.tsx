@@ -11,7 +11,15 @@ import {ProductRail} from '~/components/ProductRail';
 import {ServiceStrip} from '~/components/Footer';
 import {Price} from '~/components/Price';
 import {IconArrow} from '~/components/Icons';
-import {BRAND, BRANDS, CATEGORIES, SOCIALS} from '~/lib/config';
+import {BRAND, BRANDS, CATEGORIES, SOCIALS, TRUST} from '~/lib/config';
+import {
+  ReviewCard,
+  Stars,
+  reviewStats,
+  type Review,
+} from '~/components/ProductReviews';
+import {TrustpilotBox} from '~/components/Trustpilot';
+import {loadStoreReviews} from '~/lib/reviews';
 import {
   CAMPAIGN,
   EDITORIAL,
@@ -82,6 +90,7 @@ function loadDeferredData({context}: Route.LoaderArgs) {
         .then((r) => r.icons.nodes as CardProduct[]),
       [] as CardProduct[],
     ),
+    reviews: loadStoreReviews(context.storefront),
     promos: safe(
       context.storefront
         .query(HOME_PROMO_QUERY)
@@ -92,7 +101,8 @@ function loadDeferredData({context}: Route.LoaderArgs) {
 }
 
 export default function Homepage() {
-  const {newest, bestSellers, icons, promos} = useLoaderData<typeof loader>();
+  const {newest, bestSellers, icons, promos, reviews} =
+    useLoaderData<typeof loader>();
   const root = useRouteLoaderData<RootLoader>('root');
   const menuImages = root?.menuImages ?? Promise.resolve({} as MenuImages);
   const heroProduct = newest[0];
@@ -186,6 +196,11 @@ export default function Homepage() {
       </Suspense>
 
       <BrandIndex />
+      <Suspense fallback={null}>
+        <Await resolve={reviews}>
+          {(list) => <ReviewsHighlight reviews={list} />}
+        </Await>
+      </Suspense>
       <ServiceStrip />
       <PopularCategories />
     </div>
@@ -494,6 +509,52 @@ function EditorialBand({menuImages}: {menuImages: Promise<MenuImages>}) {
 }
 
 /* ---------------- Brand index ---------------- */
+function ReviewsHighlight({reviews}: {reviews: Review[]}) {
+  if (reviews.length < TRUST.homeMinReviews) return null;
+  const {average, count} = reviewStats(reviews);
+  // Best recent ones first: 4★+ with some substance, then the rest.
+  const picks = [
+    ...reviews.filter((r) => r.rating >= 4 && r.body.length > 40),
+    ...reviews,
+  ]
+    .filter((r, i, a) => a.findIndex((x) => x.id === r.id) === i)
+    .slice(0, 3);
+  return (
+    <section
+      className="home-reviews container"
+      aria-labelledby="home-reviews-title"
+      data-reveal
+    >
+      <header className="home-reviews-head">
+        <div>
+          <p className="eyebrow">Avis clients</p>
+          <h2 id="home-reviews-title" className="display-m">
+            Ils ont commandé.
+            <br />
+            Ils en parlent.
+          </h2>
+        </div>
+        <Link to="/avis" className="home-reviews-score">
+          <Stars value={average} size={20} />
+          <strong>{average.toFixed(1).replace('.', ',')}/5</strong>
+          <span>{count} avis clients</span>
+        </Link>
+      </header>
+      <div className="home-reviews-grid">
+        {picks.map((r) => (
+          <ReviewCard key={r.id} review={r} showProduct />
+        ))}
+      </div>
+      <footer className="home-reviews-foot">
+        <TrustpilotBox height={24} />
+        <Link to="/avis" className="link-arrow">
+          Lire tous les avis <IconArrow width={16} height={16} />
+        </Link>
+      </footer>
+    </section>
+  );
+}
+
 function BrandIndex() {
   return (
     <section

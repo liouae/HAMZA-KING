@@ -227,6 +227,7 @@ export const FOOTER_COLUMNS: NavColumn[] = [
   {
     title: 'Aide',
     links: [
+      {label: 'Avis clients', to: '/avis'},
       {label: 'Livraison', to: '/policies/shipping-policy'},
       {label: 'Retours & échanges', to: '/policies/refund-policy'},
       {label: 'Guide des tailles', to: '/pages/guide-des-tailles'},

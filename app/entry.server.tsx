@@ -23,7 +23,10 @@ export default async function handleRequest(
       'https://www.googletagmanager.com',
       'https://analytics.tiktok.com',
       'https://*.clarity.ms',
+      'https://widget.trustpilot.com',
     ],
+    // Trustpilot TrustBox (reviews widget).
+    frameSrc: ["'self'", 'https://widget.trustpilot.com'],
     imgSrc: [
       "'self'",
       'data:',
@@ -35,6 +38,7 @@ export default async function handleRequest(
       'https://analytics.tiktok.com',
       'https://*.clarity.ms',
       'https://c.bing.com',
+      'https://*.trustpilot.com',
     ],
     connectSrc: [
       "'self'",
@@ -47,6 +51,7 @@ export default async function handleRequest(
       'https://analytics.tiktok.com',
       'https://*.tiktokw.us',
       'https://*.clarity.ms',
+      'https://widget.trustpilot.com',
     ],
     mediaSrc: ["'self'", 'https://cdn.shopify.com'],
     shop: {

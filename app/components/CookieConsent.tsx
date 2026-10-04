@@ -25,14 +25,14 @@ export function CookieConsent() {
           </p>
         </div>
         <div className="consent-actions">
+          <button className="btn btn--sm" onClick={() => set('accepted')}>
+            Accepter
+          </button>
           <button
             className="btn btn--ghost btn--sm"
             onClick={() => set('refused')}
           >
             Continuer sans accepter
-          </button>
-          <button className="btn btn--sm" onClick={() => set('accepted')}>
-            Accepter
           </button>
         </div>
       </div>
