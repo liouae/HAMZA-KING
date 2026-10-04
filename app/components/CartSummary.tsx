@@ -84,7 +84,7 @@ export function CartSummary({cart, layout}: CartSummaryProps) {
           <IconCash width={16} height={16} /> Tu payes en espèces à la livraison
         </li>
         <li>
-          <IconReturn width={16} height={16} /> Échange de pointure sous{' '}
+          <IconReturn width={16} height={16} /> Échange de pointure gratuit sous{' '}
           {SHIPPING.returnDays} jours
         </li>
       </ul>

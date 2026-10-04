@@ -39,8 +39,8 @@ export function ServiceStrip() {
     },
     {
       icon: <IconReturn width={22} height={22} />,
-      title: `Échange sous ${SHIPPING.returnDays} jours`,
-      copy: 'Pas la bonne pointure ? On vient la récupérer et on t’envoie la bonne.',
+      title: `Échange gratuit sous ${SHIPPING.returnDays} jours`,
+      copy: 'Pas la bonne pointure ? On vient la récupérer et on t’envoie la bonne, à nos frais.',
     },
     {
       icon: <IconWhatsApp width={22} height={22} />,

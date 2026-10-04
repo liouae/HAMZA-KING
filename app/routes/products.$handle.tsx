@@ -495,8 +495,11 @@ export default function Product() {
               <li>
                 <IconReturn />
                 <span>
-                  <strong>Échange sous {SHIPPING.returnDays} jours</strong>
-                  Pas la bonne pointure ? On l’échange, on vient la chercher.
+                  <strong>
+                    Échange gratuit sous {SHIPPING.returnDays} jours
+                  </strong>
+                  Pas la bonne pointure ? On vient la chercher et on t’envoie la
+                  bonne, à nos frais.
                 </span>
               </li>
               <li>
@@ -558,7 +561,9 @@ export default function Product() {
                 <p>
                   Tu as {SHIPPING.returnDays} jours après réception pour
                   échanger ta paire, non portée et dans sa boîte d’origine.
-                  Contacte-nous sur WhatsApp, on organise la récupération.
+                  Contacte-nous sur WhatsApp, on organise la récupération et
+                  l’envoi de la nouvelle paire, à nos frais : l’échange est
+                  gratuit.
                 </p>
               </Accordion>
             </div>

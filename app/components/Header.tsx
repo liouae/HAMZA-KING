@@ -415,7 +415,7 @@ function AnnouncementBar() {
         <div className="announce-side announce-side--right hide-md">
           <Link to="/avis">Avis clients</Link>
           <Link to="/pages/faq">Aide</Link>
-          <Link to="/account/orders">Suivre ma commande</Link>
+          <Link to="/suivi">Suivre ma commande</Link>
         </div>
       </div>
     </div>

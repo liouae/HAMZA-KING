@@ -277,7 +277,7 @@ export const FAQ: {q: string; a: string}[] = [
   },
   {
     q: 'Puis-je échanger si la pointure ne va pas ?',
-    a: `Oui. Tu as ${SHIPPING.returnDays} jours après réception pour échanger ta paire, non portée et dans sa boîte d’origine. Écris-nous sur WhatsApp, on organise la récupération.`,
+    a: `Oui. Tu as ${SHIPPING.returnDays} jours après réception pour échanger ta paire, non portée et dans sa boîte d’origine. Écris-nous sur WhatsApp, on organise la récupération et l’envoi de la bonne pointure, à nos frais : l’échange est gratuit.`,
   },
   {
     q: 'Comment choisir ma pointure ?',

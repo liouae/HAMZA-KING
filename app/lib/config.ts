@@ -108,7 +108,7 @@ export const SHIPPING = {
 export const ANNOUNCEMENTS = [
   'Livraison gratuite partout au Maroc',
   'Paiement à la livraison',
-  `Échange de pointure sous ${SHIPPING.returnDays} jours`,
+  `Échange de pointure gratuit sous ${SHIPPING.returnDays} jours`,
 ];
 
 /**

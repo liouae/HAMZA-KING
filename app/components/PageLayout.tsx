@@ -420,7 +420,7 @@ function MobileMenuAside() {
         <Link to="/pages/faq" onClick={close}>
           Aide & FAQ
         </Link>
-        <Link to="/account/orders" onClick={close}>
+        <Link to="/suivi" onClick={close}>
           Suivre ma commande
         </Link>
         <Link to="/pages/contact" onClick={close}>

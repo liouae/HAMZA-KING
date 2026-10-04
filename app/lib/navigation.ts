@@ -232,7 +232,7 @@ export const FOOTER_COLUMNS: NavColumn[] = [
       {label: 'Retours & échanges', to: '/policies/refund-policy'},
       {label: 'Guide des tailles', to: '/pages/guide-des-tailles'},
       {label: 'FAQ', to: '/pages/faq'},
-      {label: 'Suivre ma commande', to: '/account/orders'},
+      {label: 'Suivre ma commande', to: '/suivi'},
       {label: 'Ma wishlist', to: '/wishlist'},
       {label: 'Contact', to: '/pages/contact'},
     ],
