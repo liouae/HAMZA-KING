@@ -133,6 +133,21 @@ function plainIntro(text?: string | null) {
   return cut.slice(0, cut.lastIndexOf('.') + 1 || cut.lastIndexOf(' ')) + '';
 }
 
+/**
+ * A photo belongs to a colour when its alt text is the colour name, or ends
+ * with it after a separator ("Nike Vomero Plus — Noir"). "Noir" therefore
+ * does not match "… — Noir/Blanc".
+ */
+function altMatchesColor(alt: string | null | undefined, color: string) {
+  const a = (alt ?? '').toLowerCase().trim();
+  const c = color.toLowerCase().trim();
+  if (!a || !c) return false;
+  if (a === c) return true;
+  return [' — ', ' – ', ' - ', ': ', ' | '].some((sep) =>
+    a.endsWith(`${sep}${c}`),
+  );
+}
+
 function vendorHandle(vendor: string) {
   return vendor.toLowerCase().replace(/\s+/g, '-');
 }
@@ -274,9 +289,8 @@ export default function Product() {
   // show only the selected colour's photos; selected variant image first.
   const images = (() => {
     const all = product.images.nodes;
-    const key = colorValue?.toLowerCase().trim();
-    const forColor = key
-      ? all.filter((i) => (i.altText ?? '').toLowerCase().includes(key))
+    const forColor = colorValue
+      ? all.filter((i) => altMatchesColor(i.altText, colorValue))
       : [];
     const pool = forColor.length ? forColor : all;
     const v = selectedVariant?.image;
@@ -291,7 +305,7 @@ export default function Product() {
     if (!isColorOption(option.name)) continue;
     for (const v of option.optionValues) {
       const byAlt = product.images.nodes.find((i) =>
-        (i.altText ?? '').toLowerCase().includes(v.name.toLowerCase()),
+        altMatchesColor(i.altText, v.name),
       );
       const url =
         v.swatch?.image?.previewImage?.url ||
