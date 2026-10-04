@@ -1,16 +1,18 @@
 import {useLoaderData, Link} from 'react-router';
 import type {Route} from './+types/policies._index';
 import type {PoliciesQuery, PolicyItemFragment} from 'storefrontapi.generated';
+import {BUILTIN_POLICIES} from '~/lib/policies';
 
 export async function loader({context}: Route.LoaderArgs) {
   const data: PoliciesQuery = await context.storefront.query(POLICIES_QUERY);
 
   const shopPolicies = data.shop;
+  const b = BUILTIN_POLICIES;
   const policies: PolicyItemFragment[] = [
+    shopPolicies?.shippingPolicy ?? b.shippingPolicy,
+    shopPolicies?.refundPolicy ?? b.refundPolicy,
+    shopPolicies?.termsOfService ?? b.termsOfService,
     shopPolicies?.privacyPolicy,
-    shopPolicies?.shippingPolicy,
-    shopPolicies?.termsOfService,
-    shopPolicies?.refundPolicy,
     shopPolicies?.subscriptionPolicy,
   ].filter((policy): policy is PolicyItemFragment => policy != null);
 

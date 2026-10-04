@@ -1,6 +1,7 @@
 import {Link, useLoaderData} from 'react-router';
 import type {Route} from './+types/policies.$handle';
 import {type Shop} from '@shopify/hydrogen/storefront-api-types';
+import {BUILTIN_POLICIES} from '~/lib/policies';
 
 type SelectedPolicies = keyof Pick<
   Shop,
@@ -32,7 +33,7 @@ export async function loader({params, context}: Route.LoaderArgs) {
     },
   });
 
-  const policy = data.shop?.[policyName];
+  const policy = data.shop?.[policyName] ?? BUILTIN_POLICIES[policyName];
 
   if (!policy) {
     throw new Response('Could not find the policy', {status: 404});
