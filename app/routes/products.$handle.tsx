@@ -437,18 +437,18 @@ export default function Product() {
                   compareAtPrice={selectedVariant?.compareAtPrice}
                   className="pdp-price"
                 />
-                <a
-                  href="#avis"
-                  className="pdp-rating"
-                  aria-label="Voir les avis"
-                >
-                  <Stars value={rating.average} />
-                  <span>
-                    {rating.count
-                      ? `${rating.average.toFixed(1).replace('.', ',')} · ${rating.count} avis`
-                      : 'Aucun avis pour le moment'}
-                  </span>
-                </a>
+                {rating.count ? (
+                  <a
+                    href="#avis"
+                    className="pdp-rating"
+                    aria-label="Voir les avis"
+                  >
+                    <Stars value={rating.average} />
+                    <span>
+                      {`${rating.average.toFixed(1).replace('.', ',')} · ${rating.count} avis`}
+                    </span>
+                  </a>
+                ) : null}
               </div>
               <p className="pdp-cod">
                 <IconCash width={16} height={16} /> Paiement à la livraison ·

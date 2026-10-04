@@ -6,13 +6,9 @@ import {Await, Link, NavLink, useAsyncValue, useLocation} from 'react-router';
 import {Image, useOptimisticCart, useAnalytics} from '@shopify/hydrogen';
 import type {CartApiQueryFragment, HeaderQuery} from 'storefrontapi.generated';
 import {useAside} from '~/components/Aside';
-import {ANNOUNCEMENTS, BRAND, BRANDS} from '~/lib/config';
-import {
-  NAVIGATION,
-  brandLinks,
-  type NavFeature,
-  type NavItem,
-} from '~/lib/navigation';
+import {ANNOUNCEMENTS, BRAND} from '~/lib/config';
+import {useLive} from '~/lib/live';
+import {brandLinks, type NavFeature, type NavItem} from '~/lib/navigation';
 import {useWishlist} from '~/lib/ui';
 import {BrandLogo} from './BrandLogo';
 import {
@@ -48,6 +44,7 @@ export function Header({cart, menuImages}: HeaderProps) {
   const lastY = useRef(0);
   const closeTimer = useRef<number | null>(null);
   const location = useLocation();
+  const {nav: NAVIGATION} = useLive();
 
   useEffect(() => {
     setOpenIndex(null);
@@ -177,9 +174,11 @@ function BrandMegaPanel({
   onEnter: () => void;
   menuImages: Promise<MenuImages>;
 }) {
+  const {brands: BRANDS, isLive} = useLive();
   const [active, setActive] = useState(BRANDS[0]?.handle ?? '');
   const brand = BRANDS.find((b) => b.handle === active) ?? BRANDS[0];
-  const links = brandLinks(brand.handle);
+  if (!brand) return null;
+  const links = brandLinks(brand.handle).filter((l) => isLive(l.to));
   return (
     <div
       className={`mega mega--brands ${open ? 'is-open' : ''}`}
@@ -414,6 +413,7 @@ function AnnouncementBar() {
           ))}
         </div>
         <div className="announce-side announce-side--right hide-md">
+          <Link to="/avis">Avis clients</Link>
           <Link to="/pages/faq">Aide</Link>
           <Link to="/account/orders">Suivre ma commande</Link>
         </div>

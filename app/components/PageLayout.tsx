@@ -17,8 +17,7 @@ import {
 import {SearchResultsPredictive} from '~/components/SearchResultsPredictive';
 import {WhatsAppFloat} from '~/components/WhatsAppButton';
 import {BrandLogo} from '~/components/BrandLogo';
-import {NAVIGATION} from '~/lib/navigation';
-import {BRANDS} from '~/lib/config';
+import {useLive} from '~/lib/live';
 import {ICON_MODELS} from '~/lib/content';
 import {
   usePageTransition,
@@ -99,6 +98,7 @@ function CartAside({cart}: {cart: PageLayoutProps['cart']}) {
 function SearchAside() {
   const queriesDatalistId = useId();
   const recent = useRecentSearches();
+  const {brands: BRANDS} = useLive();
   return (
     <Aside type="search" heading="Rechercher" side="top">
       <div className="search-drawer">
@@ -260,6 +260,7 @@ function MobileMenuAside() {
   const waLink = useWhatsAppLink();
   const {close} = useAside();
   const [openIdx, setOpenIdx] = useState<number | null>(null);
+  const {nav: NAVIGATION, brands: BRANDS, isLive} = useLive();
   const {count} = useWishlist();
   return (
     <Aside
@@ -402,8 +403,13 @@ function MobileMenuAside() {
           >
             Best-sellers
           </Link>
-          <Link to="/collections/promo" className="chip" onClick={close}>
-            Promos
+          {isLive('/collections/promo') ? (
+            <Link to="/collections/promo" className="chip" onClick={close}>
+              Promos
+            </Link>
+          ) : null}
+          <Link to="/avis" className="chip" onClick={close}>
+            Avis clients
           </Link>
           <Link to="/pages/guide-des-tailles" className="chip" onClick={close}>
             Guide des tailles

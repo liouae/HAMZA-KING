@@ -1,4 +1,4 @@
-import {redirect, useLoaderData} from 'react-router';
+import {Link, redirect, useLoaderData} from 'react-router';
 import type {Route} from './+types/account.orders.$id';
 import {Money, Image} from '@shopify/hydrogen';
 import type {
@@ -8,7 +8,7 @@ import type {
 import {CUSTOMER_ORDER_QUERY} from '~/graphql/customer-account/CustomerOrderQuery';
 
 export const meta: Route.MetaFunction = ({data}) => {
-  return [{title: `Order ${data?.order?.name}`}];
+  return [{title: `Commande ${data?.order?.name}`}];
 };
 
 export async function loader({params, context}: Route.LoaderArgs) {
@@ -73,6 +73,16 @@ export async function loader({params, context}: Route.LoaderArgs) {
   };
 }
 
+const STATUS_FR: Record<string, string> = {
+  'N/A': 'En préparation',
+  OPEN: 'En préparation',
+  PENDING: 'En préparation',
+  SUCCESS: 'Expédiée',
+  CANCELLED: 'Annulée',
+  ERROR: 'Problème d’expédition — contacte-nous',
+  FAILURE: 'Problème d’expédition — contacte-nous',
+};
+
 export default function OrderRoute() {
   const {
     order,
@@ -83,10 +93,17 @@ export default function OrderRoute() {
   } = useLoaderData<typeof loader>();
   return (
     <div className="account-order">
-      <h2>Order {order.name}</h2>
-      <p>Placed on {new Date(order.processedAt!).toDateString()}</p>
+      <h2>Commande {order.name}</h2>
+      <p>
+        Passée le{' '}
+        {new Date(order.processedAt!).toLocaleDateString('fr-FR', {
+          day: 'numeric',
+          month: 'long',
+          year: 'numeric',
+        })}
+      </p>
       {order.confirmationNumber && (
-        <p>Confirmation: {order.confirmationNumber}</p>
+        <p>Confirmation : {order.confirmationNumber}</p>
       )}
       <br />
       <div>
@@ -137,7 +154,7 @@ export default function OrderRoute() {
             </tr>
             <tr>
               <th scope="row" colSpan={3}>
-                Tax
+                Taxes
               </th>
               <th scope="row">
                 <p>Taxes</p>
@@ -178,18 +195,30 @@ export default function OrderRoute() {
           ) : (
             <p>Aucune adresse de livraison</p>
           )}
-          <h3>Status</h3>
+          <h3>Statut</h3>
           <div>
-            <p>{fulfillmentStatus}</p>
+            <p>{STATUS_FR[fulfillmentStatus] ?? fulfillmentStatus}</p>
           </div>
         </div>
       </div>
       <br />
       <p>
         <a target="_blank" href={order.statusPageUrl} rel="noreferrer">
-          View Order Status →
+          Suivi détaillé de la commande →
         </a>
       </p>
+      <div className="order-review">
+        <p>
+          <strong>Tu as reçu ta paire ?</strong> Ton avis aide les prochains
+          clients à choisir.
+        </p>
+        <Link
+          className="btn btn--sm"
+          to={`/avis?commande=${encodeURIComponent(order.name.replace('#', ''))}#ecrire`}
+        >
+          Donner mon avis
+        </Link>
+      </div>
     </div>
   );
 }

@@ -1,3 +1,4 @@
+import {loadEmptyCollections} from '~/lib/live';
 import {Analytics, getShopAnalytics, useNonce} from '@shopify/hydrogen';
 import {hasTrackingConsent} from '~/lib/ui';
 import {
@@ -138,17 +139,17 @@ export async function loader(args: Route.LoaderArgs) {
 async function loadCriticalData({context}: Route.LoaderArgs) {
   const {storefront} = context;
 
-  const [header] = await Promise.all([
+  const [header, emptyCollections] = await Promise.all([
     storefront.query(HEADER_QUERY, {
       cache: storefront.CacheLong(),
       variables: {
         headerMenuHandle: 'main-menu', // Adjust to your header menu handle
       },
     }),
-    // Add other queries here, so that they are loaded in parallel
+    loadEmptyCollections(storefront),
   ]);
 
-  return {header};
+  return {header, emptyCollections};
 }
 
 /**

@@ -5,7 +5,8 @@ import {Image} from '@shopify/hydrogen';
 import type {Route} from './+types/marques';
 import type {RootLoader} from '~/root';
 import type {MenuImages} from '~/components/Header';
-import {BRAND, BRANDS} from '~/lib/config';
+import {BRAND} from '~/lib/config';
+import {useLive} from '~/lib/live';
 import {brandLinks} from '~/lib/navigation';
 import {IconArrow, IconSearch} from '~/components/Icons';
 
@@ -14,7 +15,7 @@ export const meta: Route.MetaFunction = () => [
   {
     name: 'description',
     content:
-      'Nike, Jordan, Adidas, New Balance, Asics, Puma, On, Hoka, Converse, Vans : toutes les marques disponibles au Maroc.',
+      'Toutes les marques de sneakers disponibles chez HAMZA KING. Livraison gratuite partout au Maroc, paiement à la livraison.',
   },
 ];
 
@@ -22,11 +23,12 @@ export default function BrandsPage() {
   const root = useRouteLoaderData<RootLoader>('root');
   const menuImages = root?.menuImages ?? Promise.resolve({} as MenuImages);
   const [q, setQ] = useState('');
+  const {brands: BRANDS} = useLive();
 
   const filtered = useMemo(() => {
     const t = q.trim().toLowerCase();
     return t ? BRANDS.filter((b) => b.name.toLowerCase().includes(t)) : BRANDS;
-  }, [q]);
+  }, [q, BRANDS]);
 
   const alpha = useMemo(() => {
     const groups: Record<string, typeof BRANDS> = {};
@@ -37,7 +39,7 @@ export default function BrandsPage() {
         (groups[k] ||= []).push(b);
       });
     return Object.entries(groups);
-  }, []);
+  }, [BRANDS]);
 
   return (
     <div className="brands-page">
@@ -49,7 +51,9 @@ export default function BrandsPage() {
         </nav>
         <div className="brands-head-row">
           <div>
-            <p className="eyebrow">{BRANDS.length} marques</p>
+            <p className="eyebrow">
+              {BRANDS.length} marque{BRANDS.length > 1 ? 's' : ''}
+            </p>
             <h1 className="display-xl">Les marques.</h1>
           </div>
           <label className="brands-search">

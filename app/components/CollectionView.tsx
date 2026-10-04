@@ -11,7 +11,9 @@ import {
 } from 'react-router';
 import {Image} from '@shopify/hydrogen';
 import {subChips} from '~/lib/navigation';
-import {BRANDS} from '~/lib/config';
+import {BRANDS, whatsappLink, BRAND} from '~/lib/config';
+import {useLive} from '~/lib/live';
+import {IconWhatsApp} from './Icons';
 import {PaginatedResourceSection} from './PaginatedResourceSection';
 import {ProductItem, type CardProduct} from './ProductItem';
 import {
@@ -100,7 +102,8 @@ export function CollectionView({
       /* ignore */
     }
   };
-  const chips = subChips(handle);
+  const live = useLive();
+  const chips = subChips(handle).filter((c) => live.isLive(c.to));
   useWhatsAppTopic({kind: 'collection', title, handle});
   useEffect(() => {
     track({
@@ -304,11 +307,41 @@ export function CollectionView({
             </PaginatedResourceSection>
           ) : (
             <div className="plp-empty">
-              <p className="display-s">Aucune paire ne correspond.</p>
-              <p className="muted">Essaie d’enlever un filtre.</p>
-              <Link to={clearFilters(params)} className="btn">
-                Effacer les filtres
-              </Link>
+              {params.has('filter') ||
+              params.has('price.min') ||
+              params.has('price.max') ? (
+                <>
+                  <p className="display-s">Aucune paire ne correspond.</p>
+                  <p className="muted">Essaie d’enlever un filtre.</p>
+                  <Link to={clearFilters(params)} className="btn">
+                    Effacer les filtres
+                  </Link>
+                </>
+              ) : (
+                <>
+                  <p className="display-s">Cette sélection arrive bientôt.</p>
+                  <p className="muted">
+                    Les paires sont en route. Dis-nous ce que tu cherches sur
+                    WhatsApp : modèle, coloris, pointure. On te prévient dès
+                    qu’elle est là.
+                  </p>
+                  <div className="plp-empty-actions">
+                    <a
+                      className="btn btn--wa"
+                      href={whatsappLink(
+                        `Salam ${BRAND.name} 👋\nJe cherche une paire dans la sélection « ${title} ».\nModèle : \nPointure : `,
+                      )}
+                      target="_blank"
+                      rel="noreferrer"
+                    >
+                      <IconWhatsApp /> Demander ma paire
+                    </a>
+                    <Link to="/collections/all" className="btn btn--ghost">
+                      Voir les paires disponibles
+                    </Link>
+                  </div>
+                </>
+              )}
             </div>
           )}
         </div>

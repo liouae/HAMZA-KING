@@ -473,6 +473,21 @@ export type MenuCollectionsQuery = {
   };
 };
 
+export type EmptyCollectionsQueryVariables = StorefrontAPI.Exact<{
+  country?: StorefrontAPI.InputMaybe<StorefrontAPI.CountryCode>;
+  language?: StorefrontAPI.InputMaybe<StorefrontAPI.LanguageCode>;
+}>;
+
+export type EmptyCollectionsQuery = {
+  collections: {
+    nodes: Array<
+      Pick<StorefrontAPI.Collection, 'handle'> & {
+        products: {nodes: Array<Pick<StorefrontAPI.Product, 'id'>>};
+      }
+    >;
+  };
+};
+
 export type StoreReviewsQueryVariables = StorefrontAPI.Exact<{
   country?: StorefrontAPI.InputMaybe<StorefrontAPI.CountryCode>;
   language?: StorefrontAPI.InputMaybe<StorefrontAPI.LanguageCode>;
@@ -2399,6 +2414,10 @@ interface GeneratedQueryTypes {
   '#graphql\n  query MenuCollections($country: CountryCode, $language: LanguageCode)\n  @inContext(country: $country, language: $language) {\n    collections(first: 60) {\n      nodes {\n        handle\n        title\n        image {\n          url\n          altText\n          width\n          height\n        }\n        products(first: 1) {\n          nodes {\n            featuredImage {\n              url\n              altText\n              width\n              height\n            }\n          }\n        }\n      }\n    }\n  }\n': {
     return: MenuCollectionsQuery;
     variables: MenuCollectionsQueryVariables;
+  };
+  '#graphql\n  query EmptyCollections($country: CountryCode, $language: LanguageCode)\n  @inContext(country: $country, language: $language) {\n    collections(first: 250) {\n      nodes {\n        handle\n        products(first: 1) {\n          nodes {\n            id\n          }\n        }\n      }\n    }\n  }\n': {
+    return: EmptyCollectionsQuery;
+    variables: EmptyCollectionsQueryVariables;
   };
   '#graphql\n  query StoreReviews($country: CountryCode, $language: LanguageCode)\n  @inContext(country: $country, language: $language) {\n    metaobjects(type: "hk_review", first: 250, sortKey: "updated_at", reverse: true) {\n      nodes {\n        id\n        fields {\n          key\n          value\n          reference {\n            __typename\n            ... on Product {\n              handle\n              title\n            }\n            ... on MediaImage {\n              image {\n                url\n                altText\n                width\n                height\n              }\n            }\n          }\n        }\n      }\n    }\n  }\n': {
     return: StoreReviewsQuery;

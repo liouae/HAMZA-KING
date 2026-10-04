@@ -11,7 +11,8 @@ import {ProductRail} from '~/components/ProductRail';
 import {ServiceStrip} from '~/components/Footer';
 import {Price} from '~/components/Price';
 import {IconArrow} from '~/components/Icons';
-import {BRAND, BRANDS, CATEGORIES, SOCIALS, TRUST} from '~/lib/config';
+import {BRAND, CATEGORIES, SOCIALS, TRUST, type Brand} from '~/lib/config';
+import {useLive} from '~/lib/live';
 import {
   ReviewCard,
   Stars,
@@ -106,11 +107,15 @@ export default function Homepage() {
   const root = useRouteLoaderData<RootLoader>('root');
   const menuImages = root?.menuImages ?? Promise.resolve({} as MenuImages);
   const heroProduct = newest[0];
+  const live = useLive();
+  const universes = CATEGORIES.filter((c) =>
+    live.isLive(`/collections/${c.handle}`),
+  );
 
   return (
     <div className="home">
       <CampaignHero product={heroProduct} />
-      <BrandTicker />
+      {live.brands.length >= 4 ? <BrandTicker brands={live.brands} /> : null}
 
       {newest.length ? (
         <ProductRail
@@ -121,28 +126,30 @@ export default function Homepage() {
         />
       ) : null}
 
-      <section
-        className="universes container"
-        aria-labelledby="univers-title"
-        data-reveal
-      >
-        <header className="section-head">
-          <div>
-            <p className="eyebrow">Trouve ta paire</p>
-            <h2 id="univers-title" className="display-m">
-              Quatre univers.
-            </h2>
-          </div>
-          <Link to="/collections" className="link-arrow hide-sm">
-            Toutes les collections <IconArrow width={16} height={16} />
-          </Link>
-        </header>
-        <Suspense fallback={<UniverseGrid images={{}} />}>
-          <Await resolve={menuImages}>
-            {(imgs) => <UniverseGrid images={imgs} />}
-          </Await>
-        </Suspense>
-      </section>
+      {universes.length >= 2 ? (
+        <section
+          className="universes container"
+          aria-labelledby="univers-title"
+          data-reveal
+        >
+          <header className="section-head">
+            <div>
+              <p className="eyebrow">Trouve ta paire</p>
+              <h2 id="univers-title" className="display-m">
+                Trouve ton univers.
+              </h2>
+            </div>
+            <Link to="/collections" className="link-arrow hide-sm">
+              Toutes les collections <IconArrow width={16} height={16} />
+            </Link>
+          </header>
+          <Suspense fallback={<UniverseGrid images={{}} cats={universes} />}>
+            <Await resolve={menuImages}>
+              {(imgs) => <UniverseGrid images={imgs} cats={universes} />}
+            </Await>
+          </Suspense>
+        </section>
+      ) : null}
 
       <StoryBlock story={STORIES[0]} menuImages={menuImages} />
 
@@ -195,14 +202,14 @@ export default function Homepage() {
         </Await>
       </Suspense>
 
-      <BrandIndex />
+      {live.brands.length >= 3 ? <BrandIndex brands={live.brands} /> : null}
       <Suspense fallback={null}>
         <Await resolve={reviews}>
           {(list) => <ReviewsHighlight reviews={list} />}
         </Await>
       </Suspense>
       <ServiceStrip />
-      <PopularCategories />
+      <PopularCategories isLive={live.isLive} />
     </div>
   );
 }
@@ -320,7 +327,7 @@ function CampaignHero({product}: {product?: CardProduct}) {
 }
 
 /* ---------------- Brand ticker ---------------- */
-function BrandTicker() {
+function BrandTicker({brands: BRANDS}: {brands: Brand[]}) {
   const row = [...BRANDS, ...BRANDS];
   return (
     <div className="ticker" aria-hidden>
@@ -351,10 +358,16 @@ function BrandTicker() {
 }
 
 /* ---------------- Universes ---------------- */
-function UniverseGrid({images}: {images: MenuImages}) {
+function UniverseGrid({
+  images,
+  cats,
+}: {
+  images: MenuImages;
+  cats: typeof CATEGORIES;
+}) {
   return (
     <div className="universe-grid">
-      {CATEGORIES.map((cat, i) => {
+      {cats.map((cat, i) => {
         const img = cat.image ? localPhoto(cat.image) : images[cat.handle];
         return (
           <Link
@@ -555,7 +568,7 @@ function ReviewsHighlight({reviews}: {reviews: Review[]}) {
   );
 }
 
-function BrandIndex() {
+function BrandIndex({brands: BRANDS}: {brands: Brand[]}) {
   return (
     <section
       className="brand-index container"
@@ -599,14 +612,14 @@ function BrandIndex() {
 }
 
 /* ---------------- Popular categories (SEO) ---------------- */
-function PopularCategories() {
+function PopularCategories({isLive}: {isLive: (to: string) => boolean}) {
   return (
     <section className="popular container" aria-labelledby="popular-title">
       <h2 id="popular-title" className="popular-title">
         Catégories les plus recherchées
       </h2>
       <ul className="popular-list">
-        {POPULAR_CATEGORIES.map((c) => (
+        {POPULAR_CATEGORIES.filter((c) => isLive(c.to)).map((c) => (
           <li key={c.to + c.label}>
             <Link to={c.to} prefetch="intent">
               {c.label}

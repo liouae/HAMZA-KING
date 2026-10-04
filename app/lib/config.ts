@@ -45,6 +45,9 @@ export const TRACKING = {
  * - googleReviewUrl: Google Business Profile → "Ask for reviews" share link
  * - googleMapsUrl: the shop's Google Maps page (shows Google reviews)
  */
+/** Hide brands, menu links and home tiles whose collection has no product yet. */
+export const HIDE_EMPTY_COLLECTIONS = true;
+
 export const TRUST = {
   trustpilot: {
     url: '',

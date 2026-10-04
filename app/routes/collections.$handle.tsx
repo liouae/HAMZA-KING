@@ -26,6 +26,10 @@ export const meta: Route.MetaFunction = ({data}) => {
         data?.collection.seo?.description || data?.collection.description || '',
     },
     {property: 'og:image', content: data?.collection.image?.url ?? ''},
+    // Empty selections stay out of Google until they have stock.
+    ...(data && !data.collection.products.nodes.length
+      ? [{name: 'robots', content: 'noindex, follow'}]
+      : []),
   ];
 };
 

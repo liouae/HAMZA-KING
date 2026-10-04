@@ -1,7 +1,7 @@
 import {Link} from 'react-router';
 import type {FooterQuery, HeaderQuery} from 'storefrontapi.generated';
 import {BRAND, SHIPPING, SOCIALS} from '~/lib/config';
-import {FOOTER_COLUMNS} from '~/lib/navigation';
+import {useLive} from '~/lib/live';
 import {
   IconCash,
   IconFacebook,
@@ -82,6 +82,7 @@ export function ServiceStrip() {
 
 export function Footer(_props: FooterProps) {
   const year = new Date().getFullYear();
+  const {footer: footerColumns} = useLive();
   return (
     <footer className="footer">
       <div className="footer-top">
@@ -114,7 +115,7 @@ export function Footer(_props: FooterProps) {
           </form>
         </div>
         <div className="footer-cols">
-          {FOOTER_COLUMNS.map((col) => (
+          {footerColumns.map((col) => (
             <div key={col.title} className="footer-col">
               <p className="footer-col-title">{col.title}</p>
               <ul>
