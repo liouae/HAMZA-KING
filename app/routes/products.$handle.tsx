@@ -734,7 +734,7 @@ const PRODUCT_FRAGMENT = `#graphql
     adjacentVariants (selectedOptions: $selectedOptions) {
       ...ProductVariant
     }
-    images(first: 12) {
+    images(first: 60) {
       nodes {
         __typename
         id
