@@ -211,7 +211,7 @@ function FaqPage() {
             </tbody>
           </table>
           <p className="small muted">
-            Offerte dès {SHIPPING.freeShippingThreshold} DH d’achat.
+            Gratuite partout au Maroc, sans minimum. Paiement à la livraison.
           </p>
         </div>
         <div className="faq-card faq-card--ink">

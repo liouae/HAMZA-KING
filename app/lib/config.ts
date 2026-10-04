@@ -8,17 +8,22 @@ export const BRAND = {
   name: 'HAMZA KING',
   legalName: 'HAMZAKINGSTORE',
   tagline: 'Sneakers authentiques. Livrées partout au Maroc.',
-  instagram: 'https://instagram.com/',
-  tiktok: 'https://tiktok.com/',
-  email: 'contact@hamzakingstore.ma',
+  instagram: 'https://www.instagram.com/hamza__king07__/',
+  /** Leave empty to hide the TikTok link. */
+  tiktok: '',
+  email: 'hamza20king00@gmail.com',
 };
 
 /** WhatsApp number in international format, digits only (e.g. 2126XXXXXXXX). */
-export const WHATSAPP_NUMBER = '212600000000';
+export const WHATSAPP_NUMBER = '212614719446';
+/** Same number, formatted for display. */
+export const WHATSAPP_DISPLAY = '+212 614-719446';
 
 export const SHIPPING = {
-  /** Free delivery threshold, in MAD. */
-  freeShippingThreshold: 800,
+  /** Delivery is free for every order, everywhere in Morocco. */
+  free: true,
+  /** Payment: cash on delivery only. */
+  cashOnDeliveryOnly: true,
   /** Shown on product pages and in the cart. */
   deliveryCasablanca: '24h',
   deliveryMorocco: '48h – 72h',
@@ -27,8 +32,8 @@ export const SHIPPING = {
 
 /** Rotating messages in the announcement bar. */
 export const ANNOUNCEMENTS = [
-  'Paiement à la livraison partout au Maroc',
-  `Livraison offerte dès ${SHIPPING.freeShippingThreshold} DH`,
+  'Livraison gratuite partout au Maroc',
+  'Paiement à la livraison — tu payes en recevant ta paire',
   '100% authentique — ou remboursé',
 ];
 

@@ -50,7 +50,7 @@ export function CartSummary({cart, layout}: CartSummaryProps) {
         </div>
         <div>
           <dt>Livraison</dt>
-          <dd className="muted">Calculée à l’étape suivante</dd>
+          <dd className="cart-free">Gratuite</dd>
         </div>
       </dl>
       <CartNote note={cart?.note ?? ''} />
@@ -72,7 +72,7 @@ export function CartSummary({cart, layout}: CartSummaryProps) {
       </a>
       <ul className="cart-assurances">
         <li>
-          <IconCash width={16} height={16} /> Paiement à la livraison disponible
+          <IconCash width={16} height={16} /> Tu payes en espèces à la livraison
         </li>
         <li>
           <IconShield width={16} height={16} /> Paires 100% authentiques

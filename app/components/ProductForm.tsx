@@ -20,12 +20,15 @@ export function ProductForm({
   productTitle,
   fitNote,
   stockMessage,
+  colorImages = {},
 }: {
   productOptions: MappedProductOptions[];
   selectedVariant: ProductFragment['selectedOrFirstAvailableVariant'];
   productTitle: string;
   fitNote?: string;
   stockMessage?: string;
+  /** Colour name → photo for the swatch tiles. */
+  colorImages?: Record<string, string>;
 }) {
   const navigate = useNavigate();
   const {open} = useAside();
@@ -115,11 +118,8 @@ export function ProductForm({
                       <OptionSwatch
                         swatch={swatch}
                         name={name}
-                        image={
-                          isColor
-                            ? value.firstSelectableVariant?.image?.url
-                            : undefined
-                        }
+                        image={isColor ? colorImages[name] : undefined}
+                        label={isColor ? name : undefined}
                       />
                     </Link>
                   );
@@ -148,11 +148,8 @@ export function ProductForm({
                     <OptionSwatch
                       swatch={swatch}
                       name={name}
-                      image={
-                        isColor
-                          ? value.firstSelectableVariant?.image?.url
-                          : undefined
-                      }
+                      image={isColor ? colorImages[name] : undefined}
+                      label={isColor ? name : undefined}
                     />
                   </button>
                 );
@@ -227,22 +224,39 @@ export function ProductForm({
 function OptionSwatch({
   swatch,
   name,
-  image: variantImage,
+  image: photo,
+  label,
 }: {
   swatch?: Maybe<ProductOptionValueSwatch> | undefined;
   name: string;
   image?: string;
+  label?: string;
 }) {
-  const image = swatch?.image?.previewImage?.url || variantImage;
+  const image = photo || swatch?.image?.previewImage?.url;
   const color = swatch?.color;
   if (!image && !color) return <span className="opt-text">{name}</span>;
   return (
-    <span
-      aria-label={name}
-      className="opt-swatch"
-      style={{backgroundColor: color || 'transparent'}}
-    >
-      {image ? <img src={image} alt={name} /> : null}
-    </span>
+    <>
+      <span
+        aria-label={name}
+        className="opt-swatch"
+        style={{backgroundColor: color || undefined}}
+      >
+        {image ? (
+          <img
+            src={sized(image, 240)}
+            alt={name}
+            loading="lazy"
+            decoding="async"
+          />
+        ) : null}
+      </span>
+      {label ? <span className="opt-swatch-label">{label}</span> : null}
+    </>
   );
+}
+
+function sized(url: string, width: number) {
+  if (!url.includes('cdn.shopify.com')) return url;
+  return `${url}${url.includes('?') ? '&' : '?'}width=${width}`;
 }

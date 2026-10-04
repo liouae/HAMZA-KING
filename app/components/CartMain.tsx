@@ -3,10 +3,8 @@ import {Link} from 'react-router';
 import type {CartApiQueryFragment} from 'storefrontapi.generated';
 import {useAside} from '~/components/Aside';
 import {CartLineItem, type CartLine} from '~/components/CartLineItem';
-import {SHIPPING} from '~/lib/config';
 import {CartSummary} from './CartSummary';
 import {CartUpsell} from './CartUpsell';
-import {formatMoney} from './Price';
 import {IconArrow} from './Icons';
 import {BrandLogo} from './BrandLogo';
 
@@ -93,30 +91,13 @@ function FreeShippingMeter({
   subtotal?: {amount?: string | null; currencyCode?: string | null} | null;
 }) {
   if (!subtotal?.amount) return null;
-  const value = Number(subtotal.amount);
-  const goal = SHIPPING.freeShippingThreshold;
-  const pct = Math.min(100, Math.round((value / goal) * 100));
-  const remaining = Math.max(0, goal - value);
   return (
-    <div className="ship-meter">
+    <div className="ship-meter ship-meter--free">
       <p>
-        {remaining > 0 ? (
-          <>
-            Plus que{' '}
-            <strong>
-              {formatMoney({
-                amount: String(remaining),
-                currencyCode: subtotal.currencyCode,
-              })}
-            </strong>{' '}
-            pour la livraison offerte
-          </>
-        ) : (
-          <strong>Livraison offerte débloquée ✓</strong>
-        )}
+        <strong>Livraison gratuite</strong> · Paiement à la livraison
       </p>
       <div className="ship-meter-bar" aria-hidden>
-        <span style={{width: `${pct}%`}} />
+        <span style={{width: '100%'}} />
       </div>
     </div>
   );

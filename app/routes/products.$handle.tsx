@@ -15,6 +15,13 @@ import {ProductForm} from '~/components/ProductForm';
 import {ProductGallery} from '~/components/ProductGallery';
 import {ProductRail} from '~/components/ProductRail';
 import {RecentlyViewed} from '~/components/RecentlyViewed';
+import {ProductShowcase} from '~/components/ProductShowcase';
+import {
+  ProductReviews,
+  Stars,
+  parseReviews,
+  reviewStats,
+} from '~/components/ProductReviews';
 import {WishlistButton} from '~/components/WishlistButton';
 import {
   PRODUCT_CARD_FRAGMENT,
@@ -22,21 +29,14 @@ import {
   type CardProduct,
 } from '~/components/ProductItem';
 import {
-  IconBolt,
   IconCash,
   IconChevron,
-  IconCushion,
-  IconDrop,
-  IconFeather,
-  IconGrip,
   IconReturn,
   IconShare,
   IconShield,
-  IconStar,
   IconTruck,
-  IconWhatsApp,
 } from '~/components/Icons';
-import {BRAND, SHIPPING, whatsappLink} from '~/lib/config';
+import {BRAND, SHIPPING, isColorOption, whatsappLink} from '~/lib/config';
 import {
   BENEFITS_BY_TAG,
   DELIVERY_ROWS,
@@ -53,6 +53,9 @@ export const meta: Route.MetaFunction = ({data}) => {
   const description = p.seo?.description || p.description?.slice(0, 155) || '';
   const image = p.images?.nodes?.[0]?.url ?? '';
   const variant = p.selectedOrFirstAvailableVariant;
+  const stats = reviewStats(
+    parseReviews(p.reviews?.references?.nodes as never),
+  );
   return [
     {title},
     {name: 'description', content: description},
@@ -80,6 +83,15 @@ export const meta: Route.MetaFunction = ({data}) => {
         image: p.images?.nodes?.map((i) => i.url) ?? [],
         sku: variant?.sku ?? undefined,
         url: `${SITE.url}/products/${p.handle}`,
+        ...(stats.count
+          ? {
+              aggregateRating: {
+                '@type': 'AggregateRating',
+                ratingValue: stats.average.toFixed(1),
+                reviewCount: stats.count,
+              },
+            }
+          : {}),
         offers: {
           '@type': 'AggregateOffer',
           priceCurrency: p.priceRange?.minVariantPrice?.currencyCode ?? 'MAD',
@@ -112,13 +124,22 @@ export const meta: Route.MetaFunction = ({data}) => {
   ];
 };
 
+/** First ~3 sentences of the plain-text description. */
+function plainIntro(text?: string | null) {
+  if (!text) return '';
+  const clean = text.replace(/\s+/g, ' ').trim();
+  if (clean.length <= 420) return clean;
+  const cut = clean.slice(0, 420);
+  return cut.slice(0, cut.lastIndexOf('.') + 1 || cut.lastIndexOf(' ')) + '';
+}
+
 function vendorHandle(vendor: string) {
   return vendor.toLowerCase().replace(/\s+/g, '-');
 }
 
 export async function loader(args: Route.LoaderArgs) {
-  const deferredData = loadDeferredData(args);
   const criticalData = await loadCriticalData(args);
+  const deferredData = loadDeferredData(args, criticalData.product);
   return {...deferredData, ...criticalData};
 }
 
@@ -137,10 +158,32 @@ async function loadCriticalData({context, params, request}: Route.LoaderArgs) {
   return {product};
 }
 
-function loadDeferredData({context, params}: Route.LoaderArgs) {
-  const recommended = context.storefront
+function loadDeferredData(
+  {context, params}: Route.LoaderArgs,
+  product: {id: string; vendor: string; productType: string},
+) {
+  const {storefront} = context;
+  // Shopify's own recommendations first; when the catalogue is still small
+  // they can be empty, so fall back to the same type, then the same brand.
+  const recommended = storefront
     .query(RECOMMENDATIONS_QUERY, {variables: {handle: params.handle!}})
-    .then((r) => (r.productRecommendations ?? []) as CardProduct[])
+    .then(async (r) => {
+      const recs = (r.productRecommendations ?? []) as CardProduct[];
+      if (recs.length >= 4) return recs;
+      const terms = [
+        product.productType ? `product_type:'${product.productType}'` : '',
+        product.vendor ? `vendor:'${product.vendor}'` : '',
+      ].filter(Boolean);
+      const more = terms.length
+        ? await storefront
+            .query(SIMILAR_PRODUCTS_QUERY, {
+              variables: {query: terms.join(' OR ')},
+            })
+            .then((x) => x.products.nodes as CardProduct[])
+        : [];
+      const seen = new Set([product.id, ...recs.map((p) => p.id)]);
+      return [...recs, ...more.filter((p) => !seen.has(p.id))].slice(0, 12);
+    })
     .catch((error: Error) => {
       console.error(error);
       return [] as CardProduct[];
@@ -162,15 +205,6 @@ function mfJson<T>(fields: Metafield[], key: string, fallback: T): T {
     return fallback;
   }
 }
-
-const BENEFIT_ICONS = {
-  cushion: IconCushion,
-  grip: IconGrip,
-  feather: IconFeather,
-  drop: IconDrop,
-  bolt: IconBolt,
-  shield: IconShield,
-};
 
 export default function Product() {
   const {product, recommended} = useLoaderData<typeof loader>();
@@ -225,13 +259,50 @@ export default function Product() {
     ...specsExtra,
   ];
 
-  // Selected variant image first, then the rest.
+  const showcaseSpecs = [
+    ...(mf(fields, 'drop')
+      ? [{label: 'Valeur de drop', value: mf(fields, 'drop')}]
+      : []),
+    ...(mf(fields, 'weight')
+      ? [{label: 'Poids unitaire', value: mf(fields, 'weight')}]
+      : []),
+    ...(colorValue ? [{label: 'Coloris', value: colorValue}] : []),
+    {label: 'Marque', value: vendor},
+  ].slice(0, 4);
+
+  // Gallery: when photos are tagged with the colour name in their alt text,
+  // show only the selected colour's photos; selected variant image first.
   const images = (() => {
     const all = product.images.nodes;
+    const key = colorValue?.toLowerCase().trim();
+    const forColor = key
+      ? all.filter((i) => (i.altText ?? '').toLowerCase().includes(key))
+      : [];
+    const pool = forColor.length ? forColor : all;
     const v = selectedVariant?.image;
-    if (!v) return all;
-    return [v, ...all.filter((i) => i.url !== v.url)];
+    if (!v) return pool;
+    return [v, ...pool.filter((i) => i.url !== v.url)];
   })();
+
+  // Colour swatch photos: the variant's own image, else a product photo whose
+  // alt text names the colour.
+  const colorImages: Record<string, string> = {};
+  for (const option of product.options) {
+    if (!isColorOption(option.name)) continue;
+    for (const v of option.optionValues) {
+      const byAlt = product.images.nodes.find((i) =>
+        (i.altText ?? '').toLowerCase().includes(v.name.toLowerCase()),
+      );
+      const url =
+        v.swatch?.image?.previewImage?.url ||
+        v.firstSelectableVariant?.image?.url ||
+        byAlt?.url;
+      if (url) colorImages[v.name] = url;
+    }
+  }
+
+  const reviews = parseReviews(product.reviews?.references?.nodes as never);
+  const rating = reviewStats(reviews);
 
   const qty = selectedVariant?.quantityAvailable ?? null;
   const lowStock = qty !== null && qty > 0 && qty <= 5;
@@ -311,7 +382,7 @@ export default function Product() {
                 <div className="pdp-head-actions">
                   <button
                     className="icon-btn"
-                    onClick={share}
+                    onClick={() => void share()}
                     aria-label="Partager"
                   >
                     <IconShare />
@@ -335,17 +406,17 @@ export default function Product() {
                   className="pdp-rating"
                   aria-label="Voir les avis"
                 >
-                  <span className="stars" aria-hidden>
-                    {[0, 1, 2, 3, 4].map((i) => (
-                      <IconStar key={i} width={14} height={14} filled={false} />
-                    ))}
+                  <Stars value={rating.average} />
+                  <span>
+                    {rating.count
+                      ? `${rating.average.toFixed(1).replace('.', ',')} · ${rating.count} avis`
+                      : 'Aucun avis pour le moment'}
                   </span>
-                  <span>Aucun avis pour le moment</span>
                 </a>
               </div>
               <p className="pdp-cod">
-                <IconCash width={16} height={16} /> Payable à la livraison ·{' '}
-                {SHIPPING.deliveryCasablanca} à Casablanca
+                <IconCash width={16} height={16} /> Paiement à la livraison ·
+                Livraison gratuite
               </p>
             </div>
 
@@ -354,6 +425,7 @@ export default function Product() {
               selectedVariant={selectedVariant}
               productTitle={title}
               fitNote={fit}
+              colorImages={colorImages}
               stockMessage={
                 !selectedVariant?.availableForSale
                   ? 'Cette pointure est épuisée. Choisis-en une autre ou écris-nous : on te prévient dès le retour en stock.'
@@ -367,10 +439,9 @@ export default function Product() {
               <li>
                 <IconTruck />
                 <span>
-                  <strong>Livraison partout au Maroc</strong>
+                  <strong>Livraison gratuite partout au Maroc</strong>
                   {SHIPPING.deliveryCasablanca} Casablanca ·{' '}
-                  {SHIPPING.deliveryMorocco} autres villes · offerte dès{' '}
-                  {SHIPPING.freeShippingThreshold} DH
+                  {SHIPPING.deliveryMorocco} autres villes
                 </span>
               </li>
               <li>
@@ -430,8 +501,9 @@ export default function Product() {
                   </tbody>
                 </table>
                 <p>
-                  Commande avant 14h : expédiée le jour même. Paiement en
-                  espèces à la livraison ou par carte bancaire en ligne.
+                  Commande avant 14h : expédiée le jour même. Livraison
+                  gratuite, paiement uniquement en espèces à la livraison : tu
+                  vérifies ta paire, puis tu payes.
                 </p>
               </Accordion>
               <Accordion title="Échanges & retours">
@@ -446,72 +518,24 @@ export default function Product() {
         </div>
       </div>
 
-      {/* Benefits */}
-      <section
-        className="benefits container"
-        aria-label="Bénéfices produit"
-        data-reveal
-      >
-        <div className="benefits-head">
-          <p className="eyebrow">Bénéfices</p>
-          <h2 className="display-s">Pourquoi cette paire.</h2>
-        </div>
-        <ul className="benefits-list">
-          {benefits.map((b) => {
-            const Icon = BENEFIT_ICONS[b.icon] ?? IconShield;
-            return (
-              <li key={b.title}>
-                <span className="benefit-icon">
-                  <Icon width={24} height={24} />
-                </span>
-                <h3>{b.title}</h3>
-                <p>{b.copy}</p>
-              </li>
-            );
-          })}
-        </ul>
-      </section>
+      <ProductShowcase
+        title={title}
+        intro={story || plainIntro(product.description)}
+        reference={selectedVariant?.sku || undefined}
+        specs={showcaseSpecs}
+        benefits={benefits}
+        image={images[0]}
+      />
 
-      {/* Reviews */}
-      <section
-        className="reviews container"
-        id="avis"
-        aria-labelledby="reviews-title"
-        data-reveal
-      >
-        <div className="reviews-head">
-          <div>
-            <p className="eyebrow">Avis</p>
-            <h2 id="reviews-title" className="display-s">
-              Ce qu’en disent les clients.
-            </h2>
-          </div>
-          <a
-            className="btn btn--ghost"
-            href={whatsappLink(
-              `Salam ! Je veux laisser un avis sur : ${title}`,
-            )}
-            target="_blank"
-            rel="noreferrer"
-          >
-            <IconWhatsApp /> Donner mon avis
-          </a>
-        </div>
-        <div className="reviews-empty">
-          <p>
-            Pas encore d’avis sur ce modèle. Sois le premier à partager ton
-            expérience.
-          </p>
-        </div>
-      </section>
+      <ProductReviews reviews={reviews} productTitle={title} />
 
       <Suspense fallback={null}>
         <Await resolve={recommended}>
           {(products) =>
             products.length ? (
               <ProductRail
-                eyebrow="Tu vas aimer"
-                title="Dans le même esprit"
+                eyebrow="Recommandations"
+                title="Tu vas aimer aussi"
                 products={products}
               />
             ) : null
@@ -685,6 +709,19 @@ const PRODUCT_FRAGMENT = `#graphql
       key
       value
     }
+    reviews: metafield(namespace: "custom", key: "reviews") {
+      references(first: 100) {
+        nodes {
+          ... on Metaobject {
+            id
+            fields {
+              key
+              value
+            }
+          }
+        }
+      }
+    }
     seo {
       description
       title
@@ -716,6 +753,21 @@ const RECOMMENDATIONS_QUERY = `#graphql
   ) @inContext(country: $country, language: $language) {
     productRecommendations(productHandle: $handle) {
       ...ProductCard
+    }
+  }
+` as const;
+
+const SIMILAR_PRODUCTS_QUERY = `#graphql
+  ${PRODUCT_CARD_FRAGMENT}
+  query SimilarProducts(
+    $country: CountryCode
+    $language: LanguageCode
+    $query: String!
+  ) @inContext(country: $country, language: $language) {
+    products(first: 12, query: $query, sortKey: BEST_SELLING) {
+      nodes {
+        ...ProductCard
+      }
     }
   }
 ` as const;

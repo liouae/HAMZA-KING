@@ -150,20 +150,20 @@ export const DELIVERY_ROWS = [
   {
     zone: 'Casablanca',
     delay: SHIPPING.deliveryCasablanca,
-    price: '30 DH',
-    note: `Offerte dès ${SHIPPING.freeShippingThreshold} DH`,
+    price: 'Gratuite',
+    note: 'Paiement à la livraison',
   },
   {
     zone: 'Rabat · Marrakech · Tanger · Agadir',
     delay: '48h',
-    price: '40 DH',
-    note: `Offerte dès ${SHIPPING.freeShippingThreshold} DH`,
+    price: 'Gratuite',
+    note: 'Paiement à la livraison',
   },
   {
     zone: 'Autres villes',
     delay: SHIPPING.deliveryMorocco,
-    price: '50 DH',
-    note: `Offerte dès ${SHIPPING.freeShippingThreshold} DH`,
+    price: 'Gratuite',
+    note: 'Paiement à la livraison',
   },
 ];
 
@@ -269,11 +269,11 @@ export const FAQ: {q: string; a: string}[] = [
   },
   {
     q: 'Comment payer ?',
-    a: 'Paiement en espèces à la livraison partout au Maroc, ou par carte bancaire en ligne. Tu peux aussi commander directement sur WhatsApp.',
+    a: 'Uniquement en espèces, à la livraison. Tu reçois ta paire, tu la vérifies, puis tu payes le livreur. Aucun paiement en ligne, aucune carte demandée. Tu peux aussi commander directement sur WhatsApp.',
   },
   {
     q: 'Combien de temps prend la livraison ?',
-    a: `${SHIPPING.deliveryCasablanca} à Casablanca, 48h dans les grandes villes et ${SHIPPING.deliveryMorocco} dans le reste du Maroc. La livraison est offerte dès ${SHIPPING.freeShippingThreshold} DH d’achat.`,
+    a: `${SHIPPING.deliveryCasablanca} à Casablanca, 48h dans les grandes villes et ${SHIPPING.deliveryMorocco} dans le reste du Maroc. La livraison est gratuite pour toutes les commandes, sans minimum d’achat.`,
   },
   {
     q: 'Puis-je échanger si la pointure ne va pas ?',

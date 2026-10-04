@@ -14,37 +14,54 @@ interface FooterProps {
 export function ServiceStrip() {
   const items = [
     {
-      icon: <IconCash />,
+      icon: <IconCash width={22} height={22} />,
       title: 'Paiement à la livraison',
-      copy: 'Payez en espèces à la réception.',
+      copy: 'Tu reçois ta paire, tu la vérifies, puis tu payes en espèces. Aucune carte demandée.',
     },
     {
-      icon: <IconTruck />,
-      title: 'Livraison rapide',
-      copy: `${SHIPPING.deliveryCasablanca} Casablanca · ${SHIPPING.deliveryMorocco} Maroc`,
+      icon: <IconTruck width={22} height={22} />,
+      title: 'Livraison gratuite',
+      copy: `Partout au Maroc, sans minimum. ${SHIPPING.deliveryCasablanca} à Casablanca, ${SHIPPING.deliveryMorocco} ailleurs.`,
     },
     {
-      icon: <IconReturn />,
+      icon: <IconReturn width={22} height={22} />,
       title: `Échange sous ${SHIPPING.returnDays} jours`,
-      copy: 'Pas la bonne taille ? On échange.',
+      copy: 'Pas la bonne pointure ? On vient la récupérer et on t’envoie la bonne.',
     },
     {
-      icon: <IconShield />,
+      icon: <IconShield width={22} height={22} />,
       title: '100% authentique',
-      copy: 'Chaque paire est vérifiée.',
+      copy: 'Chaque paire passe un contrôle en 12 points avant de partir. Sinon, remboursée.',
     },
   ];
   return (
-    <section className="services" aria-label="Nos engagements">
-      {items.map((s) => (
-        <div key={s.title} className="service">
-          <span className="service-icon">{s.icon}</span>
-          <div>
-            <p className="service-title">{s.title}</p>
-            <p className="service-copy">{s.copy}</p>
-          </div>
-        </div>
-      ))}
+    <section className="promise" aria-labelledby="promise-title">
+      <div className="promise-inner">
+        <header className="promise-head">
+          <p className="eyebrow">Nos engagements</p>
+          <h2 id="promise-title" className="promise-heading">
+            Commander,
+            <br />
+            sans aucun risque.
+          </h2>
+        </header>
+        <ol className="promise-list">
+          {items.map((s, i) => (
+            <li key={s.title} className="promise-item">
+              <div className="promise-top">
+                <span className="promise-icon" aria-hidden>
+                  {s.icon}
+                </span>
+                <span className="promise-n" aria-hidden>
+                  {String(i + 1).padStart(2, '0')}
+                </span>
+              </div>
+              <h3 className="promise-title">{s.title}</h3>
+              <p className="promise-copy">{s.copy}</p>
+            </li>
+          ))}
+        </ol>
+      </div>
     </section>
   );
 }
@@ -112,18 +129,18 @@ export function Footer(_props: FooterProps) {
           </span>
         </div>
         <div className="footer-pay">
-          <span className="pay-chip">Cash à la livraison</span>
-          <span className="pay-chip">Visa</span>
-          <span className="pay-chip">Mastercard</span>
-          <span className="pay-chip">CMI</span>
+          <span className="pay-chip">Paiement à la livraison</span>
+          <span className="pay-chip">Livraison gratuite</span>
         </div>
         <div className="footer-social">
           <a href={BRAND.instagram} target="_blank" rel="noreferrer">
             Instagram
           </a>
-          <a href={BRAND.tiktok} target="_blank" rel="noreferrer">
-            TikTok
-          </a>
+          {BRAND.tiktok ? (
+            <a href={BRAND.tiktok} target="_blank" rel="noreferrer">
+              TikTok
+            </a>
+          ) : null}
         </div>
       </div>
     </footer>

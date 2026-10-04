@@ -6,70 +6,39 @@ Warm monochrome design, French copy, prices in DH, cash-on-delivery messaging, W
 
 ---
 
-## Taking over this storefront with a new Shopify store
+## How the store works
 
-This repo is the complete storefront: code, design, logos and photos. It contains **no secrets and no store data**. Products, collections and settings live in Shopify, so a new owner connects the code to their own store in about 30 minutes.
+- **Payment:** cash on delivery only. In Shopify: Settings → Payments → _Manual payment methods_ → **Cash on Delivery (COD)** on, every other provider off.
+- **Delivery:** free for every order in Morocco (shipping rate "Livraison gratuite partout au Maroc", 0 DH).
+- **Storefront:** this Hydrogen app is the site. The Online Store channel runs the tiny redirect theme in `theme/redirect`, which forwards every visit of the store's address to the Hydrogen site. When the domain changes: Online Store → Themes → Customize → Theme settings → _Adresse du site Hydrogen_.
+- Every push to `main` deploys automatically.
 
-### 1. Get the code
+## Adding a product (everything else is automatic)
 
-```bash
-git clone <this repo>
-cd HAMZAKINGSTORE
-npm install
-```
+| Field in Shopify | What to put                                                                                                                                                                                       | Effect on the site                                                    |
+| ---------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | --------------------------------------------------------------------- |
+| **Vendor**       | Brand, spelled exactly: `Nike`, `Jordan`, `Adidas`, `New Balance`, `Asics`, `Puma`, `On`, `Hoka`, `Converse`, `Vans`, `Reebok`, `Lacoste`, `The North Face`, `Dior`, `Louis Vuitton`, `Off-White` | Brand page, Marques menu, brand filter                                |
+| **Product type** | `Running`, `Lifestyle`, `Basketball` or `Outdoor`                                                                                                                                                 | Category page and home tiles                                          |
+| **Tags**         | `homme` / `femme` / `enfant` (+ `bebe`, `junior`)                                                                                                                                                 | Homme / Femme / Enfant and the combined pages (Homme Running…)        |
+| Tags (optional)  | `running`, `lifestyle`… (same as type), `plateforme`, `limited`, `restock`, `luxe`, `icone`, `originals`                                                                                          | Extra pages; `icone` = "Les icônes" on the home page                  |
+| **Options**      | `Couleur` and `Pointure` (EU sizes)                                                                                                                                                               | Colour photo tiles + size grid                                        |
+| **Photos**       | Give each variant its photo, or write the colour name in each photo's alt text                                                                                                                    | Colour tiles show the shoe; the gallery switches to the chosen colour |
+| Compare-at price | Old price                                                                                                                                                                                         | "Promo" badge + Promo page                                            |
 
-### 2. Prepare the Shopify store
+"Nouveau" badges appear automatically for 30 days after publishing. Dior, Louis Vuitton and Off-White go to **Luxe** automatically.
 
-In the Shopify admin of the **new** store:
+### Product page extras (Metafields, at the bottom of the product page in Shopify)
 
-1. **Settings → Markets**: add Morocco, currency MAD.
-2. **Settings → Payments → Manual payment methods**: enable _Cash on Delivery_.
-3. **Apps**: install **Hydrogen** (sales channel) and **Search & Discovery**.
-4. **Settings → Apps and sales channels → Develop apps → Create an app**, name it "Setup", give it the Admin API scopes `write_products`, `read_products`, `write_publications`, `read_publications`, `write_metafields`, install it and copy the Admin API access token.
+| Field                   | Shown as                                                                                           |
+| ----------------------- | -------------------------------------------------------------------------------------------------- |
+| Fit (conseil de taille) | Note under the size grid                                                                           |
+| Story (intro)           | Intro line + text of the feature block                                                             |
+| Poids / Drop            | Rows of the feature block                                                                          |
+| Bénéfices (JSON)        | The 3 captions under the split photo: `[{"icon":"cushion","title":"…","copy":"…"}]`                |
+| Caractéristiques (JSON) | Extra rows in "Caractéristiques"                                                                   |
+| **Avis clients**        | Customer reviews: _Add entry_ → name, city, rating 1–5, text, size bought, date, verified purchase |
 
-### 3. Create the collections and metafields (one command)
-
-```bash
-SHOPIFY_STORE=your-store.myshopify.com SHOPIFY_ADMIN_TOKEN=shpat_xxx node scripts/setup-store.mjs
-```
-
-This creates the 40-odd smart collections the menus link to (Homme, Femme, Running, every brand, Homme Running, Promo, Limited, Luxe…), publishes them to your sales channels, and adds the optional product metafields. It skips anything that already exists, so you can re-run it. You can then delete the "Setup" app.
-
-### 4. Add products
-
-- One option named `Pointure` (or `Size`) with EU sizes; a `Couleur` option if you sell several colours.
-- **Vendor** = brand name, spelled exactly as in `app/lib/config.ts` (`Nike`, `New Balance`, `The North Face`…). That alone puts the product on its brand page.
-- **Tags** sort the product into the rest of the menus:
-
-| Tag                                                | Puts the product in                                         |
-| -------------------------------------------------- | ----------------------------------------------------------- |
-| `homme` / `femme` / `enfant` / `bebe` / `junior`   | Homme, Femme, Enfant, Bébé, Junior                          |
-| `running` / `lifestyle` / `basketball` / `outdoor` | the category (and e.g. `homme` + `running` → Homme Running) |
-| `plateforme` (with `femme`)                        | Femme Plateformes                                           |
-| `new`                                              | "Nouveau" badge                                             |
-| `icone`                                            | "Les icônes" rail on the home page                          |
-| `restock` / `limited` / `luxe`                     | Retour en stock / Éditions limitées / Luxe                  |
-
-A "compare-at" price puts it in **Promo** automatically.
-
-In **Search & Discovery**, enable the filters Availability, Price, Vendor, `Pointure` and `Couleur`.
-
-### 5. Deploy
-
-In the **Hydrogen** channel: _Create storefront → Connect GitHub repository_ and pick this repo. Shopify adds its own deployment workflow and token for your store; from then on **every push to `main` deploys**. The existing `.github/workflows/oxygen-deployment-*.yml` belongs to the previous store: delete it once yours is in place.
-
-Environment variables (store domain, Storefront API token, session secret) are filled in by the Hydrogen channel. Add `PUBLIC_META_PIXEL_ID` yourself under _Storefront settings → Environment variables_.
-
-### 6. Make it yours
-
-Everything below is plain text in two files, no React knowledge needed:
-
-- `app/lib/config.ts`: store name, **WhatsApp number**, Instagram/TikTok links, e-mail, free-delivery threshold, delivery times, announcement bar, the brand list and logos, the four home-page tiles.
-- `app/lib/content.ts`: hero text, the two story blocks, the authenticity band, FAQ, delivery table, the à-propos / authenticité / contact / size-guide pages, and `PHOTOS` / `COLLECTION_IMAGES` (which photo goes where).
-
-Swap a photo by replacing the file in `public/home/` (full size + `-800` version, keep the names). Brand logos are black-on-transparent PNGs in `public/brands/`. Your own logos go in `public/brand/` (see `app/components/BrandLogo.tsx` for the variants).
-
----
+Without metafields the page uses sensible defaults for the product type.
 
 ## Pages
 
@@ -90,18 +59,6 @@ Swap a photo by replacing the file in `public/home/` (full size + `-800` version
 | Colours, fonts, spacing (design tokens at the top)                                                                              | `app/styles/app.css`           |
 | Size chart                                                                                                                      | `app/components/SizeGuide.tsx` |
 | Store setup script (collections, metafields)                                                                                    | `scripts/setup-store.mjs`      |
-
-## Product page extras (optional metafields, namespace `custom`)
-
-| Metafield key    | Type                                               | Shown as                                                                |
-| ---------------- | -------------------------------------------------- | ----------------------------------------------------------------------- |
-| `fit`            | text                                               | Fit note under the size grid ("Taille un peu petit…")                   |
-| `story`          | text                                               | Bold intro line in the description                                      |
-| `weight`, `drop` | text                                               | Rows in "Caractéristiques"                                              |
-| `benefits`       | JSON `[{"icon":"cushion","title":"…","copy":"…"}]` | The 3 benefit cards (icons: cushion, grip, feather, drop, bolt, shield) |
-| `specs`          | JSON `[{"label":"…","value":"…"}]`                 | Extra rows in "Caractéristiques"                                        |
-
-Without metafields the page falls back to sensible defaults based on the category tag.
 
 ## Images
 
