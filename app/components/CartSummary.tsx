@@ -1,10 +1,10 @@
 import type {CartApiQueryFragment} from 'storefrontapi.generated';
+import {useWhatsAppLink} from '~/lib/whatsapp';
 import type {CartLayout} from '~/components/CartMain';
 import {CartForm, type OptimisticCart} from '@shopify/hydrogen';
 import {formatMoney} from './Price';
 import {IconArrow, IconCash, IconReturn, IconWhatsApp} from './Icons';
 import {SHIPPING} from '~/lib/config';
-import {whatsappLink} from '~/lib/config';
 import {useEffect, useId, useRef, useState} from 'react';
 import {useFetcher} from 'react-router';
 
@@ -21,6 +21,18 @@ export function CartSummary({cart, layout}: CartSummaryProps) {
   const discountCodeInputId = useId();
   const giftCardHeadingId = useId();
   const giftCardInputId = useId();
+  const waLink = useWhatsAppLink('order', {
+    kind: 'cart',
+    lines: (cart?.lines?.nodes ?? []).map((l) => ({
+      title: l.merchandise.product.title,
+      variant: l.merchandise.title,
+      quantity: l.quantity,
+      price: l.cost?.totalAmount ? formatMoney(l.cost.totalAmount) : undefined,
+    })),
+    total: cart?.cost?.subtotalAmount?.amount
+      ? formatMoney(cart.cost.subtotalAmount)
+      : undefined,
+  });
 
   return (
     <div aria-labelledby={summaryId} className={`cart-summary ${className}`}>
@@ -58,14 +70,7 @@ export function CartSummary({cart, layout}: CartSummaryProps) {
       <CartCheckoutActions checkoutUrl={cart?.checkoutUrl} />
       <a
         className="btn btn--block btn--wa"
-        href={whatsappLink(
-          `Salam ! Je veux commander :\n${(cart?.lines?.nodes ?? [])
-            .map(
-              (l) =>
-                `• ${l.merchandise.product.title} — ${l.merchandise.title} ×${l.quantity}`,
-            )
-            .join('\n')}`,
-        )}
+        {...waLink}
         target="_blank"
         rel="noreferrer"
       >

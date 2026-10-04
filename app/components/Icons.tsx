@@ -195,6 +195,24 @@ export const IconHeadset = (p: P) => (
     <path d="M19 19c0 1.5-2 2.5-5 2.5" />
   </svg>
 );
+export const IconInstagram = (p: P) => (
+  <svg {...base} {...p}>
+    <rect x="3.5" y="3.5" width="17" height="17" rx="5" />
+    <circle cx="12" cy="12" r="4" />
+    <circle cx="17.3" cy="6.7" r="0.6" fill="currentColor" stroke="none" />
+  </svg>
+);
+export const IconTikTok = (p: P) => (
+  <svg {...base} {...p}>
+    <path d="M14 3v11.5a3.5 3.5 0 1 1-3.5-3.5" />
+    <path d="M14 3c.4 2.6 2.2 4.4 5 4.6" />
+  </svg>
+);
+export const IconFacebook = (p: P) => (
+  <svg {...base} {...p}>
+    <path d="M14.5 21v-7.5h2.6l.4-3h-3V8.6c0-.9.3-1.6 1.6-1.6h1.6V4.3a21 21 0 0 0-2.4-.1c-2.4 0-4 1.4-4 4.1v2.2H8.6v3h2.7V21" />
+  </svg>
+);
 export const IconLock = (p: P) => (
   <svg {...base} {...p}>
     <rect x="5" y="10" width="14" height="10" rx="1.5" />

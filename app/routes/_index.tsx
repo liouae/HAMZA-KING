@@ -11,7 +11,7 @@ import {ProductRail} from '~/components/ProductRail';
 import {ServiceStrip} from '~/components/Footer';
 import {Price} from '~/components/Price';
 import {IconArrow} from '~/components/Icons';
-import {BRAND, BRANDS, CATEGORIES} from '~/lib/config';
+import {BRAND, BRANDS, CATEGORIES, SOCIALS} from '~/lib/config';
 import {
   CAMPAIGN,
   EDITORIAL,
@@ -41,7 +41,7 @@ export const meta: Route.MetaFunction = () => {
         name: BRAND.name,
         url: SITE.url,
         logo: `${SITE.url}/brand/icon-512.png`,
-        sameAs: [BRAND.instagram, BRAND.tiktok],
+        sameAs: SOCIALS.map((s) => s.url),
         address: {
           '@type': 'PostalAddress',
           addressLocality: SITE.city,

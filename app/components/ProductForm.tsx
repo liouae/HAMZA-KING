@@ -1,4 +1,4 @@
-import {useEffect, useState} from 'react';
+import {useState} from 'react';
 import {Link, useNavigate} from 'react-router';
 import {type MappedProductOptions} from '@shopify/hydrogen';
 import type {
@@ -9,7 +9,8 @@ import {AddToCartButton} from './AddToCartButton';
 import {useAside} from './Aside';
 import {IconRuler, IconWhatsApp} from './Icons';
 import {SizeGuide} from './SizeGuide';
-import {isColorOption, isSizeOption, whatsappLink} from '~/lib/config';
+import {isColorOption, isSizeOption} from '~/lib/config';
+import {useWhatsAppLink, useWhatsAppTopic, type WaTopic} from '~/lib/whatsapp';
 import {formatMoney} from './Price';
 import {trackLead} from './MetaPixel';
 import type {ProductFragment} from 'storefrontapi.generated';
@@ -35,25 +36,29 @@ export function ProductForm({
   const [guideOpen, setGuideOpen] = useState(false);
   const [sizeTouched, setSizeTouched] = useState(false);
   const [nudge, setNudge] = useState(false);
-  const [pageUrl, setPageUrl] = useState('');
-  useEffect(() => {
-    setPageUrl(window.location.href);
-  }, [selectedVariant?.id]);
-
   const sizeOption = productOptions.find((o) => isSizeOption(o.name));
   const needsSize = Boolean(
     sizeOption && sizeOption.optionValues.length > 1 && !sizeTouched,
   );
   const available = Boolean(selectedVariant?.availableForSale);
 
-  const selectedLabel = (selectedVariant?.selectedOptions ?? [])
-    .filter((o) => o.value !== 'Default Title')
-    .map((o) => `${o.name}: ${o.value}`)
-    .join(', ');
-
-  const waMessage = `Salam ! Je veux commander :\n• ${productTitle}${
-    selectedLabel ? `\n• ${selectedLabel}` : ''
-  }${selectedVariant?.price ? `\n• Prix : ${formatMoney(selectedVariant.price)}` : ''}${pageUrl ? `\n${pageUrl}` : ''}`;
+  // Tell every WhatsApp button on the page which pair, colour and size the
+  // visitor is looking at (size only once they actually picked one).
+  const opts = selectedVariant?.selectedOptions ?? [];
+  const color = opts.find((o) => isColorOption(o.name))?.value;
+  const sizeValue = opts.find((o) => isSizeOption(o.name))?.value;
+  const topic: WaTopic = {
+    kind: 'product',
+    title: productTitle,
+    color,
+    size:
+      sizeValue && (!needsSize || sizeTouched) && sizeValue !== 'Default Title'
+        ? `EU ${sizeValue}`
+        : undefined,
+    price: selectedVariant?.price ? formatMoney(selectedVariant.price) : '',
+  };
+  useWhatsAppTopic(topic);
+  const orderLink = useWhatsAppLink('order', topic);
 
   return (
     <div className="pdp-form">
@@ -201,16 +206,17 @@ export function ProductForm({
         )}
         <a
           className="btn btn--block btn--wa"
-          href={whatsappLink(waMessage)}
+          href={orderLink.href}
           target="_blank"
           rel="noreferrer"
-          onClick={() =>
+          onClick={(e) => {
+            orderLink.onClick(e);
             trackLead({
               content_name: productTitle,
               value: Number(selectedVariant?.price?.amount ?? 0),
               currency: selectedVariant?.price?.currencyCode ?? 'MAD',
-            })
-          }
+            });
+          }}
         >
           <IconWhatsApp /> Commander sur WhatsApp
         </a>

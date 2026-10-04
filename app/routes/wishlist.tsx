@@ -4,7 +4,7 @@ import {useEffect, useState} from 'react';
 import {useWishlist} from '~/lib/ui';
 import {formatMoney} from '~/components/Price';
 import {IconArrow, IconClose, IconHeart} from '~/components/Icons';
-import {whatsappLink} from '~/lib/config';
+import {useWhatsAppLink, useWhatsAppTopic, type WaTopic} from '~/lib/whatsapp';
 import {RecentlyViewed} from '~/components/RecentlyViewed';
 
 export const meta: Route.MetaFunction = () => [
@@ -16,7 +16,17 @@ export default function WishlistPage() {
   const [mounted, setMounted] = useState(false);
   useEffect(() => setMounted(true), []);
 
-  const waText = `Salam ! Voici ma wishlist :\n${items.map((i) => `• ${i.title}`).join('\n')}`;
+  const waTopic: WaTopic | null = items.length
+    ? {
+        kind: 'wishlist',
+        items: items.map((i) => ({
+          title: i.title,
+          price: i.price ? formatMoney(i.price) : undefined,
+        })),
+      }
+    : null;
+  useWhatsAppTopic(waTopic);
+  const waLink = useWhatsAppLink('question', waTopic);
 
   return (
     <div className="wishlist">
@@ -34,12 +44,12 @@ export default function WishlistPage() {
           <>
             <div className="wishlist-actions">
               <a
-                href={whatsappLink(waText)}
+                {...waLink}
                 target="_blank"
                 rel="noreferrer"
                 className="btn btn--ghost"
               >
-                Partager sur WhatsApp
+                Demander la disponibilité sur WhatsApp
               </a>
             </div>
             <ul className="grid wishlist-grid">

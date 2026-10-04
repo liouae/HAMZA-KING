@@ -1,4 +1,5 @@
 import {Await, Link} from 'react-router';
+import {WhatsAppProvider, useWhatsAppLink} from '~/lib/whatsapp';
 import {Suspense, useId, useState} from 'react';
 import type {
   CartApiQueryFragment,
@@ -17,7 +18,7 @@ import {SearchResultsPredictive} from '~/components/SearchResultsPredictive';
 import {WhatsAppFloat} from '~/components/WhatsAppButton';
 import {BrandLogo} from '~/components/BrandLogo';
 import {NAVIGATION} from '~/lib/navigation';
-import {BRANDS, whatsappLink} from '~/lib/config';
+import {BRANDS} from '~/lib/config';
 import {ICON_MODELS} from '~/lib/content';
 import {
   usePageTransition,
@@ -57,26 +58,28 @@ export function PageLayout({
   usePageTransition();
   return (
     <Aside.Provider>
-      <a href="#main" className="skip-link">
-        Aller au contenu
-      </a>
-      <CartAside cart={cart} />
-      <SearchAside />
-      <MobileMenuAside />
-      <Header
-        header={header}
-        cart={cart}
-        isLoggedIn={isLoggedIn}
-        publicStoreDomain={publicStoreDomain}
-        menuImages={menuImages}
-      />
-      <main id="main">{children}</main>
-      <Footer
-        footer={footer}
-        header={header}
-        publicStoreDomain={publicStoreDomain}
-      />
-      <WhatsAppFloat />
+      <WhatsAppProvider>
+        <a href="#main" className="skip-link">
+          Aller au contenu
+        </a>
+        <CartAside cart={cart} />
+        <SearchAside />
+        <MobileMenuAside />
+        <Header
+          header={header}
+          cart={cart}
+          isLoggedIn={isLoggedIn}
+          publicStoreDomain={publicStoreDomain}
+          menuImages={menuImages}
+        />
+        <main id="main">{children}</main>
+        <Footer
+          footer={footer}
+          header={header}
+          publicStoreDomain={publicStoreDomain}
+        />
+        <WhatsAppFloat />
+      </WhatsAppProvider>
     </Aside.Provider>
   );
 }
@@ -254,6 +257,7 @@ function SearchAside() {
 }
 
 function MobileMenuAside() {
+  const waLink = useWhatsAppLink();
   const {close} = useAside();
   const [openIdx, setOpenIdx] = useState<number | null>(null);
   const {count} = useWishlist();
@@ -277,7 +281,7 @@ function MobileMenuAside() {
             {count ? ` (${count})` : ''}
           </Link>
           <a
-            href={whatsappLink('Salam ! J’ai besoin d’aide.')}
+            {...waLink}
             target="_blank"
             rel="noreferrer"
             className="mnav-foot-link"

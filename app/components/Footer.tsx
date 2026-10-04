@@ -1,8 +1,22 @@
 import {Link} from 'react-router';
 import type {FooterQuery, HeaderQuery} from 'storefrontapi.generated';
-import {BRAND, SHIPPING} from '~/lib/config';
+import {BRAND, SHIPPING, SOCIALS} from '~/lib/config';
 import {FOOTER_COLUMNS} from '~/lib/navigation';
-import {IconCash, IconReturn, IconTruck, IconWhatsApp} from './Icons';
+import {
+  IconCash,
+  IconFacebook,
+  IconInstagram,
+  IconReturn,
+  IconTikTok,
+  IconTruck,
+  IconWhatsApp,
+} from './Icons';
+
+export const SOCIAL_ICONS = {
+  instagram: IconInstagram,
+  tiktok: IconTikTok,
+  facebook: IconFacebook,
+};
 import {BrandLogo} from './BrandLogo';
 
 interface FooterProps {
@@ -133,14 +147,21 @@ export function Footer(_props: FooterProps) {
           <span className="pay-chip">Livraison gratuite</span>
         </div>
         <div className="footer-social">
-          <a href={BRAND.instagram} target="_blank" rel="noreferrer">
-            Instagram
-          </a>
-          {BRAND.tiktok ? (
-            <a href={BRAND.tiktok} target="_blank" rel="noreferrer">
-              TikTok
-            </a>
-          ) : null}
+          {SOCIALS.map((s) => {
+            const Icon = SOCIAL_ICONS[s.network];
+            return (
+              <a
+                key={s.network}
+                href={s.url}
+                target="_blank"
+                rel="noreferrer"
+                aria-label={`${BRAND.name} sur ${s.name}`}
+                title={`${s.name} ${s.handle}`}
+              >
+                <Icon width={18} height={18} />
+              </a>
+            );
+          })}
         </div>
       </div>
     </footer>

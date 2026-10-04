@@ -9,10 +9,38 @@ export const BRAND = {
   legalName: 'HAMZAKINGSTORE',
   tagline: 'Sneakers. Livraison gratuite partout au Maroc.',
   instagram: 'https://www.instagram.com/hamza__king07__/',
-  /** Leave empty to hide the TikTok link. */
-  tiktok: '',
+  tiktok: 'https://www.tiktok.com/@brahmi.hamza4',
+  /** Leave empty to hide the link. */
+  facebook: '',
   email: 'hamza20king00@gmail.com',
 };
+
+/** Social profiles shown in the footer and on the contact page (empty URL = hidden). */
+export const SOCIALS = [
+  {
+    network: 'instagram',
+    name: 'Instagram',
+    handle: '@hamza__king07__',
+    url: BRAND.instagram,
+  },
+  {
+    network: 'tiktok',
+    name: 'TikTok',
+    handle: '@brahmi.hamza4',
+    url: BRAND.tiktok,
+  },
+  {
+    network: 'facebook',
+    name: 'Facebook',
+    handle: 'HAMZA KING',
+    url: BRAND.facebook,
+  },
+].filter((s) => s.url) as {
+  network: 'instagram' | 'tiktok' | 'facebook';
+  name: string;
+  handle: string;
+  url: string;
+}[];
 
 /** WhatsApp number in international format, digits only (e.g. 2126XXXXXXXX). */
 export const WHATSAPP_NUMBER = '212614719446';

@@ -1,7 +1,9 @@
 import {Link, useLoaderData} from 'react-router';
+import {useWhatsAppLink} from '~/lib/whatsapp';
 import type {Route} from './+types/pages.$handle';
 import {redirectIfHandleIsLocalized} from '~/lib/redirect';
-import {BRAND, SHIPPING, whatsappLink} from '~/lib/config';
+import {BRAND, SHIPPING, SOCIALS, whatsappLink} from '~/lib/config';
+import {SOCIAL_ICONS} from '~/components/Footer';
 import {DELIVERY_ROWS, FAQ, PAGES, SITE} from '~/lib/content';
 import {SizeTable} from '~/components/SizeGuide';
 import {BrandLogo} from '~/components/BrandLogo';
@@ -102,12 +104,13 @@ export default function Page() {
 }
 
 function ContactPage() {
+  const waLink = useWhatsAppLink();
   return (
     <div className="container contact">
       <div className="contact-grid">
         <a
           className="contact-card contact-card--wa"
-          href={whatsappLink('Salam ! J’ai une question.')}
+          {...waLink}
           target="_blank"
           rel="noreferrer"
         >
@@ -129,6 +132,26 @@ function ContactPage() {
           </span>
         </a>
         <div className="contact-card">
+          <span className="contact-socials">
+            {SOCIALS.map((s) => {
+              const Icon = SOCIAL_ICONS[s.network];
+              return <Icon key={s.network} width={24} height={24} />;
+            })}
+          </span>
+          <span className="contact-card-title">Suis-nous</span>
+          {SOCIALS.map((s) => (
+            <a
+              key={s.network}
+              className="contact-card-copy contact-social-link"
+              href={s.url}
+              target="_blank"
+              rel="noreferrer"
+            >
+              {s.name} · {s.handle}
+            </a>
+          ))}
+        </div>
+        <div className="contact-card">
           <IconPin width={28} height={28} />
           <span className="contact-card-title">Où nous trouver</span>
           <span className="contact-card-copy">{SITE.address}</span>
@@ -149,7 +172,7 @@ function ContactPage() {
           onSubmit={(e) => {
             e.preventDefault();
             const f = new FormData(e.currentTarget);
-            const msg = `Salam ! Je m'appelle ${f.get('name')}.\nSujet : ${f.get('subject')}\n\n${f.get('message')}`;
+            const msg = `Salam ${BRAND.name} 👋\nJe m’appelle ${f.get('name')}.\n📌 Sujet : ${f.get('subject')}\n\n${f.get('message')}`;
             window.open(whatsappLink(msg), '_blank');
           }}
         >
@@ -181,6 +204,7 @@ function ContactPage() {
 }
 
 function FaqPage() {
+  const waLink = useWhatsAppLink();
   return (
     <div className="container faq">
       <div className="faq-list">
@@ -219,7 +243,7 @@ function FaqPage() {
           <p>On répond vite sur WhatsApp.</p>
           <a
             className="btn btn--light"
-            href={whatsappLink('Salam ! J’ai une question.')}
+            {...waLink}
             target="_blank"
             rel="noreferrer"
           >
@@ -236,6 +260,7 @@ function SizeGuidePage({
 }: {
   sections: {title: string; body: string[]}[];
 }) {
+  const waLink = useWhatsAppLink();
   return (
     <div className="container sizeguide">
       <div className="sizeguide-table" data-reveal>
@@ -255,9 +280,7 @@ function SizeGuidePage({
         <div className="page-cta">
           <a
             className="btn btn--ghost"
-            href={whatsappLink(
-              'Salam ! Ma longueur de pied est de … cm. Quelle pointure me conseillez-vous ?',
-            )}
+            {...waLink}
             target="_blank"
             rel="noreferrer"
           >

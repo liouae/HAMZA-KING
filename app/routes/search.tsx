@@ -1,4 +1,5 @@
 import {useLoaderData} from 'react-router';
+import {useWhatsAppTopic} from '~/lib/whatsapp';
 import type {Route} from './+types/search';
 import {getPaginationVariables, Analytics} from '@shopify/hydrogen';
 import {SearchForm} from '~/components/SearchForm';
@@ -44,6 +45,7 @@ export default function SearchPage() {
   const {type, term, result, error} = useLoaderData<typeof loader>();
   if (type === 'predictive') return null;
   const total = result?.total ?? 0;
+  useWhatsAppTopic(term ? {kind: 'search', query: term, count: total} : null);
 
   return (
     <div className="search">

@@ -5770,3 +5770,40 @@ body:has(.consent) .wa-float {
 .pdp-brand-cta {
   margin-top: 20px;
 }
+
+/* Social links */
+.footer-social {
+  gap: 10px;
+}
+.footer-social a {
+  display: grid;
+  place-items: center;
+  width: 38px;
+  height: 38px;
+  border: 1px solid rgb(255 255 255 / 0.18);
+  border-radius: 50%;
+  color: rgb(255 255 255 / 0.8);
+  transition:
+    background 0.25s var(--ease),
+    color 0.25s var(--ease),
+    border-color 0.25s var(--ease);
+}
+.footer-social a:hover {
+  background: var(--paper);
+  border-color: var(--paper);
+  color: var(--ink);
+}
+.contact-grid {
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+}
+.contact-socials {
+  display: flex;
+  gap: 10px;
+}
+.contact-social-link {
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
+.contact-social-link:hover {
+  color: var(--ink);
+}

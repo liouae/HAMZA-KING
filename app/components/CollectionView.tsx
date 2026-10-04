@@ -1,4 +1,5 @@
 import {useEffect, useState} from 'react';
+import {useWhatsAppTopic} from '~/lib/whatsapp';
 import {SmartImage} from '~/components/SmartImage';
 import {
   Form,
@@ -99,6 +100,7 @@ export function CollectionView({
     }
   };
   const chips = subChips(handle);
+  useWhatsAppTopic({kind: 'collection', title, handle});
   const brand = BRANDS.find((b) => b.handle === handle);
   const location = useLocation();
   const navigate = useNavigate();

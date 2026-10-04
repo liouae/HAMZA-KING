@@ -1,11 +1,12 @@
 import {Suspense, useEffect, useRef, useState} from 'react';
+import {useWhatsAppLink} from '~/lib/whatsapp';
 import {SmartImage} from '~/components/SmartImage';
 import {localPhoto} from '~/lib/content';
 import {Await, Link, NavLink, useAsyncValue, useLocation} from 'react-router';
 import {Image, useOptimisticCart, useAnalytics} from '@shopify/hydrogen';
 import type {CartApiQueryFragment, HeaderQuery} from 'storefrontapi.generated';
 import {useAside} from '~/components/Aside';
-import {ANNOUNCEMENTS, BRAND, BRANDS, whatsappLink} from '~/lib/config';
+import {ANNOUNCEMENTS, BRAND, BRANDS} from '~/lib/config';
 import {
   NAVIGATION,
   brandLinks,
@@ -384,6 +385,7 @@ function MegaPanel({
 }
 
 function AnnouncementBar() {
+  const waLink = useWhatsAppLink();
   const [index, setIndex] = useState(0);
   useEffect(() => {
     const t = setInterval(
@@ -396,11 +398,7 @@ function AnnouncementBar() {
     <div className="announce" role="region" aria-label="Annonces">
       <div className="announce-inner">
         <div className="announce-side hide-md">
-          <a
-            href={whatsappLink('Salam ! J’ai une question.')}
-            target="_blank"
-            rel="noreferrer"
-          >
+          <a {...waLink} target="_blank" rel="noreferrer">
             <IconWhatsApp width={14} height={14} /> WhatsApp
           </a>
         </div>
