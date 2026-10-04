@@ -38,7 +38,13 @@ import {
   IconShield,
   IconTruck,
 } from '~/components/Icons';
-import {BRAND, SHIPPING, isColorOption, whatsappLink} from '~/lib/config';
+import {
+  BRAND,
+  SHIPPING,
+  isColorOption,
+  isSizeOption,
+  whatsappLink,
+} from '~/lib/config';
 import {
   BENEFITS_BY_TAG,
   DELIVERY_ROWS,
@@ -48,80 +54,145 @@ import {
 import {pushRecentlyViewed} from '~/lib/ui';
 import {redirectIfHandleIsLocalized} from '~/lib/redirect';
 import {loadStoreReviews, mergeReviews} from '~/lib/reviews';
+import {modelForProduct} from '~/lib/models';
+import {
+  breadcrumbLd,
+  clip,
+  returnPolicy,
+  seoMeta,
+  shippingDetails,
+  siteUrl,
+} from '~/lib/seo';
 
-export const meta: Route.MetaFunction = ({data}) => {
+export const meta: Route.MetaFunction = ({data, matches, location}) => {
   const p = data?.product;
   if (!p) return [{title: BRAND.name}];
-  const title = `${p.seo?.title || p.title} | ${BRAND.name}`;
-  const description = p.seo?.description || p.description?.slice(0, 155) || '';
+  const base = siteUrl(matches);
+  const path = `/products/${p.handle}`;
+  const model = modelForProduct(p.title, p.vendor);
+  const url = `${base}${path}`;
+  const min = Math.round(Number(p.priceRange?.minVariantPrice?.amount ?? 0));
+  const title = p.seo?.title || `${p.title} — Prix au Maroc`;
+  const description =
+    p.seo?.description ||
+    `${p.title}${min ? ` à ${min} DH` : ''} au Maroc. Livraison gratuite partout, paiement à la livraison, échange de pointure gratuit sous ${SHIPPING.returnDays} jours.`;
   const image = p.images?.nodes?.[0]?.url ?? '';
-  const variant = p.selectedOrFirstAvailableVariant;
   const stats = reviewStats(data?.reviews ?? []);
-  return [
-    {title},
-    {name: 'description', content: description},
-    {property: 'og:title', content: title},
-    {property: 'og:description', content: description},
-    {property: 'og:image', content: image},
-    {property: 'og:type', content: 'product'},
-    {property: 'product:price:amount', content: variant?.price.amount ?? ''},
-    {
-      property: 'product:price:currency',
-      content: variant?.price.currencyCode ?? 'MAD',
-    },
-    {
-      tagName: 'link',
-      rel: 'canonical',
-      href: `${SITE.url}/products/${p.handle}`,
-    },
-    {
-      'script:ld+json': {
-        '@context': 'https://schema.org',
-        '@type': 'Product',
-        name: p.title,
-        brand: {'@type': 'Brand', name: p.vendor},
-        description: p.description,
-        image: p.images?.nodes?.map((i) => i.url) ?? [],
-        sku: variant?.sku ?? undefined,
-        url: `${SITE.url}/products/${p.handle}`,
-        ...(stats.count
-          ? {
-              aggregateRating: {
-                '@type': 'AggregateRating',
-                ratingValue: stats.average.toFixed(1),
-                reviewCount: stats.count,
-              },
-            }
-          : {}),
-        offers: {
-          '@type': 'AggregateOffer',
-          priceCurrency: p.priceRange?.minVariantPrice?.currencyCode ?? 'MAD',
-          lowPrice: p.priceRange?.minVariantPrice?.amount,
-          highPrice: p.priceRange?.maxVariantPrice?.amount,
-          availability: variant?.availableForSale
-            ? 'https://schema.org/InStock'
-            : 'https://schema.org/OutOfStock',
-          url: `${SITE.url}/products/${p.handle}`,
-          seller: {'@type': 'Organization', name: BRAND.name},
-        },
+  const variants = (p.seoVariants?.nodes ?? []) as {
+    id: string;
+    title: string;
+    sku?: string | null;
+    availableForSale: boolean;
+    price: {amount: string; currencyCode: string};
+    image?: {url: string} | null;
+    selectedOptions: {name: string; value: string}[];
+  }[];
+  const opt = (v: (typeof variants)[number], test: (n: string) => boolean) =>
+    v.selectedOptions.find((o) => test(o.name))?.value;
+  const numeric = (gid: string) => gid.split('/').pop();
+  const ld: Record<string, unknown>[] = [];
+  if (base && !variants.length) {
+    // No variant data: plain Product with an aggregate offer.
+    ld.push({
+      '@context': 'https://schema.org',
+      '@type': 'Product',
+      '@id': `${url}#product`,
+      name: p.title,
+      description: clip(p.description, 5000),
+      url,
+      brand: {'@type': 'Brand', name: p.vendor},
+      image: p.images?.nodes?.slice(0, 10).map((i) => i.url) ?? [],
+      offers: {
+        '@type': 'AggregateOffer',
+        priceCurrency: 'MAD',
+        lowPrice: p.priceRange?.minVariantPrice?.amount,
+        highPrice: p.priceRange?.maxVariantPrice?.amount,
+        offerCount: 1,
+        availability: p.selectedOrFirstAvailableVariant?.availableForSale
+          ? 'https://schema.org/InStock'
+          : 'https://schema.org/OutOfStock',
+        shippingDetails: shippingDetails(),
+        hasMerchantReturnPolicy: returnPolicy(),
       },
-    },
-    {
-      'script:ld+json': {
-        '@context': 'https://schema.org',
-        '@type': 'BreadcrumbList',
-        itemListElement: [
-          {'@type': 'ListItem', position: 1, name: 'Accueil', item: SITE.url},
-          {
-            '@type': 'ListItem',
-            position: 2,
-            name: p.vendor,
-            item: `${SITE.url}/collections/${vendorHandle(p.vendor)}`,
+    });
+  }
+  if (base && variants.length) {
+    ld.push({
+      '@context': 'https://schema.org',
+      '@type': 'ProductGroup',
+      '@id': `${url}#product`,
+      name: p.title,
+      description: clip(p.description, 5000),
+      url,
+      brand: {'@type': 'Brand', name: p.vendor},
+      productGroupID: numeric(p.id),
+      category: p.productType || undefined,
+      image: p.images?.nodes?.slice(0, 10).map((i) => i.url) ?? [],
+      variesBy: ['https://schema.org/color', 'https://schema.org/size'],
+      ...(stats.count
+        ? {
+            aggregateRating: {
+              '@type': 'AggregateRating',
+              ratingValue: stats.average.toFixed(1),
+              reviewCount: stats.count,
+              bestRating: 5,
+              worstRating: 1,
+            },
+          }
+        : {}),
+      hasVariant: variants.map((v) => {
+        const qs = new URLSearchParams(
+          v.selectedOptions.map((o) => [o.name, o.value]),
+        ).toString();
+        return {
+          '@type': 'Product',
+          sku: v.sku || numeric(v.id),
+          name: `${p.title} — ${v.title}`,
+          image: v.image?.url ?? image,
+          color: opt(v, isColorOption),
+          size: opt(v, isSizeOption),
+          offers: {
+            '@type': 'Offer',
+            url: `${url}?${qs}`,
+            price: Number(v.price.amount).toFixed(2),
+            priceCurrency: v.price.currencyCode,
+            availability: v.availableForSale
+              ? 'https://schema.org/InStock'
+              : 'https://schema.org/OutOfStock',
+            itemCondition: 'https://schema.org/NewCondition',
+            shippingDetails: shippingDetails(),
+            hasMerchantReturnPolicy: returnPolicy(),
+            seller: {'@id': `${base}/#organization`},
           },
-          {'@type': 'ListItem', position: 3, name: p.title},
-        ],
-      },
-    },
+        };
+      }),
+    });
+  }
+  if (base) {
+    ld.push(
+      breadcrumbLd(base, [
+        {name: 'Accueil', path: '/'},
+        {name: p.vendor, path: `/collections/${vendorHandle(p.vendor)}`},
+        ...(model
+          ? [{name: model.name, path: `/collections/${model.handle}`}]
+          : []),
+        {name: p.title},
+      ]),
+    );
+  }
+  return [
+    ...seoMeta({
+      matches,
+      location,
+      path,
+      title,
+      description,
+      image,
+      type: 'product',
+      jsonLd: ld,
+    }),
+    {property: 'product:price:amount', content: min ? String(min) : ''},
+    {property: 'product:price:currency', content: 'MAD'},
   ];
 };
 
@@ -386,6 +457,8 @@ export default function Product() {
     price: selectedVariant?.price,
   };
 
+  const model = modelForProduct(title, vendor);
+
   return (
     <div className="pdp">
       <nav className="crumbs container" aria-label="Fil d’Ariane">
@@ -394,6 +467,12 @@ export default function Product() {
         {vendor ? (
           <>
             <Link to={`/collections/${vendorHandle(vendor)}`}>{vendor}</Link>
+            <span>/</span>
+          </>
+        ) : null}
+        {model ? (
+          <>
+            <Link to={`/collections/${model.handle}`}>{model.name}</Link>
             <span>/</span>
           </>
         ) : null}
@@ -785,6 +864,25 @@ const PRODUCT_FRAGMENT = `#graphql
     ]) {
       key
       value
+    }
+    seoVariants: variants(first: 100) {
+      nodes {
+        id
+        title
+        sku
+        availableForSale
+        price {
+          amount
+          currencyCode
+        }
+        image {
+          url
+        }
+        selectedOptions {
+          name
+          value
+        }
+      }
     }
     reviews: metafield(namespace: "custom", key: "reviews") {
       references(first: 100) {

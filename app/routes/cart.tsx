@@ -1,12 +1,12 @@
+import {seoMeta} from '~/lib/seo';
 import {useLoaderData, data, type HeadersFunction} from 'react-router';
 import type {Route} from './+types/cart';
 import type {CartQueryDataReturn} from '@shopify/hydrogen';
 import {CartForm} from '@shopify/hydrogen';
 import {CartMain} from '~/components/CartMain';
 
-export const meta: Route.MetaFunction = () => {
-  return [{title: `HAMZA KING | Panier`}];
-};
+export const meta: Route.MetaFunction = ({matches, location}) =>
+  seoMeta({matches, location, title: 'Panier', noindex: true});
 
 export const headers: HeadersFunction = ({actionHeaders}) => actionHeaders;
 

@@ -1,5 +1,37 @@
 import {BRANDS} from './config';
-import {GUIDES, ICON_MODELS} from './content';
+import {MODELS, modelsOfBrand} from './models';
+
+const RUNNING = new Set([
+  'nike-vomero',
+  'nike-pegasus',
+  'asics-gel-nimbus',
+  'on-cloud',
+  'hoka-clifton',
+  'hoka-bondi',
+]);
+const BRAND_LABEL: Record<string, string> = {
+  nike: 'Nike',
+  jordan: '',
+  adidas: 'Adidas',
+  'new-balance': 'New Balance',
+  asics: 'Asics',
+  on: 'On',
+  hoka: 'Hoka',
+  converse: 'Converse',
+  vans: 'Vans',
+  puma: 'Puma',
+};
+/** Menu links to model pages (empty ones are hidden by the live filter). */
+function modelLinks(brands: string[] | null, running: boolean): NavLink[] {
+  return MODELS.filter(
+    (m) =>
+      RUNNING.has(m.handle) === running &&
+      (!brands || brands.includes(m.brand)),
+  ).map((m) => ({
+    label: `${BRAND_LABEL[m.brand] ? `${BRAND_LABEL[m.brand]} ` : ''}${m.name}`,
+    to: `/collections/${m.handle}`,
+  }));
+}
 
 /**
  * Mega-menu structure. Every `to` is a normal storefront URL,
@@ -170,22 +202,19 @@ export const NAVIGATION: NavItem[] = [
     to: '/collections/all?sort=best-selling',
     columns: [
       {
-        title: 'Les modèles cultes',
-        links: ICON_MODELS.slice(0, 6).map((m) => ({
-          label: m.name,
-          to: `/search?q=${encodeURIComponent(m.query)}`,
-        })),
+        title: 'Nike & Jordan',
+        links: modelLinks(['nike', 'jordan'], false),
+      },
+      {
+        title: 'Les autres icônes',
+        links: modelLinks(
+          ['adidas', 'new-balance', 'asics', 'converse', 'vans', 'puma'],
+          false,
+        ),
       },
       {
         title: 'Running',
-        links: ICON_MODELS.slice(6).map((m) => ({
-          label: m.name,
-          to: `/search?q=${encodeURIComponent(m.query)}`,
-        })),
-      },
-      {
-        title: 'Guides',
-        links: GUIDES,
+        links: modelLinks(null, true),
       },
     ],
     feature: {
@@ -228,7 +257,7 @@ export const FOOTER_COLUMNS: NavColumn[] = [
     title: 'Aide',
     links: [
       {label: 'Avis clients', to: '/avis'},
-      {label: 'Livraison', to: '/policies/shipping-policy'},
+      {label: 'Livraison & paiement', to: '/livraison'},
       {label: 'Retours & échanges', to: '/policies/refund-policy'},
       {label: 'Guide des tailles', to: '/pages/guide-des-tailles'},
       {label: 'FAQ', to: '/pages/faq'},
@@ -271,8 +300,24 @@ export function subChips(handle: string): NavLink[] {
         to: `/collections/${m[1]}-${c}`,
       }));
   }
+  const model = MODELS.find((m) => m.handle === handle);
+  if (model) {
+    const brand = BRANDS.find((b) => b.handle === model.brand);
+    return [
+      ...(brand
+        ? [{label: `Tout ${brand.name}`, to: `/collections/${brand.handle}`}]
+        : []),
+      ...modelsOfBrand(model.brand)
+        .filter((m) => m.handle !== handle)
+        .map((m) => ({label: m.name, to: `/collections/${m.handle}`})),
+    ];
+  }
   if (BRANDS.some((b) => b.handle === handle)) {
     return [
+      ...modelsOfBrand(handle).map((m) => ({
+        label: m.name,
+        to: `/collections/${m.handle}`,
+      })),
       {label: 'Homme', to: '/collections/homme'},
       {label: 'Femme', to: '/collections/femme'},
       {label: 'Nouveautés', to: '/collections/all?sort=newest'},

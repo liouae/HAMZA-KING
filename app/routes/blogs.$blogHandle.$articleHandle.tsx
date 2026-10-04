@@ -1,10 +1,43 @@
+import {breadcrumbLd, seoMeta, siteUrl} from '~/lib/seo';
 import {useLoaderData} from 'react-router';
 import type {Route} from './+types/blogs.$blogHandle.$articleHandle';
 import {Image} from '@shopify/hydrogen';
 import {redirectIfHandleIsLocalized} from '~/lib/redirect';
 
-export const meta: Route.MetaFunction = ({data}) => {
-  return [{title: `HAMZA KING | ${data?.article.title ?? ''} article`}];
+export const meta: Route.MetaFunction = ({data, matches, location}) => {
+  const a = data?.article;
+  if (!a) return [{title: 'Journal'}];
+  const base = siteUrl(matches);
+  const path = location.pathname;
+  return seoMeta({
+    matches,
+    location,
+    path,
+    type: 'article',
+    title: a.seo?.title || a.title,
+    description: a.seo?.description,
+    image: a.image?.url,
+    jsonLd: base
+      ? [
+          {
+            '@context': 'https://schema.org',
+            '@type': 'BlogPosting',
+            headline: a.title,
+            datePublished: a.publishedAt,
+            image: a.image?.url,
+            author: {'@type': 'Organization', name: 'HAMZA KING'},
+            publisher: {'@id': `${base}/#organization`},
+            mainEntityOfPage: `${base}${path}`,
+            inLanguage: 'fr-MA',
+          },
+          breadcrumbLd(base, [
+            {name: 'Accueil', path: '/'},
+            {name: 'Journal', path: '/blogs/journal'},
+            {name: a.title},
+          ]),
+        ]
+      : [],
+  });
 };
 
 export async function loader(args: Route.LoaderArgs) {

@@ -1,3 +1,4 @@
+import {seoMeta} from '~/lib/seo';
 import type {Route} from './+types/collections.all';
 import {useLoaderData} from 'react-router';
 import {getPaginationVariables} from '@shopify/hydrogen';
@@ -15,9 +16,15 @@ import {
   productSortVars,
 } from '~/lib/collection';
 
-export const meta: Route.MetaFunction = () => {
-  return [{title: `HAMZA KING | Toutes les sneakers`}];
-};
+export const meta: Route.MetaFunction = ({matches, location}) =>
+  seoMeta({
+    matches,
+    location,
+    path: '/collections/all',
+    title: 'Toutes les sneakers au Maroc',
+    description:
+      'Toutes les sneakers HAMZA KING : running, lifestyle, basket, outdoor. Livraison gratuite partout au Maroc, paiement à la livraison, échange gratuit sous 7 jours.',
+  });
 
 /**
  * If a collection with handle "all" exists in Shopify (recommended: an automated

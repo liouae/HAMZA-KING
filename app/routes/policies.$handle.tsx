@@ -1,3 +1,4 @@
+import {seoMeta} from '~/lib/seo';
 import {Link, useLoaderData} from 'react-router';
 import type {Route} from './+types/policies.$handle';
 import {type Shop} from '@shopify/hydrogen/storefront-api-types';
@@ -8,9 +9,13 @@ type SelectedPolicies = keyof Pick<
   'privacyPolicy' | 'shippingPolicy' | 'termsOfService' | 'refundPolicy'
 >;
 
-export const meta: Route.MetaFunction = ({data}) => {
-  return [{title: `HAMZA KING | ${data?.policy.title ?? ''}`}];
-};
+export const meta: Route.MetaFunction = ({data, matches, location}) =>
+  seoMeta({
+    matches,
+    location,
+    title: data?.policy.title ?? 'Conditions',
+    description: `${data?.policy.title ?? 'Conditions'} de HAMZA KING : livraison gratuite au Maroc, paiement à la livraison, échange de pointure gratuit sous 7 jours.`,
+  });
 
 export async function loader({params, context}: Route.LoaderArgs) {
   if (!params.handle) {

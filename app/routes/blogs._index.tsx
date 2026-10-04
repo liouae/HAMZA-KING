@@ -1,3 +1,4 @@
+import {seoMeta} from '~/lib/seo';
 import {Link, useLoaderData} from 'react-router';
 import type {Route} from './+types/blogs._index';
 import {getPaginationVariables} from '@shopify/hydrogen';
@@ -6,9 +7,8 @@ import type {BlogsQuery} from 'storefrontapi.generated';
 
 type BlogNode = BlogsQuery['blogs']['nodes'][0];
 
-export const meta: Route.MetaFunction = () => {
-  return [{title: `HAMZA KING | Journal`}];
-};
+export const meta: Route.MetaFunction = ({matches, location}) =>
+  seoMeta({matches, location, title: 'Journal — guides sneakers et running'});
 
 export async function loader(args: Route.LoaderArgs) {
   // Start fetching non-critical data without blocking time to first byte

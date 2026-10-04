@@ -7,6 +7,8 @@ import {
   type CardProduct,
 } from '~/components/ProductItem';
 import {COLLECTION_IMAGES} from '~/lib/content';
+import {BRAND, BRANDS} from '~/lib/config';
+import {breadcrumbLd, faqLd, itemListLd, seoMeta, siteUrl} from '~/lib/seo';
 import {CollectionView, type Filter} from '~/components/CollectionView';
 import {
   FILTERS_SELECTION,
@@ -15,22 +17,45 @@ import {
   getSort,
 } from '~/lib/collection';
 
-export const meta: Route.MetaFunction = ({data}) => {
-  return [
-    {
-      title: `HAMZA KING | ${data?.collection.seo?.title || data?.collection.title || ''}`,
-    },
-    {
-      name: 'description',
-      content:
-        data?.collection.seo?.description || data?.collection.description || '',
-    },
-    {property: 'og:image', content: data?.collection.image?.url ?? ''},
+export const meta: Route.MetaFunction = ({data, matches, location}) => {
+  const c = data?.collection;
+  if (!c) return [{title: BRAND.name}];
+  const base = siteUrl(matches);
+  const path = `/collections/${c.handle}`;
+  const nodes = c.products.nodes as CardProduct[];
+  const prices = nodes
+    .map((n) => Number(n.priceRange.minVariantPrice.amount))
+    .filter(Boolean);
+  const from = prices.length ? Math.round(Math.min(...prices)) : 0;
+  const isBrand = BRANDS.some((b) => b.handle === c.handle);
+  const faq = data.faq ?? [];
+  const ld: Record<string, unknown>[] = [];
+  if (base && nodes.length) {
+    ld.push(
+      itemListLd(base, c.title, path, nodes),
+      breadcrumbLd(base, [
+        {name: 'Accueil', path: '/'},
+        ...(isBrand ? [{name: 'Marques', path: '/marques'}] : []),
+        {name: c.title},
+      ]),
+    );
+    const f = faqLd(faq);
+    if (f) ld.push(f);
+  }
+  return seoMeta({
+    matches,
+    location,
+    path,
+    title: c.seo?.title || `${c.title} au Maroc`,
+    description:
+      c.seo?.description ||
+      c.description ||
+      `${c.title} au Maroc${from ? ` à partir de ${from} DH` : ''}. Livraison gratuite, paiement à la livraison.`,
+    image: c.image?.url ?? nodes[0]?.featuredImage?.url,
     // Empty selections stay out of Google until they have stock.
-    ...(data && !data.collection.products.nodes.length
-      ? [{name: 'robots', content: 'noindex, follow'}]
-      : []),
-  ];
+    noindex: nodes.length === 0 && !location.search,
+    jsonLd: ld,
+  });
 };
 
 export async function loader({context, params, request}: Route.LoaderArgs) {
@@ -58,11 +83,25 @@ export async function loader({context, params, request}: Route.LoaderArgs) {
 
   redirectIfHandleIsLocalized(request, {handle, data: collection});
 
-  return {collection, sort};
+  let faq: {q: string; a: string}[] = [];
+  try {
+    const parsed = JSON.parse(collection.faq?.value ?? '[]') as unknown;
+    if (Array.isArray(parsed)) {
+      faq = parsed.filter(
+        (f): f is {q: string; a: string} =>
+          typeof (f as {q?: unknown})?.q === 'string' &&
+          typeof (f as {a?: unknown})?.a === 'string',
+      );
+    }
+  } catch {
+    /* ignore malformed FAQ */
+  }
+
+  return {collection, sort, faq};
 }
 
 export default function Collection() {
-  const {collection, sort} = useLoaderData<typeof loader>();
+  const {collection, sort, faq} = useLoaderData<typeof loader>();
 
   return (
     <>
@@ -77,6 +116,8 @@ export default function Collection() {
         sort={sort}
         handle={collection.handle}
         image={collection.image ?? COLLECTION_IMAGES[collection.handle]}
+        seoBody={collection.seoBody?.value}
+        faq={faq}
       />
       <Analytics.CollectionView
         data={{collection: {id: collection.id, handle: collection.handle}}}
@@ -114,6 +155,12 @@ const COLLECTION_QUERY = `#graphql
       seo {
         title
         description
+      }
+      seoBody: metafield(namespace: "custom", key: "seo_body") {
+        value
+      }
+      faq: metafield(namespace: "custom", key: "faq") {
+        value
       }
       products(
         first: $first

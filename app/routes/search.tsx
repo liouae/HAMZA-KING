@@ -1,3 +1,4 @@
+import {seoMeta} from '~/lib/seo';
 import {useLoaderData} from 'react-router';
 import {track} from '~/lib/tracking';
 import {useEffect} from 'react';
@@ -20,9 +21,8 @@ import type {
   PredictiveSearchQuery,
 } from 'storefrontapi.generated';
 
-export const meta: Route.MetaFunction = () => {
-  return [{title: `HAMZA KING | Recherche`}];
-};
+export const meta: Route.MetaFunction = ({matches, location}) =>
+  seoMeta({matches, location, title: 'Recherche', noindex: true});
 
 export async function loader({request, context}: Route.LoaderArgs) {
   const url = new URL(request.url);

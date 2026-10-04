@@ -1,3 +1,4 @@
+import {seoMeta} from '~/lib/seo';
 import {Await, Link, useRouteLoaderData} from 'react-router';
 import {SmartImage} from '~/components/SmartImage';
 import {Suspense, useMemo, useState} from 'react';
@@ -10,14 +11,15 @@ import {useLive} from '~/lib/live';
 import {brandLinks} from '~/lib/navigation';
 import {IconArrow, IconSearch} from '~/components/Icons';
 
-export const meta: Route.MetaFunction = () => [
-  {title: `Toutes les marques | ${BRAND.name}`},
-  {
-    name: 'description',
-    content:
+export const meta: Route.MetaFunction = ({matches, location}) =>
+  seoMeta({
+    matches,
+    location,
+    path: '/marques',
+    title: 'Marques de sneakers au Maroc',
+    description:
       'Toutes les marques de sneakers disponibles chez HAMZA KING. Livraison gratuite partout au Maroc, paiement à la livraison.',
-  },
-];
+  });
 
 export default function BrandsPage() {
   const root = useRouteLoaderData<RootLoader>('root');

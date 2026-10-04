@@ -72,6 +72,8 @@ export function CollectionView({
   sort,
   handle = '',
   image,
+  seoBody,
+  faq = [],
 }: {
   title: string;
   description?: string | null;
@@ -81,6 +83,9 @@ export function CollectionView({
   sort: SortValue;
   handle?: string;
   image?: HeroImage | null;
+  /** Long SEO copy (trusted HTML from Shopify metafield custom.seo_body). */
+  seoBody?: string | null;
+  faq?: {q: string; a: string}[];
 }) {
   const [panelOpen, setPanelOpen] = useState(true);
   const [mobileOpen, setMobileOpen] = useState(false);
@@ -346,10 +351,30 @@ export function CollectionView({
           )}
         </div>
       </div>
-      {description && description.length > 160 ? (
+      {seoBody ? (
+        <section className="container plp-seo plp-seo--rich">
+          <p className="eyebrow">À propos</p>
+          <div className="rte" dangerouslySetInnerHTML={{__html: seoBody}} />
+        </section>
+      ) : description && description.length > 160 ? (
         <section className="container plp-seo">
           <p className="eyebrow">À propos</p>
           <p>{description}</p>
+        </section>
+      ) : null}
+      {faq.length ? (
+        <section className="container plp-faq" aria-labelledby="plp-faq-title">
+          <h2 id="plp-faq-title" className="display-s">
+            Questions fréquentes
+          </h2>
+          <div className="plp-faq-list">
+            {faq.map((f) => (
+              <details key={f.q}>
+                <summary>{f.q}</summary>
+                <p>{f.a}</p>
+              </details>
+            ))}
+          </div>
         </section>
       ) : null}
     </div>

@@ -13,6 +13,7 @@ import {Price} from '~/components/Price';
 import {IconArrow} from '~/components/Icons';
 import {BRAND, CATEGORIES, SOCIALS, TRUST, type Brand} from '~/lib/config';
 import {useLive} from '~/lib/live';
+import {organizationLd, seoMeta, siteUrl, websiteLd} from '~/lib/seo';
 import {
   ReviewCard,
   Stars,
@@ -33,32 +34,17 @@ import {
 import type {RootLoader} from '~/root';
 import type {MenuImages} from '~/components/Header';
 
-export const meta: Route.MetaFunction = () => {
-  return [
-    {title: `${BRAND.name} | Sneakers au Maroc · Livraison gratuite`},
-    {name: 'description', content: BRAND.tagline},
-    {
-      property: 'og:title',
-      content: `${BRAND.name} | Sneakers au Maroc · Livraison gratuite`,
-    },
-    {property: 'og:description', content: BRAND.tagline},
-    {property: 'og:url', content: SITE.url},
-    {
-      'script:ld+json': {
-        '@context': 'https://schema.org',
-        '@type': 'Organization',
-        name: BRAND.name,
-        url: SITE.url,
-        logo: `${SITE.url}/brand/icon-512.png`,
-        sameAs: SOCIALS.map((s) => s.url),
-        address: {
-          '@type': 'PostalAddress',
-          addressLocality: SITE.city,
-          addressCountry: 'MA',
-        },
-      },
-    },
-  ];
+export const meta: Route.MetaFunction = ({matches, location}) => {
+  const base = siteUrl(matches);
+  return seoMeta({
+    matches,
+    location,
+    path: '/',
+    title: 'Sneakers au Maroc — Livraison gratuite, paiement à la livraison',
+    description:
+      'Sneakers homme, femme et enfant au Maroc : running, lifestyle, basket. Livraison gratuite partout, paiement à la livraison, échange de pointure gratuit sous 7 jours.',
+    jsonLd: base ? [organizationLd(base), websiteLd(base)] : [],
+  });
 };
 
 export async function loader(args: Route.LoaderArgs) {

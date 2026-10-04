@@ -18,21 +18,20 @@ import {IconCheck, IconStar, IconWhatsApp} from '~/components/Icons';
 import {BRAND, SOCIALS, whatsappLink} from '~/lib/config';
 import {SITE} from '~/lib/content';
 import {loadStoreReviews} from '~/lib/reviews';
+import {seoMeta} from '~/lib/seo';
 import {adminCreds, adminGraphql} from '~/lib/admin.server';
 
-export const meta: Route.MetaFunction = ({data}) => {
+export const meta: Route.MetaFunction = ({data, matches, location}) => {
   const s = data?.stats;
-  const title = `Avis clients | ${BRAND.name}`;
-  const description = s?.count
-    ? `${s.average.toFixed(1).replace('.', ',')}/5 sur ${s.count} avis de clients ${BRAND.name} au Maroc. Lis leurs retours sur la livraison, les pointures et les paires.`
-    : `Les avis des clients ${BRAND.name} : livraison, pointures, paires reçues. Commandé chez nous ? Laisse ton avis.`;
-  return [
-    {title},
-    {name: 'description', content: description},
-    {property: 'og:title', content: title},
-    {property: 'og:description', content: description},
-    {tagName: 'link', rel: 'canonical', href: `${SITE.url}/avis`},
-  ];
+  return seoMeta({
+    matches,
+    location,
+    path: '/avis',
+    title: 'Avis clients — livraisons, pointures, service',
+    description: s?.count
+      ? `${s.average.toFixed(1).replace('.', ',')}/5 sur ${s.count} avis de clients ${BRAND.name} au Maroc : livraison, pointures, paires reçues.`
+      : `Les avis des clients ${BRAND.name} : livraison, pointures, paires reçues. Commandé chez nous ? Laisse ton avis.`,
+  });
 };
 
 export async function loader({context, request}: Route.LoaderArgs) {

@@ -7,8 +7,11 @@
 import {SHIPPING} from './config';
 
 export const SITE = {
-  /** Your public domain once connected (no trailing slash). */
-  url: 'https://hamzaking.ma',
+  /**
+   * Public domain once connected (no trailing slash), e.g. 'https://hamzaking.ma'.
+   * Leave '' to use PUBLIC_SITE_URL or the address the site is served from.
+   */
+  url: '',
   locale: 'fr_MA',
   city: 'Casablanca',
   /** Opening hours shown on the contact page. */
@@ -115,10 +118,22 @@ export const ICON_MODELS: IconModel[] = [
 
 /* ---------- Guides (blog articles) linked from the menu ---------- */
 export const GUIDES = [
-  {label: 'Comment choisir sa pointure ?', to: '/pages/guide-des-tailles'},
-  {label: 'Livraison et paiement à la livraison', to: '/pages/faq'},
-  {label: 'Entretenir ses sneakers', to: '/blogs/journal'},
-  {label: 'Quelle paire pour courir au Maroc ?', to: '/blogs/journal'},
+  {
+    label: 'Quelle taille prendre ? (par modèle)',
+    to: '/blogs/journal/taille-sneakers-par-marque',
+  },
+  {
+    label: 'Livraison et paiement à la livraison',
+    to: '/livraison',
+  },
+  {
+    label: 'Entretenir ses sneakers',
+    to: '/blogs/journal/entretenir-ses-sneakers-poussiere-chaleur',
+  },
+  {
+    label: 'Quelle paire pour courir au Maroc ?',
+    to: '/blogs/journal/meilleures-chaussures-running-maroc',
+  },
 ];
 
 /* ---------- Popular categories (SEO grid at the bottom of the home) ---------- */

@@ -1,3 +1,4 @@
+import {seoMeta} from '~/lib/seo';
 import {Link, useLoaderData} from 'react-router';
 import type {Route} from './+types/blogs.$blogHandle._index';
 import {Image, getPaginationVariables} from '@shopify/hydrogen';
@@ -5,9 +6,14 @@ import type {ArticleItemFragment} from 'storefrontapi.generated';
 import {PaginatedResourceSection} from '~/components/PaginatedResourceSection';
 import {redirectIfHandleIsLocalized} from '~/lib/redirect';
 
-export const meta: Route.MetaFunction = ({data}) => {
-  return [{title: `HAMZA KING | ${data?.blog.title ?? ''} blog`}];
-};
+export const meta: Route.MetaFunction = ({data, matches, location}) =>
+  seoMeta({
+    matches,
+    location,
+    title: `${data?.blog.title ?? 'Journal'} — guides sneakers et running`,
+    description:
+      'Guides pointure, entretien, running et nouveautés sneakers au Maroc, par HAMZA KING.',
+  });
 
 export async function loader(args: Route.LoaderArgs) {
   // Start fetching non-critical data without blocking time to first byte

@@ -1,8 +1,17 @@
 import type {Route} from './+types/[robots.txt]';
+import {resolveSiteUrl} from '~/lib/seo';
 
-export function loader({request}: Route.LoaderArgs) {
+export function loader({request, context}: Route.LoaderArgs) {
   const url = new URL(request.url);
-  const body = robotsTxtData({url: url.origin});
+  const canonical = resolveSiteUrl(request, context.env);
+  // Any host other than the canonical domain (e.g. the *.myshopify.dev
+  // preview once the domain is attached) must stay out of Google.
+  if (new URL(canonical).host !== url.host) {
+    return new Response('User-agent: *\nDisallow: /\n', {
+      headers: {'Content-Type': 'text/plain'},
+    });
+  }
+  const body = robotsTxtData({url: canonical});
 
   return new Response(body, {
     status: 200,
@@ -72,7 +81,12 @@ Disallow: /*/blogs/*%2B*
 Disallow: /*/blogs/*%2b*
 Disallow: /policies/
 Disallow: /search
-Allow: /search/
-Disallow: /search/?*
+Disallow: /suivi
+Disallow: /*?*filter=
+Disallow: /*?*sort=
+Disallow: /*?*cursor=
+Disallow: /*?*direction=
+Disallow: /*?*price.min=
+Disallow: /*?*price.max=
 ${sitemapUrl ? `Sitemap: ${sitemapUrl}` : ''}`;
 }

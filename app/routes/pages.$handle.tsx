@@ -1,3 +1,4 @@
+import {faqLd, seoMeta} from '~/lib/seo';
 import {Link, useLoaderData} from 'react-router';
 import {useWhatsAppLink} from '~/lib/whatsapp';
 import type {Route} from './+types/pages.$handle';
@@ -16,15 +17,26 @@ import {
   IconWhatsApp,
 } from '~/components/Icons';
 
-export const meta: Route.MetaFunction = ({data}) => {
+export const meta: Route.MetaFunction = ({data, matches, location}) => {
   const title = data?.page?.title ?? data?.builtin?.title ?? '';
-  return [
-    {title: `${title} | ${BRAND.name}`},
-    {
-      name: 'description',
-      content: data?.page?.seo?.description ?? data?.builtin?.intro ?? '',
-    },
-  ];
+  const isFaq = data?.handle === 'faq';
+  const faq = isFaq ? faqLd(FAQ.map((f) => ({q: f.q, a: f.a}))) : null;
+  return seoMeta({
+    matches,
+    location,
+    path: `/pages/${data?.handle ?? ''}`,
+    title: data?.page?.seo?.title || PAGE_TITLES[data?.handle ?? ''] || title,
+    description:
+      data?.page?.seo?.description ?? data?.builtin?.intro ?? undefined,
+    jsonLd: faq ? [faq] : [],
+  });
+};
+
+const PAGE_TITLES: Record<string, string> = {
+  faq: 'Questions fréquentes — livraison, paiement, pointure',
+  'guide-des-tailles': 'Guide des tailles sneakers (EU, US, UK, cm)',
+  contact: 'Contact — WhatsApp, Instagram, e-mail',
+  'a-propos': 'Notre histoire — sneakers à Casablanca',
 };
 
 export async function loader({context, request, params}: Route.LoaderArgs) {

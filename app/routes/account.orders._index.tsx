@@ -30,7 +30,7 @@ type OrdersLoaderData = {
 };
 
 export const meta: Route.MetaFunction = () => {
-  return [{title: 'Orders'}];
+  return [{title: 'Mes commandes'}, {name: 'robots', content: 'noindex'}];
 };
 
 export async function loader({request, context}: Route.LoaderArgs) {

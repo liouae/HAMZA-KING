@@ -1,4 +1,15 @@
 import {useLoaderData, Link} from 'react-router';
+import {seoMeta} from '~/lib/seo';
+
+export const meta: Route.MetaFunction = ({matches, location}) =>
+  seoMeta({
+    matches,
+    location,
+    path: '/collections',
+    title: 'Collections sneakers au Maroc',
+    description:
+      'Toutes nos collections : running, lifestyle, basket, outdoor, homme, femme, enfant. Livraison gratuite au Maroc, paiement à la livraison.',
+  });
 import type {Route} from './+types/collections._index';
 import {getPaginationVariables} from '@shopify/hydrogen';
 import {SmartImage} from '~/components/SmartImage';

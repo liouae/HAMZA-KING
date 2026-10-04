@@ -8,7 +8,10 @@ import type {
 import {CUSTOMER_ORDER_QUERY} from '~/graphql/customer-account/CustomerOrderQuery';
 
 export const meta: Route.MetaFunction = ({data}) => {
-  return [{title: `Commande ${data?.order?.name}`}];
+  return [
+    {title: `Commande ${data?.order?.name}`},
+    {name: 'robots', content: 'noindex'},
+  ];
 };
 
 export async function loader({params, context}: Route.LoaderArgs) {

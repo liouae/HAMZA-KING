@@ -1,3 +1,4 @@
+import {resolveSiteUrl, seoMeta} from '~/lib/seo';
 import {loadEmptyCollections} from '~/lib/live';
 import {Analytics, getShopAnalytics, useNonce} from '@shopify/hydrogen';
 import {hasTrackingConsent} from '~/lib/ui';
@@ -82,14 +83,13 @@ export function links() {
   ];
 }
 
-export const meta: Route.MetaFunction = () => [
-  {title: `${BRAND.name} | Sneakers au Maroc · Livraison gratuite`},
-  {name: 'description', content: BRAND.tagline},
-  {property: 'og:site_name', content: BRAND.name},
-  {property: 'og:type', content: 'website'},
-  {property: 'og:locale', content: SITE.locale},
-  {name: 'twitter:card', content: 'summary_large_image'},
-];
+export const meta: Route.MetaFunction = ({matches, location}) =>
+  seoMeta({
+    matches,
+    location,
+    title: 'Sneakers au Maroc · Livraison gratuite',
+    description: BRAND.tagline,
+  });
 
 export async function loader(args: Route.LoaderArgs) {
   // Start fetching non-critical data without blocking time to first byte
@@ -105,6 +105,7 @@ export async function loader(args: Route.LoaderArgs) {
     ...criticalData,
     publicStoreDomain: env.PUBLIC_STORE_DOMAIN,
     origin: new URL(args.request.url).origin,
+    siteUrl: resolveSiteUrl(args.request, env),
     tracking: {
       ga4: env.PUBLIC_GA4_ID || TRACKING.ga4,
       metaPixel: env.PUBLIC_META_PIXEL_ID || TRACKING.metaPixel,
@@ -227,7 +228,7 @@ export function Layout({children}: {children?: React.ReactNode}) {
   const nonce = useNonce();
 
   return (
-    <html lang="fr" suppressHydrationWarning>
+    <html lang="fr-MA" suppressHydrationWarning>
       <head>
         <meta charSet="utf-8" />
         <meta name="viewport" content="width=device-width,initial-scale=1" />
@@ -251,7 +252,6 @@ export function Layout({children}: {children?: React.ReactNode}) {
         <link rel="stylesheet" href={appStyles}></link>
         <Meta />
         <Links />
-        <DefaultSocialTags />
         <VerificationTags />
         <script
           nonce={nonce}
@@ -267,20 +267,6 @@ export function Layout({children}: {children?: React.ReactNode}) {
         <Scripts nonce={nonce} />
       </body>
     </html>
-  );
-}
-
-/** Fallback share image for pages that don't set their own (Meta takes the first og:image). */
-function DefaultSocialTags() {
-  const data = useRouteLoaderData<RootLoader>('root');
-  const origin = data?.origin ?? SITE.url;
-  return (
-    <>
-      <meta property="og:image" content={`${origin}/brand/og-image.jpg`} />
-      <meta property="og:image:width" content="1200" />
-      <meta property="og:image:height" content="630" />
-      <meta name="twitter:image" content={`${origin}/brand/og-image.jpg`} />
-    </>
   );
 }
 
