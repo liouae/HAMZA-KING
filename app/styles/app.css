@@ -5807,3 +5807,20 @@ body:has(.consent) .wa-float {
 .contact-social-link:hover {
   color: var(--ink);
 }
+
+/* Card colour dots: hover to preview a colour */
+.card-dots {
+  gap: 6px;
+}
+.card-dots i {
+  width: 12px;
+  height: 12px;
+  cursor: pointer;
+  outline: 1px solid transparent;
+  outline-offset: 2px;
+  transition: outline-color 0.2s var(--ease);
+}
+.card-dots i.is-active,
+.card-dots i:hover {
+  outline-color: var(--ink);
+}

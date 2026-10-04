@@ -53,6 +53,12 @@ export type ProductCardFragment = Pick<
         compareAtPrice?: StorefrontAPI.Maybe<
           Pick<StorefrontAPI.MoneyV2, 'amount' | 'currencyCode'>
         >;
+        image?: StorefrontAPI.Maybe<
+          Pick<
+            StorefrontAPI.Image,
+            'id' | 'url' | 'altText' | 'width' | 'height'
+          >
+        >;
       }
     >;
   };
@@ -536,6 +542,12 @@ export type HomeNewestQuery = {
               compareAtPrice?: StorefrontAPI.Maybe<
                 Pick<StorefrontAPI.MoneyV2, 'amount' | 'currencyCode'>
               >;
+              image?: StorefrontAPI.Maybe<
+                Pick<
+                  StorefrontAPI.Image,
+                  'id' | 'url' | 'altText' | 'width' | 'height'
+                >
+              >;
             }
           >;
         };
@@ -612,6 +624,12 @@ export type HomeBestQuery = {
               price: Pick<StorefrontAPI.MoneyV2, 'amount' | 'currencyCode'>;
               compareAtPrice?: StorefrontAPI.Maybe<
                 Pick<StorefrontAPI.MoneyV2, 'amount' | 'currencyCode'>
+              >;
+              image?: StorefrontAPI.Maybe<
+                Pick<
+                  StorefrontAPI.Image,
+                  'id' | 'url' | 'altText' | 'width' | 'height'
+                >
               >;
             }
           >;
@@ -690,6 +708,12 @@ export type HomeIconsQuery = {
               compareAtPrice?: StorefrontAPI.Maybe<
                 Pick<StorefrontAPI.MoneyV2, 'amount' | 'currencyCode'>
               >;
+              image?: StorefrontAPI.Maybe<
+                Pick<
+                  StorefrontAPI.Image,
+                  'id' | 'url' | 'altText' | 'width' | 'height'
+                >
+              >;
             }
           >;
         };
@@ -767,6 +791,12 @@ export type HomePromoQuery = {
                 price: Pick<StorefrontAPI.MoneyV2, 'amount' | 'currencyCode'>;
                 compareAtPrice?: StorefrontAPI.Maybe<
                   Pick<StorefrontAPI.MoneyV2, 'amount' | 'currencyCode'>
+                >;
+                image?: StorefrontAPI.Maybe<
+                  Pick<
+                    StorefrontAPI.Image,
+                    'id' | 'url' | 'altText' | 'width' | 'height'
+                  >
                 >;
               }
             >;
@@ -848,6 +878,12 @@ export type ProductsByHandleQuery = {
               compareAtPrice?: StorefrontAPI.Maybe<
                 Pick<StorefrontAPI.MoneyV2, 'amount' | 'currencyCode'>
               >;
+              image?: StorefrontAPI.Maybe<
+                Pick<
+                  StorefrontAPI.Image,
+                  'id' | 'url' | 'altText' | 'width' | 'height'
+                >
+              >;
             }
           >;
         };
@@ -925,6 +961,12 @@ export type CartRecommendQuery = {
               price: Pick<StorefrontAPI.MoneyV2, 'amount' | 'currencyCode'>;
               compareAtPrice?: StorefrontAPI.Maybe<
                 Pick<StorefrontAPI.MoneyV2, 'amount' | 'currencyCode'>
+              >;
+              image?: StorefrontAPI.Maybe<
+                Pick<
+                  StorefrontAPI.Image,
+                  'id' | 'url' | 'altText' | 'width' | 'height'
+                >
               >;
             }
           >;
@@ -1162,6 +1204,12 @@ export type CollectionQuery = {
                   compareAtPrice?: StorefrontAPI.Maybe<
                     Pick<StorefrontAPI.MoneyV2, 'amount' | 'currencyCode'>
                   >;
+                  image?: StorefrontAPI.Maybe<
+                    Pick<
+                      StorefrontAPI.Image,
+                      'id' | 'url' | 'altText' | 'width' | 'height'
+                    >
+                  >;
                 }
               >;
             };
@@ -1318,6 +1366,12 @@ export type AllCollectionQuery = {
                   compareAtPrice?: StorefrontAPI.Maybe<
                     Pick<StorefrontAPI.MoneyV2, 'amount' | 'currencyCode'>
                   >;
+                  image?: StorefrontAPI.Maybe<
+                    Pick<
+                      StorefrontAPI.Image,
+                      'id' | 'url' | 'altText' | 'width' | 'height'
+                    >
+                  >;
                 }
               >;
             };
@@ -1410,6 +1464,12 @@ export type CatalogQuery = {
               price: Pick<StorefrontAPI.MoneyV2, 'amount' | 'currencyCode'>;
               compareAtPrice?: StorefrontAPI.Maybe<
                 Pick<StorefrontAPI.MoneyV2, 'amount' | 'currencyCode'>
+              >;
+              image?: StorefrontAPI.Maybe<
+                Pick<
+                  StorefrontAPI.Image,
+                  'id' | 'url' | 'altText' | 'width' | 'height'
+                >
               >;
             }
           >;
@@ -1868,6 +1928,12 @@ export type ProductRecommendationsQuery = {
               compareAtPrice?: StorefrontAPI.Maybe<
                 Pick<StorefrontAPI.MoneyV2, 'amount' | 'currencyCode'>
               >;
+              image?: StorefrontAPI.Maybe<
+                Pick<
+                  StorefrontAPI.Image,
+                  'id' | 'url' | 'altText' | 'width' | 'height'
+                >
+              >;
             }
           >;
         };
@@ -1946,6 +2012,12 @@ export type SimilarProductsQuery = {
               compareAtPrice?: StorefrontAPI.Maybe<
                 Pick<StorefrontAPI.MoneyV2, 'amount' | 'currencyCode'>
               >;
+              image?: StorefrontAPI.Maybe<
+                Pick<
+                  StorefrontAPI.Image,
+                  'id' | 'url' | 'altText' | 'width' | 'height'
+                >
+              >;
             }
           >;
         };
@@ -2000,6 +2072,12 @@ export type SearchProductFragment = {__typename: 'Product'} & Pick<
           price: Pick<StorefrontAPI.MoneyV2, 'amount' | 'currencyCode'>;
           compareAtPrice?: StorefrontAPI.Maybe<
             Pick<StorefrontAPI.MoneyV2, 'amount' | 'currencyCode'>
+          >;
+          image?: StorefrontAPI.Maybe<
+            Pick<
+              StorefrontAPI.Image,
+              'id' | 'url' | 'altText' | 'width' | 'height'
+            >
           >;
         }
       >;
@@ -2115,6 +2193,12 @@ export type RegularSearchQuery = {
                 price: Pick<StorefrontAPI.MoneyV2, 'amount' | 'currencyCode'>;
                 compareAtPrice?: StorefrontAPI.Maybe<
                   Pick<StorefrontAPI.MoneyV2, 'amount' | 'currencyCode'>
+                >;
+                image?: StorefrontAPI.Maybe<
+                  Pick<
+                    StorefrontAPI.Image,
+                    'id' | 'url' | 'altText' | 'width' | 'height'
+                  >
                 >;
               }
             >;
@@ -2254,27 +2338,27 @@ interface GeneratedQueryTypes {
     return: MenuCollectionsQuery;
     variables: MenuCollectionsQueryVariables;
   };
-  '#graphql\n  query HomeNewest($country: CountryCode, $language: LanguageCode)\n  @inContext(country: $country, language: $language) {\n    newest: products(first: 12, sortKey: CREATED_AT, reverse: true) {\n      nodes {\n        ...ProductCard\n      }\n    }\n  }\n  #graphql\n  fragment CardMoney on MoneyV2 {\n    amount\n    currencyCode\n  }\n  fragment CardImage on Image {\n    id\n    url\n    altText\n    width\n    height\n  }\n  fragment ProductCard on Product {\n    id\n    handle\n    title\n    vendor\n    productType\n    tags\n    publishedAt\n    featuredImage {\n      ...CardImage\n    }\n    images(first: 2) {\n      nodes {\n        ...CardImage\n      }\n    }\n    priceRange {\n      minVariantPrice {\n        ...CardMoney\n      }\n      maxVariantPrice {\n        ...CardMoney\n      }\n    }\n    compareAtPriceRange {\n      maxVariantPrice {\n        ...CardMoney\n      }\n    }\n    options(first: 3) {\n      name\n      optionValues {\n        name\n        swatch {\n          color\n        }\n      }\n    }\n    variants(first: 40) {\n      nodes {\n        id\n        availableForSale\n        selectedOptions {\n          name\n          value\n        }\n        price {\n          ...CardMoney\n        }\n        compareAtPrice {\n          ...CardMoney\n        }\n      }\n    }\n  }\n\n': {
+  '#graphql\n  query HomeNewest($country: CountryCode, $language: LanguageCode)\n  @inContext(country: $country, language: $language) {\n    newest: products(first: 12, sortKey: CREATED_AT, reverse: true) {\n      nodes {\n        ...ProductCard\n      }\n    }\n  }\n  #graphql\n  fragment CardMoney on MoneyV2 {\n    amount\n    currencyCode\n  }\n  fragment CardImage on Image {\n    id\n    url\n    altText\n    width\n    height\n  }\n  fragment ProductCard on Product {\n    id\n    handle\n    title\n    vendor\n    productType\n    tags\n    publishedAt\n    featuredImage {\n      ...CardImage\n    }\n    images(first: 2) {\n      nodes {\n        ...CardImage\n      }\n    }\n    priceRange {\n      minVariantPrice {\n        ...CardMoney\n      }\n      maxVariantPrice {\n        ...CardMoney\n      }\n    }\n    compareAtPriceRange {\n      maxVariantPrice {\n        ...CardMoney\n      }\n    }\n    options(first: 3) {\n      name\n      optionValues {\n        name\n        swatch {\n          color\n        }\n      }\n    }\n    variants(first: 40) {\n      nodes {\n        id\n        availableForSale\n        selectedOptions {\n          name\n          value\n        }\n        price {\n          ...CardMoney\n        }\n        compareAtPrice {\n          ...CardMoney\n        }\n        image {\n          ...CardImage\n        }\n      }\n    }\n  }\n\n': {
     return: HomeNewestQuery;
     variables: HomeNewestQueryVariables;
   };
-  '#graphql\n  query HomeBest($country: CountryCode, $language: LanguageCode)\n  @inContext(country: $country, language: $language) {\n    best: products(first: 12, sortKey: BEST_SELLING) {\n      nodes {\n        ...ProductCard\n      }\n    }\n  }\n  #graphql\n  fragment CardMoney on MoneyV2 {\n    amount\n    currencyCode\n  }\n  fragment CardImage on Image {\n    id\n    url\n    altText\n    width\n    height\n  }\n  fragment ProductCard on Product {\n    id\n    handle\n    title\n    vendor\n    productType\n    tags\n    publishedAt\n    featuredImage {\n      ...CardImage\n    }\n    images(first: 2) {\n      nodes {\n        ...CardImage\n      }\n    }\n    priceRange {\n      minVariantPrice {\n        ...CardMoney\n      }\n      maxVariantPrice {\n        ...CardMoney\n      }\n    }\n    compareAtPriceRange {\n      maxVariantPrice {\n        ...CardMoney\n      }\n    }\n    options(first: 3) {\n      name\n      optionValues {\n        name\n        swatch {\n          color\n        }\n      }\n    }\n    variants(first: 40) {\n      nodes {\n        id\n        availableForSale\n        selectedOptions {\n          name\n          value\n        }\n        price {\n          ...CardMoney\n        }\n        compareAtPrice {\n          ...CardMoney\n        }\n      }\n    }\n  }\n\n': {
+  '#graphql\n  query HomeBest($country: CountryCode, $language: LanguageCode)\n  @inContext(country: $country, language: $language) {\n    best: products(first: 12, sortKey: BEST_SELLING) {\n      nodes {\n        ...ProductCard\n      }\n    }\n  }\n  #graphql\n  fragment CardMoney on MoneyV2 {\n    amount\n    currencyCode\n  }\n  fragment CardImage on Image {\n    id\n    url\n    altText\n    width\n    height\n  }\n  fragment ProductCard on Product {\n    id\n    handle\n    title\n    vendor\n    productType\n    tags\n    publishedAt\n    featuredImage {\n      ...CardImage\n    }\n    images(first: 2) {\n      nodes {\n        ...CardImage\n      }\n    }\n    priceRange {\n      minVariantPrice {\n        ...CardMoney\n      }\n      maxVariantPrice {\n        ...CardMoney\n      }\n    }\n    compareAtPriceRange {\n      maxVariantPrice {\n        ...CardMoney\n      }\n    }\n    options(first: 3) {\n      name\n      optionValues {\n        name\n        swatch {\n          color\n        }\n      }\n    }\n    variants(first: 40) {\n      nodes {\n        id\n        availableForSale\n        selectedOptions {\n          name\n          value\n        }\n        price {\n          ...CardMoney\n        }\n        compareAtPrice {\n          ...CardMoney\n        }\n        image {\n          ...CardImage\n        }\n      }\n    }\n  }\n\n': {
     return: HomeBestQuery;
     variables: HomeBestQueryVariables;
   };
-  '#graphql\n  query HomeIcons($country: CountryCode, $language: LanguageCode)\n  @inContext(country: $country, language: $language) {\n    icons: products(first: 12, sortKey: BEST_SELLING, query: "tag:icone") {\n      nodes {\n        ...ProductCard\n      }\n    }\n  }\n  #graphql\n  fragment CardMoney on MoneyV2 {\n    amount\n    currencyCode\n  }\n  fragment CardImage on Image {\n    id\n    url\n    altText\n    width\n    height\n  }\n  fragment ProductCard on Product {\n    id\n    handle\n    title\n    vendor\n    productType\n    tags\n    publishedAt\n    featuredImage {\n      ...CardImage\n    }\n    images(first: 2) {\n      nodes {\n        ...CardImage\n      }\n    }\n    priceRange {\n      minVariantPrice {\n        ...CardMoney\n      }\n      maxVariantPrice {\n        ...CardMoney\n      }\n    }\n    compareAtPriceRange {\n      maxVariantPrice {\n        ...CardMoney\n      }\n    }\n    options(first: 3) {\n      name\n      optionValues {\n        name\n        swatch {\n          color\n        }\n      }\n    }\n    variants(first: 40) {\n      nodes {\n        id\n        availableForSale\n        selectedOptions {\n          name\n          value\n        }\n        price {\n          ...CardMoney\n        }\n        compareAtPrice {\n          ...CardMoney\n        }\n      }\n    }\n  }\n\n': {
+  '#graphql\n  query HomeIcons($country: CountryCode, $language: LanguageCode)\n  @inContext(country: $country, language: $language) {\n    icons: products(first: 12, sortKey: BEST_SELLING, query: "tag:icone") {\n      nodes {\n        ...ProductCard\n      }\n    }\n  }\n  #graphql\n  fragment CardMoney on MoneyV2 {\n    amount\n    currencyCode\n  }\n  fragment CardImage on Image {\n    id\n    url\n    altText\n    width\n    height\n  }\n  fragment ProductCard on Product {\n    id\n    handle\n    title\n    vendor\n    productType\n    tags\n    publishedAt\n    featuredImage {\n      ...CardImage\n    }\n    images(first: 2) {\n      nodes {\n        ...CardImage\n      }\n    }\n    priceRange {\n      minVariantPrice {\n        ...CardMoney\n      }\n      maxVariantPrice {\n        ...CardMoney\n      }\n    }\n    compareAtPriceRange {\n      maxVariantPrice {\n        ...CardMoney\n      }\n    }\n    options(first: 3) {\n      name\n      optionValues {\n        name\n        swatch {\n          color\n        }\n      }\n    }\n    variants(first: 40) {\n      nodes {\n        id\n        availableForSale\n        selectedOptions {\n          name\n          value\n        }\n        price {\n          ...CardMoney\n        }\n        compareAtPrice {\n          ...CardMoney\n        }\n        image {\n          ...CardImage\n        }\n      }\n    }\n  }\n\n': {
     return: HomeIconsQuery;
     variables: HomeIconsQueryVariables;
   };
-  '#graphql\n  query HomePromo($country: CountryCode, $language: LanguageCode)\n  @inContext(country: $country, language: $language) {\n    collection(handle: "promo") {\n      products(first: 12) {\n        nodes {\n          ...ProductCard\n        }\n      }\n    }\n  }\n  #graphql\n  fragment CardMoney on MoneyV2 {\n    amount\n    currencyCode\n  }\n  fragment CardImage on Image {\n    id\n    url\n    altText\n    width\n    height\n  }\n  fragment ProductCard on Product {\n    id\n    handle\n    title\n    vendor\n    productType\n    tags\n    publishedAt\n    featuredImage {\n      ...CardImage\n    }\n    images(first: 2) {\n      nodes {\n        ...CardImage\n      }\n    }\n    priceRange {\n      minVariantPrice {\n        ...CardMoney\n      }\n      maxVariantPrice {\n        ...CardMoney\n      }\n    }\n    compareAtPriceRange {\n      maxVariantPrice {\n        ...CardMoney\n      }\n    }\n    options(first: 3) {\n      name\n      optionValues {\n        name\n        swatch {\n          color\n        }\n      }\n    }\n    variants(first: 40) {\n      nodes {\n        id\n        availableForSale\n        selectedOptions {\n          name\n          value\n        }\n        price {\n          ...CardMoney\n        }\n        compareAtPrice {\n          ...CardMoney\n        }\n      }\n    }\n  }\n\n': {
+  '#graphql\n  query HomePromo($country: CountryCode, $language: LanguageCode)\n  @inContext(country: $country, language: $language) {\n    collection(handle: "promo") {\n      products(first: 12) {\n        nodes {\n          ...ProductCard\n        }\n      }\n    }\n  }\n  #graphql\n  fragment CardMoney on MoneyV2 {\n    amount\n    currencyCode\n  }\n  fragment CardImage on Image {\n    id\n    url\n    altText\n    width\n    height\n  }\n  fragment ProductCard on Product {\n    id\n    handle\n    title\n    vendor\n    productType\n    tags\n    publishedAt\n    featuredImage {\n      ...CardImage\n    }\n    images(first: 2) {\n      nodes {\n        ...CardImage\n      }\n    }\n    priceRange {\n      minVariantPrice {\n        ...CardMoney\n      }\n      maxVariantPrice {\n        ...CardMoney\n      }\n    }\n    compareAtPriceRange {\n      maxVariantPrice {\n        ...CardMoney\n      }\n    }\n    options(first: 3) {\n      name\n      optionValues {\n        name\n        swatch {\n          color\n        }\n      }\n    }\n    variants(first: 40) {\n      nodes {\n        id\n        availableForSale\n        selectedOptions {\n          name\n          value\n        }\n        price {\n          ...CardMoney\n        }\n        compareAtPrice {\n          ...CardMoney\n        }\n        image {\n          ...CardImage\n        }\n      }\n    }\n  }\n\n': {
     return: HomePromoQuery;
     variables: HomePromoQueryVariables;
   };
-  '#graphql\n  #graphql\n  fragment CardMoney on MoneyV2 {\n    amount\n    currencyCode\n  }\n  fragment CardImage on Image {\n    id\n    url\n    altText\n    width\n    height\n  }\n  fragment ProductCard on Product {\n    id\n    handle\n    title\n    vendor\n    productType\n    tags\n    publishedAt\n    featuredImage {\n      ...CardImage\n    }\n    images(first: 2) {\n      nodes {\n        ...CardImage\n      }\n    }\n    priceRange {\n      minVariantPrice {\n        ...CardMoney\n      }\n      maxVariantPrice {\n        ...CardMoney\n      }\n    }\n    compareAtPriceRange {\n      maxVariantPrice {\n        ...CardMoney\n      }\n    }\n    options(first: 3) {\n      name\n      optionValues {\n        name\n        swatch {\n          color\n        }\n      }\n    }\n    variants(first: 40) {\n      nodes {\n        id\n        availableForSale\n        selectedOptions {\n          name\n          value\n        }\n        price {\n          ...CardMoney\n        }\n        compareAtPrice {\n          ...CardMoney\n        }\n      }\n    }\n  }\n\n  query ProductsByHandle($query: String!, $first: Int!, $country: CountryCode, $language: LanguageCode)\n  @inContext(country: $country, language: $language) {\n    products(first: $first, query: $query) {\n      nodes {\n        ...ProductCard\n      }\n    }\n  }\n': {
+  '#graphql\n  #graphql\n  fragment CardMoney on MoneyV2 {\n    amount\n    currencyCode\n  }\n  fragment CardImage on Image {\n    id\n    url\n    altText\n    width\n    height\n  }\n  fragment ProductCard on Product {\n    id\n    handle\n    title\n    vendor\n    productType\n    tags\n    publishedAt\n    featuredImage {\n      ...CardImage\n    }\n    images(first: 2) {\n      nodes {\n        ...CardImage\n      }\n    }\n    priceRange {\n      minVariantPrice {\n        ...CardMoney\n      }\n      maxVariantPrice {\n        ...CardMoney\n      }\n    }\n    compareAtPriceRange {\n      maxVariantPrice {\n        ...CardMoney\n      }\n    }\n    options(first: 3) {\n      name\n      optionValues {\n        name\n        swatch {\n          color\n        }\n      }\n    }\n    variants(first: 40) {\n      nodes {\n        id\n        availableForSale\n        selectedOptions {\n          name\n          value\n        }\n        price {\n          ...CardMoney\n        }\n        compareAtPrice {\n          ...CardMoney\n        }\n        image {\n          ...CardImage\n        }\n      }\n    }\n  }\n\n  query ProductsByHandle($query: String!, $first: Int!, $country: CountryCode, $language: LanguageCode)\n  @inContext(country: $country, language: $language) {\n    products(first: $first, query: $query) {\n      nodes {\n        ...ProductCard\n      }\n    }\n  }\n': {
     return: ProductsByHandleQuery;
     variables: ProductsByHandleQueryVariables;
   };
-  '#graphql\n  #graphql\n  fragment CardMoney on MoneyV2 {\n    amount\n    currencyCode\n  }\n  fragment CardImage on Image {\n    id\n    url\n    altText\n    width\n    height\n  }\n  fragment ProductCard on Product {\n    id\n    handle\n    title\n    vendor\n    productType\n    tags\n    publishedAt\n    featuredImage {\n      ...CardImage\n    }\n    images(first: 2) {\n      nodes {\n        ...CardImage\n      }\n    }\n    priceRange {\n      minVariantPrice {\n        ...CardMoney\n      }\n      maxVariantPrice {\n        ...CardMoney\n      }\n    }\n    compareAtPriceRange {\n      maxVariantPrice {\n        ...CardMoney\n      }\n    }\n    options(first: 3) {\n      name\n      optionValues {\n        name\n        swatch {\n          color\n        }\n      }\n    }\n    variants(first: 40) {\n      nodes {\n        id\n        availableForSale\n        selectedOptions {\n          name\n          value\n        }\n        price {\n          ...CardMoney\n        }\n        compareAtPrice {\n          ...CardMoney\n        }\n      }\n    }\n  }\n\n  query CartRecommend($handle: String!, $country: CountryCode, $language: LanguageCode)\n  @inContext(country: $country, language: $language) {\n    productRecommendations(productHandle: $handle) {\n      ...ProductCard\n    }\n  }\n': {
+  '#graphql\n  #graphql\n  fragment CardMoney on MoneyV2 {\n    amount\n    currencyCode\n  }\n  fragment CardImage on Image {\n    id\n    url\n    altText\n    width\n    height\n  }\n  fragment ProductCard on Product {\n    id\n    handle\n    title\n    vendor\n    productType\n    tags\n    publishedAt\n    featuredImage {\n      ...CardImage\n    }\n    images(first: 2) {\n      nodes {\n        ...CardImage\n      }\n    }\n    priceRange {\n      minVariantPrice {\n        ...CardMoney\n      }\n      maxVariantPrice {\n        ...CardMoney\n      }\n    }\n    compareAtPriceRange {\n      maxVariantPrice {\n        ...CardMoney\n      }\n    }\n    options(first: 3) {\n      name\n      optionValues {\n        name\n        swatch {\n          color\n        }\n      }\n    }\n    variants(first: 40) {\n      nodes {\n        id\n        availableForSale\n        selectedOptions {\n          name\n          value\n        }\n        price {\n          ...CardMoney\n        }\n        compareAtPrice {\n          ...CardMoney\n        }\n        image {\n          ...CardImage\n        }\n      }\n    }\n  }\n\n  query CartRecommend($handle: String!, $country: CountryCode, $language: LanguageCode)\n  @inContext(country: $country, language: $language) {\n    productRecommendations(productHandle: $handle) {\n      ...ProductCard\n    }\n  }\n': {
     return: CartRecommendQuery;
     variables: CartRecommendQueryVariables;
   };
@@ -2290,7 +2374,7 @@ interface GeneratedQueryTypes {
     return: BlogsQuery;
     variables: BlogsQueryVariables;
   };
-  '#graphql\n  #graphql\n  fragment CardMoney on MoneyV2 {\n    amount\n    currencyCode\n  }\n  fragment CardImage on Image {\n    id\n    url\n    altText\n    width\n    height\n  }\n  fragment ProductCard on Product {\n    id\n    handle\n    title\n    vendor\n    productType\n    tags\n    publishedAt\n    featuredImage {\n      ...CardImage\n    }\n    images(first: 2) {\n      nodes {\n        ...CardImage\n      }\n    }\n    priceRange {\n      minVariantPrice {\n        ...CardMoney\n      }\n      maxVariantPrice {\n        ...CardMoney\n      }\n    }\n    compareAtPriceRange {\n      maxVariantPrice {\n        ...CardMoney\n      }\n    }\n    options(first: 3) {\n      name\n      optionValues {\n        name\n        swatch {\n          color\n        }\n      }\n    }\n    variants(first: 40) {\n      nodes {\n        id\n        availableForSale\n        selectedOptions {\n          name\n          value\n        }\n        price {\n          ...CardMoney\n        }\n        compareAtPrice {\n          ...CardMoney\n        }\n      }\n    }\n  }\n\n  #graphql\n  fragment CollectionFilters on Filter {\n    id\n    label\n    type\n    values {\n      id\n      label\n      count\n      input\n      swatch {\n        color\n      }\n    }\n  }\n\n  query Collection(\n    $handle: String!\n    $country: CountryCode\n    $language: LanguageCode\n    $filters: [ProductFilter!]\n    $sortKey: ProductCollectionSortKeys!\n    $reverse: Boolean\n    $first: Int\n    $last: Int\n    $startCursor: String\n    $endCursor: String\n  ) @inContext(country: $country, language: $language) {\n    collection(handle: $handle) {\n      id\n      handle\n      title\n      description\n      image {\n        url\n        altText\n        width\n        height\n      }\n      seo {\n        title\n        description\n      }\n      products(\n        first: $first\n        last: $last\n        before: $startCursor\n        after: $endCursor\n        filters: $filters\n        sortKey: $sortKey\n        reverse: $reverse\n      ) {\n        filters {\n          ...CollectionFilters\n        }\n        nodes {\n          ...ProductCard\n        }\n        pageInfo {\n          hasPreviousPage\n          hasNextPage\n          endCursor\n          startCursor\n        }\n      }\n    }\n  }\n': {
+  '#graphql\n  #graphql\n  fragment CardMoney on MoneyV2 {\n    amount\n    currencyCode\n  }\n  fragment CardImage on Image {\n    id\n    url\n    altText\n    width\n    height\n  }\n  fragment ProductCard on Product {\n    id\n    handle\n    title\n    vendor\n    productType\n    tags\n    publishedAt\n    featuredImage {\n      ...CardImage\n    }\n    images(first: 2) {\n      nodes {\n        ...CardImage\n      }\n    }\n    priceRange {\n      minVariantPrice {\n        ...CardMoney\n      }\n      maxVariantPrice {\n        ...CardMoney\n      }\n    }\n    compareAtPriceRange {\n      maxVariantPrice {\n        ...CardMoney\n      }\n    }\n    options(first: 3) {\n      name\n      optionValues {\n        name\n        swatch {\n          color\n        }\n      }\n    }\n    variants(first: 40) {\n      nodes {\n        id\n        availableForSale\n        selectedOptions {\n          name\n          value\n        }\n        price {\n          ...CardMoney\n        }\n        compareAtPrice {\n          ...CardMoney\n        }\n        image {\n          ...CardImage\n        }\n      }\n    }\n  }\n\n  #graphql\n  fragment CollectionFilters on Filter {\n    id\n    label\n    type\n    values {\n      id\n      label\n      count\n      input\n      swatch {\n        color\n      }\n    }\n  }\n\n  query Collection(\n    $handle: String!\n    $country: CountryCode\n    $language: LanguageCode\n    $filters: [ProductFilter!]\n    $sortKey: ProductCollectionSortKeys!\n    $reverse: Boolean\n    $first: Int\n    $last: Int\n    $startCursor: String\n    $endCursor: String\n  ) @inContext(country: $country, language: $language) {\n    collection(handle: $handle) {\n      id\n      handle\n      title\n      description\n      image {\n        url\n        altText\n        width\n        height\n      }\n      seo {\n        title\n        description\n      }\n      products(\n        first: $first\n        last: $last\n        before: $startCursor\n        after: $endCursor\n        filters: $filters\n        sortKey: $sortKey\n        reverse: $reverse\n      ) {\n        filters {\n          ...CollectionFilters\n        }\n        nodes {\n          ...ProductCard\n        }\n        pageInfo {\n          hasPreviousPage\n          hasNextPage\n          endCursor\n          startCursor\n        }\n      }\n    }\n  }\n': {
     return: CollectionQuery;
     variables: CollectionQueryVariables;
   };
@@ -2298,11 +2382,11 @@ interface GeneratedQueryTypes {
     return: StoreCollectionsQuery;
     variables: StoreCollectionsQueryVariables;
   };
-  '#graphql\n  #graphql\n  fragment CardMoney on MoneyV2 {\n    amount\n    currencyCode\n  }\n  fragment CardImage on Image {\n    id\n    url\n    altText\n    width\n    height\n  }\n  fragment ProductCard on Product {\n    id\n    handle\n    title\n    vendor\n    productType\n    tags\n    publishedAt\n    featuredImage {\n      ...CardImage\n    }\n    images(first: 2) {\n      nodes {\n        ...CardImage\n      }\n    }\n    priceRange {\n      minVariantPrice {\n        ...CardMoney\n      }\n      maxVariantPrice {\n        ...CardMoney\n      }\n    }\n    compareAtPriceRange {\n      maxVariantPrice {\n        ...CardMoney\n      }\n    }\n    options(first: 3) {\n      name\n      optionValues {\n        name\n        swatch {\n          color\n        }\n      }\n    }\n    variants(first: 40) {\n      nodes {\n        id\n        availableForSale\n        selectedOptions {\n          name\n          value\n        }\n        price {\n          ...CardMoney\n        }\n        compareAtPrice {\n          ...CardMoney\n        }\n      }\n    }\n  }\n\n  #graphql\n  fragment CollectionFilters on Filter {\n    id\n    label\n    type\n    values {\n      id\n      label\n      count\n      input\n      swatch {\n        color\n      }\n    }\n  }\n\n  query AllCollection(\n    $country: CountryCode\n    $language: LanguageCode\n    $filters: [ProductFilter!]\n    $sortKey: ProductCollectionSortKeys!\n    $reverse: Boolean\n    $first: Int\n    $last: Int\n    $startCursor: String\n    $endCursor: String\n  ) @inContext(country: $country, language: $language) {\n    collection(handle: "all") {\n      id\n      products(\n        first: $first\n        last: $last\n        before: $startCursor\n        after: $endCursor\n        filters: $filters\n        sortKey: $sortKey\n        reverse: $reverse\n      ) {\n        filters {\n          ...CollectionFilters\n        }\n        nodes {\n          ...ProductCard\n        }\n        pageInfo {\n          hasPreviousPage\n          hasNextPage\n          startCursor\n          endCursor\n        }\n      }\n    }\n  }\n': {
+  '#graphql\n  #graphql\n  fragment CardMoney on MoneyV2 {\n    amount\n    currencyCode\n  }\n  fragment CardImage on Image {\n    id\n    url\n    altText\n    width\n    height\n  }\n  fragment ProductCard on Product {\n    id\n    handle\n    title\n    vendor\n    productType\n    tags\n    publishedAt\n    featuredImage {\n      ...CardImage\n    }\n    images(first: 2) {\n      nodes {\n        ...CardImage\n      }\n    }\n    priceRange {\n      minVariantPrice {\n        ...CardMoney\n      }\n      maxVariantPrice {\n        ...CardMoney\n      }\n    }\n    compareAtPriceRange {\n      maxVariantPrice {\n        ...CardMoney\n      }\n    }\n    options(first: 3) {\n      name\n      optionValues {\n        name\n        swatch {\n          color\n        }\n      }\n    }\n    variants(first: 40) {\n      nodes {\n        id\n        availableForSale\n        selectedOptions {\n          name\n          value\n        }\n        price {\n          ...CardMoney\n        }\n        compareAtPrice {\n          ...CardMoney\n        }\n        image {\n          ...CardImage\n        }\n      }\n    }\n  }\n\n  #graphql\n  fragment CollectionFilters on Filter {\n    id\n    label\n    type\n    values {\n      id\n      label\n      count\n      input\n      swatch {\n        color\n      }\n    }\n  }\n\n  query AllCollection(\n    $country: CountryCode\n    $language: LanguageCode\n    $filters: [ProductFilter!]\n    $sortKey: ProductCollectionSortKeys!\n    $reverse: Boolean\n    $first: Int\n    $last: Int\n    $startCursor: String\n    $endCursor: String\n  ) @inContext(country: $country, language: $language) {\n    collection(handle: "all") {\n      id\n      products(\n        first: $first\n        last: $last\n        before: $startCursor\n        after: $endCursor\n        filters: $filters\n        sortKey: $sortKey\n        reverse: $reverse\n      ) {\n        filters {\n          ...CollectionFilters\n        }\n        nodes {\n          ...ProductCard\n        }\n        pageInfo {\n          hasPreviousPage\n          hasNextPage\n          startCursor\n          endCursor\n        }\n      }\n    }\n  }\n': {
     return: AllCollectionQuery;
     variables: AllCollectionQueryVariables;
   };
-  '#graphql\n  #graphql\n  fragment CardMoney on MoneyV2 {\n    amount\n    currencyCode\n  }\n  fragment CardImage on Image {\n    id\n    url\n    altText\n    width\n    height\n  }\n  fragment ProductCard on Product {\n    id\n    handle\n    title\n    vendor\n    productType\n    tags\n    publishedAt\n    featuredImage {\n      ...CardImage\n    }\n    images(first: 2) {\n      nodes {\n        ...CardImage\n      }\n    }\n    priceRange {\n      minVariantPrice {\n        ...CardMoney\n      }\n      maxVariantPrice {\n        ...CardMoney\n      }\n    }\n    compareAtPriceRange {\n      maxVariantPrice {\n        ...CardMoney\n      }\n    }\n    options(first: 3) {\n      name\n      optionValues {\n        name\n        swatch {\n          color\n        }\n      }\n    }\n    variants(first: 40) {\n      nodes {\n        id\n        availableForSale\n        selectedOptions {\n          name\n          value\n        }\n        price {\n          ...CardMoney\n        }\n        compareAtPrice {\n          ...CardMoney\n        }\n      }\n    }\n  }\n\n  query Catalog(\n    $country: CountryCode\n    $language: LanguageCode\n    $sortKey: ProductSortKeys!\n    $reverse: Boolean\n    $first: Int\n    $last: Int\n    $startCursor: String\n    $endCursor: String\n  ) @inContext(country: $country, language: $language) {\n    products(\n      first: $first\n      last: $last\n      before: $startCursor\n      after: $endCursor\n      sortKey: $sortKey\n      reverse: $reverse\n    ) {\n      nodes {\n        ...ProductCard\n      }\n      pageInfo {\n        hasPreviousPage\n        hasNextPage\n        startCursor\n        endCursor\n      }\n    }\n  }\n': {
+  '#graphql\n  #graphql\n  fragment CardMoney on MoneyV2 {\n    amount\n    currencyCode\n  }\n  fragment CardImage on Image {\n    id\n    url\n    altText\n    width\n    height\n  }\n  fragment ProductCard on Product {\n    id\n    handle\n    title\n    vendor\n    productType\n    tags\n    publishedAt\n    featuredImage {\n      ...CardImage\n    }\n    images(first: 2) {\n      nodes {\n        ...CardImage\n      }\n    }\n    priceRange {\n      minVariantPrice {\n        ...CardMoney\n      }\n      maxVariantPrice {\n        ...CardMoney\n      }\n    }\n    compareAtPriceRange {\n      maxVariantPrice {\n        ...CardMoney\n      }\n    }\n    options(first: 3) {\n      name\n      optionValues {\n        name\n        swatch {\n          color\n        }\n      }\n    }\n    variants(first: 40) {\n      nodes {\n        id\n        availableForSale\n        selectedOptions {\n          name\n          value\n        }\n        price {\n          ...CardMoney\n        }\n        compareAtPrice {\n          ...CardMoney\n        }\n        image {\n          ...CardImage\n        }\n      }\n    }\n  }\n\n  query Catalog(\n    $country: CountryCode\n    $language: LanguageCode\n    $sortKey: ProductSortKeys!\n    $reverse: Boolean\n    $first: Int\n    $last: Int\n    $startCursor: String\n    $endCursor: String\n  ) @inContext(country: $country, language: $language) {\n    products(\n      first: $first\n      last: $last\n      before: $startCursor\n      after: $endCursor\n      sortKey: $sortKey\n      reverse: $reverse\n    ) {\n      nodes {\n        ...ProductCard\n      }\n      pageInfo {\n        hasPreviousPage\n        hasNextPage\n        startCursor\n        endCursor\n      }\n    }\n  }\n': {
     return: CatalogQuery;
     variables: CatalogQueryVariables;
   };
@@ -2322,15 +2406,15 @@ interface GeneratedQueryTypes {
     return: ProductQuery;
     variables: ProductQueryVariables;
   };
-  '#graphql\n  #graphql\n  fragment CardMoney on MoneyV2 {\n    amount\n    currencyCode\n  }\n  fragment CardImage on Image {\n    id\n    url\n    altText\n    width\n    height\n  }\n  fragment ProductCard on Product {\n    id\n    handle\n    title\n    vendor\n    productType\n    tags\n    publishedAt\n    featuredImage {\n      ...CardImage\n    }\n    images(first: 2) {\n      nodes {\n        ...CardImage\n      }\n    }\n    priceRange {\n      minVariantPrice {\n        ...CardMoney\n      }\n      maxVariantPrice {\n        ...CardMoney\n      }\n    }\n    compareAtPriceRange {\n      maxVariantPrice {\n        ...CardMoney\n      }\n    }\n    options(first: 3) {\n      name\n      optionValues {\n        name\n        swatch {\n          color\n        }\n      }\n    }\n    variants(first: 40) {\n      nodes {\n        id\n        availableForSale\n        selectedOptions {\n          name\n          value\n        }\n        price {\n          ...CardMoney\n        }\n        compareAtPrice {\n          ...CardMoney\n        }\n      }\n    }\n  }\n\n  query ProductRecommendations(\n    $country: CountryCode\n    $language: LanguageCode\n    $handle: String!\n  ) @inContext(country: $country, language: $language) {\n    productRecommendations(productHandle: $handle) {\n      ...ProductCard\n    }\n  }\n': {
+  '#graphql\n  #graphql\n  fragment CardMoney on MoneyV2 {\n    amount\n    currencyCode\n  }\n  fragment CardImage on Image {\n    id\n    url\n    altText\n    width\n    height\n  }\n  fragment ProductCard on Product {\n    id\n    handle\n    title\n    vendor\n    productType\n    tags\n    publishedAt\n    featuredImage {\n      ...CardImage\n    }\n    images(first: 2) {\n      nodes {\n        ...CardImage\n      }\n    }\n    priceRange {\n      minVariantPrice {\n        ...CardMoney\n      }\n      maxVariantPrice {\n        ...CardMoney\n      }\n    }\n    compareAtPriceRange {\n      maxVariantPrice {\n        ...CardMoney\n      }\n    }\n    options(first: 3) {\n      name\n      optionValues {\n        name\n        swatch {\n          color\n        }\n      }\n    }\n    variants(first: 40) {\n      nodes {\n        id\n        availableForSale\n        selectedOptions {\n          name\n          value\n        }\n        price {\n          ...CardMoney\n        }\n        compareAtPrice {\n          ...CardMoney\n        }\n        image {\n          ...CardImage\n        }\n      }\n    }\n  }\n\n  query ProductRecommendations(\n    $country: CountryCode\n    $language: LanguageCode\n    $handle: String!\n  ) @inContext(country: $country, language: $language) {\n    productRecommendations(productHandle: $handle) {\n      ...ProductCard\n    }\n  }\n': {
     return: ProductRecommendationsQuery;
     variables: ProductRecommendationsQueryVariables;
   };
-  '#graphql\n  #graphql\n  fragment CardMoney on MoneyV2 {\n    amount\n    currencyCode\n  }\n  fragment CardImage on Image {\n    id\n    url\n    altText\n    width\n    height\n  }\n  fragment ProductCard on Product {\n    id\n    handle\n    title\n    vendor\n    productType\n    tags\n    publishedAt\n    featuredImage {\n      ...CardImage\n    }\n    images(first: 2) {\n      nodes {\n        ...CardImage\n      }\n    }\n    priceRange {\n      minVariantPrice {\n        ...CardMoney\n      }\n      maxVariantPrice {\n        ...CardMoney\n      }\n    }\n    compareAtPriceRange {\n      maxVariantPrice {\n        ...CardMoney\n      }\n    }\n    options(first: 3) {\n      name\n      optionValues {\n        name\n        swatch {\n          color\n        }\n      }\n    }\n    variants(first: 40) {\n      nodes {\n        id\n        availableForSale\n        selectedOptions {\n          name\n          value\n        }\n        price {\n          ...CardMoney\n        }\n        compareAtPrice {\n          ...CardMoney\n        }\n      }\n    }\n  }\n\n  query SimilarProducts(\n    $country: CountryCode\n    $language: LanguageCode\n    $query: String!\n  ) @inContext(country: $country, language: $language) {\n    products(first: 12, query: $query, sortKey: BEST_SELLING) {\n      nodes {\n        ...ProductCard\n      }\n    }\n  }\n': {
+  '#graphql\n  #graphql\n  fragment CardMoney on MoneyV2 {\n    amount\n    currencyCode\n  }\n  fragment CardImage on Image {\n    id\n    url\n    altText\n    width\n    height\n  }\n  fragment ProductCard on Product {\n    id\n    handle\n    title\n    vendor\n    productType\n    tags\n    publishedAt\n    featuredImage {\n      ...CardImage\n    }\n    images(first: 2) {\n      nodes {\n        ...CardImage\n      }\n    }\n    priceRange {\n      minVariantPrice {\n        ...CardMoney\n      }\n      maxVariantPrice {\n        ...CardMoney\n      }\n    }\n    compareAtPriceRange {\n      maxVariantPrice {\n        ...CardMoney\n      }\n    }\n    options(first: 3) {\n      name\n      optionValues {\n        name\n        swatch {\n          color\n        }\n      }\n    }\n    variants(first: 40) {\n      nodes {\n        id\n        availableForSale\n        selectedOptions {\n          name\n          value\n        }\n        price {\n          ...CardMoney\n        }\n        compareAtPrice {\n          ...CardMoney\n        }\n        image {\n          ...CardImage\n        }\n      }\n    }\n  }\n\n  query SimilarProducts(\n    $country: CountryCode\n    $language: LanguageCode\n    $query: String!\n  ) @inContext(country: $country, language: $language) {\n    products(first: 12, query: $query, sortKey: BEST_SELLING) {\n      nodes {\n        ...ProductCard\n      }\n    }\n  }\n': {
     return: SimilarProductsQuery;
     variables: SimilarProductsQueryVariables;
   };
-  '#graphql\n  query RegularSearch(\n    $country: CountryCode\n    $endCursor: String\n    $first: Int\n    $language: LanguageCode\n    $last: Int\n    $term: String!\n    $startCursor: String\n  ) @inContext(country: $country, language: $language) {\n    articles: search(\n      query: $term,\n      types: [ARTICLE],\n      first: $first,\n    ) {\n      nodes {\n        ...on Article {\n          ...SearchArticle\n        }\n      }\n    }\n    pages: search(\n      query: $term,\n      types: [PAGE],\n      first: $first,\n    ) {\n      nodes {\n        ...on Page {\n          ...SearchPage\n        }\n      }\n    }\n    products: search(\n      after: $endCursor,\n      before: $startCursor,\n      first: $first,\n      last: $last,\n      query: $term,\n      sortKey: RELEVANCE,\n      types: [PRODUCT],\n      unavailableProducts: HIDE,\n    ) {\n      nodes {\n        ...on Product {\n          ...SearchProduct\n        }\n      }\n      pageInfo {\n        ...PageInfoFragment\n      }\n    }\n  }\n  #graphql\n  fragment SearchProduct on Product {\n    __typename\n    trackingParameters\n    ...ProductCard\n  }\n  #graphql\n  fragment CardMoney on MoneyV2 {\n    amount\n    currencyCode\n  }\n  fragment CardImage on Image {\n    id\n    url\n    altText\n    width\n    height\n  }\n  fragment ProductCard on Product {\n    id\n    handle\n    title\n    vendor\n    productType\n    tags\n    publishedAt\n    featuredImage {\n      ...CardImage\n    }\n    images(first: 2) {\n      nodes {\n        ...CardImage\n      }\n    }\n    priceRange {\n      minVariantPrice {\n        ...CardMoney\n      }\n      maxVariantPrice {\n        ...CardMoney\n      }\n    }\n    compareAtPriceRange {\n      maxVariantPrice {\n        ...CardMoney\n      }\n    }\n    options(first: 3) {\n      name\n      optionValues {\n        name\n        swatch {\n          color\n        }\n      }\n    }\n    variants(first: 40) {\n      nodes {\n        id\n        availableForSale\n        selectedOptions {\n          name\n          value\n        }\n        price {\n          ...CardMoney\n        }\n        compareAtPrice {\n          ...CardMoney\n        }\n      }\n    }\n  }\n\n\n  #graphql\n  fragment SearchPage on Page {\n     __typename\n     handle\n    id\n    title\n    trackingParameters\n  }\n\n  #graphql\n  fragment SearchArticle on Article {\n    __typename\n    handle\n    id\n    title\n    trackingParameters\n  }\n\n  #graphql\n  fragment PageInfoFragment on PageInfo {\n    hasNextPage\n    hasPreviousPage\n    startCursor\n    endCursor\n  }\n\n': {
+  '#graphql\n  query RegularSearch(\n    $country: CountryCode\n    $endCursor: String\n    $first: Int\n    $language: LanguageCode\n    $last: Int\n    $term: String!\n    $startCursor: String\n  ) @inContext(country: $country, language: $language) {\n    articles: search(\n      query: $term,\n      types: [ARTICLE],\n      first: $first,\n    ) {\n      nodes {\n        ...on Article {\n          ...SearchArticle\n        }\n      }\n    }\n    pages: search(\n      query: $term,\n      types: [PAGE],\n      first: $first,\n    ) {\n      nodes {\n        ...on Page {\n          ...SearchPage\n        }\n      }\n    }\n    products: search(\n      after: $endCursor,\n      before: $startCursor,\n      first: $first,\n      last: $last,\n      query: $term,\n      sortKey: RELEVANCE,\n      types: [PRODUCT],\n      unavailableProducts: HIDE,\n    ) {\n      nodes {\n        ...on Product {\n          ...SearchProduct\n        }\n      }\n      pageInfo {\n        ...PageInfoFragment\n      }\n    }\n  }\n  #graphql\n  fragment SearchProduct on Product {\n    __typename\n    trackingParameters\n    ...ProductCard\n  }\n  #graphql\n  fragment CardMoney on MoneyV2 {\n    amount\n    currencyCode\n  }\n  fragment CardImage on Image {\n    id\n    url\n    altText\n    width\n    height\n  }\n  fragment ProductCard on Product {\n    id\n    handle\n    title\n    vendor\n    productType\n    tags\n    publishedAt\n    featuredImage {\n      ...CardImage\n    }\n    images(first: 2) {\n      nodes {\n        ...CardImage\n      }\n    }\n    priceRange {\n      minVariantPrice {\n        ...CardMoney\n      }\n      maxVariantPrice {\n        ...CardMoney\n      }\n    }\n    compareAtPriceRange {\n      maxVariantPrice {\n        ...CardMoney\n      }\n    }\n    options(first: 3) {\n      name\n      optionValues {\n        name\n        swatch {\n          color\n        }\n      }\n    }\n    variants(first: 40) {\n      nodes {\n        id\n        availableForSale\n        selectedOptions {\n          name\n          value\n        }\n        price {\n          ...CardMoney\n        }\n        compareAtPrice {\n          ...CardMoney\n        }\n        image {\n          ...CardImage\n        }\n      }\n    }\n  }\n\n\n  #graphql\n  fragment SearchPage on Page {\n     __typename\n     handle\n    id\n    title\n    trackingParameters\n  }\n\n  #graphql\n  fragment SearchArticle on Article {\n    __typename\n    handle\n    id\n    title\n    trackingParameters\n  }\n\n  #graphql\n  fragment PageInfoFragment on PageInfo {\n    hasNextPage\n    hasPreviousPage\n    startCursor\n    endCursor\n  }\n\n': {
     return: RegularSearchQuery;
     variables: RegularSearchQueryVariables;
   };

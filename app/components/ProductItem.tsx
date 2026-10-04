@@ -1,3 +1,4 @@
+import {useState} from 'react';
 import {Link} from 'react-router';
 import {CartForm, Image} from '@shopify/hydrogen';
 import type {FetcherWithComponents} from 'react-router';
@@ -44,6 +45,7 @@ export type CardProduct = {
       selectedOptions: {name: string; value: string}[];
       price?: Money;
       compareAtPrice?: Money | null;
+      image?: Img | null;
     }[];
   };
 };
@@ -131,9 +133,16 @@ const COLOR_WORDS: Record<string, string> = {
   kaki: '#7a7a4f',
   olive: '#7a7a4f',
 };
+/** Dot colour for a colour name; "Noir/Blanc" becomes a half-and-half dot. */
 export function colorFromName(name: string) {
-  const key = name.toLowerCase().split(/[\s/,-]+/)[0];
-  return COLOR_WORDS[key] ?? 'linear-gradient(135deg,#e2ded8,#9a958f)';
+  const parts = name
+    .toLowerCase()
+    .split('/')
+    .map((p) => COLOR_WORDS[p.trim().split(/[\s,-]+/)[0]])
+    .filter(Boolean);
+  if (parts.length >= 2)
+    return `linear-gradient(135deg, ${parts[0]} 0 50%, ${parts[1]} 50% 100%)`;
+  return parts[0] ?? 'linear-gradient(135deg,#e2ded8,#9a958f)';
 }
 
 export function ProductItem({
@@ -144,14 +153,43 @@ export function ProductItem({
   loading?: 'eager' | 'lazy';
 }) {
   const variantUrl = useVariantUrl(product.handle);
-  const image = product.featuredImage ?? product.images?.nodes?.[0];
-  const hoverImage = product.images?.nodes?.[1];
   const badge = getBadge(product);
   const colorOpt = product.options?.find((o) => isColorOption(o.name));
   const colorValues = colorOpt?.optionValues ?? [];
   const colors = colorValues.length;
   const subtitle = productSubtitle(product);
   const firstVariant = product.variants?.nodes?.[0];
+
+  // Colour-aware images: hovering the card shows the same pair in its next
+  // colour; hovering a colour dot switches the card to that colour.
+  const colorImage = (color?: string | null) =>
+    color && colorOpt
+      ? product.variants?.nodes.find(
+          (v) =>
+            v.image &&
+            v.selectedOptions.some(
+              (o) => o.name === colorOpt.name && o.value === color,
+            ),
+        )?.image
+      : undefined;
+  const defaultColor = firstVariant?.selectedOptions.find(
+    (o) => o.name === colorOpt?.name,
+  )?.value;
+  const [activeColor, setActiveColor] = useState<string | null>(null);
+  const baseImage = product.featuredImage ?? product.images?.nodes?.[0];
+  const image = (activeColor && colorImage(activeColor)) || baseImage;
+  const nextColor = colorValues
+    .map((v) => v.name)
+    .find((n) => n !== (activeColor ?? defaultColor) && colorImage(n));
+  const hoverImage = activeColor
+    ? null
+    : (nextColor && colorImage(nextColor)) || product.images?.nodes?.[1];
+  const to =
+    activeColor && colorOpt
+      ? `${variantUrl}${variantUrl.includes('?') ? '&' : '?'}${encodeURIComponent(
+          colorOpt.name,
+        )}=${encodeURIComponent(activeColor)}`
+      : variantUrl;
   const compareAt =
     firstVariant?.compareAtPrice ??
     product.compareAtPriceRange?.maxVariantPrice;
@@ -162,12 +200,12 @@ export function ProductItem({
       product.priceRange.minVariantPrice.amount;
 
   return (
-    <article className="card">
+    <article className="card" onMouseLeave={() => setActiveColor(null)}>
       <div className="card-frame">
         <Link
           className="card-media"
           prefetch="intent"
-          to={variantUrl}
+          to={to}
           aria-label={product.title}
         >
           {image ? (
@@ -208,7 +246,7 @@ export function ProductItem({
         />
         <QuickAdd product={product} />
       </div>
-      <Link className="card-body" prefetch="intent" to={variantUrl}>
+      <Link className="card-body" prefetch="intent" to={to}>
         {product.vendor ? (
           <p className="card-vendor">{product.vendor}</p>
         ) : null}
@@ -222,6 +260,13 @@ export function ProductItem({
             {colorValues.slice(0, 6).map((v) => (
               <i
                 key={v.name}
+                className={
+                  (activeColor ?? defaultColor) === v.name ? 'is-active' : ''
+                }
+                title={v.name}
+                onMouseEnter={() =>
+                  colorImage(v.name) ? setActiveColor(v.name) : undefined
+                }
                 style={{background: v.swatch?.color || colorFromName(v.name)}}
               />
             ))}
@@ -360,6 +405,9 @@ export const PRODUCT_CARD_FRAGMENT = `#graphql
         }
         compareAtPrice {
           ...CardMoney
+        }
+        image {
+          ...CardImage
         }
       }
     }
