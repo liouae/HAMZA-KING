@@ -5668,3 +5668,48 @@ body:has(.consent) .wa-float {
 .ship-meter--free .ship-meter-bar > span {
   background: var(--ok);
 }
+
+/* Announcement bar: always a single line */
+.announce-inner {
+  grid-template-columns: minmax(0, 1fr) minmax(320px, 1.6fr) minmax(0, 1fr);
+}
+.announce-msg {
+  padding-inline: 8px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.announce-side {
+  white-space: nowrap;
+}
+
+/* Hero: never taller than the screen, never under the menu.
+   Text scales with both width and height, the block grows if it must. */
+@media (min-width: 64em) {
+  .hero {
+    height: auto;
+    min-height: clamp(
+      520px,
+      calc(100svh - var(--header-h) - var(--announce-h)),
+      860px
+    );
+    max-height: none;
+  }
+  .hero-copy {
+    justify-content: center;
+    padding-block: clamp(28px, 5svh, 56px);
+  }
+  .hero-title {
+    font-size: clamp(48px, min(8.2vw, 13svh), 150px);
+    margin-bottom: clamp(16px, 3svh, 28px);
+  }
+  .hero-lede {
+    margin-bottom: clamp(16px, 3svh, 28px);
+  }
+  .hero-index {
+    font-size: clamp(64px, min(9vw, 16svh), 180px);
+  }
+}

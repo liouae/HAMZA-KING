@@ -58,7 +58,7 @@ export default function AllProducts() {
     <CollectionView
       eyebrow="Catalogue"
       title="Toutes les sneakers"
-      description="Toutes les paires disponibles en boutique, vérifiées et prêtes à partir."
+      description="Toutes les paires disponibles, prêtes à partir. Livraison gratuite partout au Maroc."
       products={{
         nodes: products.nodes as CardProduct[],
         pageInfo: products.pageInfo,

@@ -7,7 +7,7 @@
 export const BRAND = {
   name: 'HAMZA KING',
   legalName: 'HAMZAKINGSTORE',
-  tagline: 'Sneakers authentiques. Livrées partout au Maroc.',
+  tagline: 'Sneakers. Livraison gratuite partout au Maroc.',
   instagram: 'https://www.instagram.com/hamza__king07__/',
   /** Leave empty to hide the TikTok link. */
   tiktok: '',
@@ -33,8 +33,8 @@ export const SHIPPING = {
 /** Rotating messages in the announcement bar. */
 export const ANNOUNCEMENTS = [
   'Livraison gratuite partout au Maroc',
-  'Paiement à la livraison — tu payes en recevant ta paire',
-  '100% authentique — ou remboursé',
+  'Paiement à la livraison',
+  `Échange de pointure sous ${SHIPPING.returnDays} jours`,
 ];
 
 /**
@@ -212,7 +212,7 @@ export const CATEGORIES = [
 export const HERO = {
   eyebrow: 'Nouvelle saison',
   title: ['Marche', 'sur ton', 'propre', 'rythme.'],
-  copy: 'Les modèles les plus recherchés des grandes marques, sélectionnés et vérifiés un par un.',
+  copy: 'Les modèles les plus recherchés, sélectionnés pour toi.',
   primaryCta: {
     label: 'Découvrir les nouveautés',
     to: '/collections/all?sort=newest',

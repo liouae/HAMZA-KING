@@ -26,11 +26,11 @@ import type {MenuImages} from '~/components/Header';
 
 export const meta: Route.MetaFunction = () => {
   return [
-    {title: `${BRAND.name} | Sneakers authentiques au Maroc`},
+    {title: `${BRAND.name} | Sneakers au Maroc · Livraison gratuite`},
     {name: 'description', content: BRAND.tagline},
     {
       property: 'og:title',
-      content: `${BRAND.name} | Sneakers authentiques au Maroc`,
+      content: `${BRAND.name} | Sneakers au Maroc · Livraison gratuite`,
     },
     {property: 'og:description', content: BRAND.tagline},
     {property: 'og:url', content: SITE.url},
@@ -436,18 +436,18 @@ function EditorialBand({menuImages}: {menuImages: Promise<MenuImages>}) {
   const steps = [
     {
       n: '01',
-      t: 'Sourcing',
-      c: 'Uniquement auprès de distributeurs officiels et de revendeurs vérifiés.',
+      t: 'Commande',
+      c: 'Sur le site ou sur WhatsApp, en deux minutes. Aucun paiement en ligne.',
     },
     {
       n: '02',
-      t: 'Contrôle',
-      c: 'Étiquettes, coutures, semelle, boîte : chaque paire passe un contrôle en 12 points.',
+      t: 'Confirmation',
+      c: 'On te contacte pour confirmer la pointure et l’adresse, puis ta paire part.',
     },
     {
       n: '03',
-      t: 'Livraison',
-      c: 'Expédiée sous 24h. Tu vérifies, puis tu payes à la livraison.',
+      t: 'Livraison gratuite',
+      c: 'Tu reçois ta paire, tu la vérifies, puis tu payes le livreur en espèces.',
     },
   ];
   return (
@@ -470,9 +470,9 @@ function EditorialBand({menuImages}: {menuImages: Promise<MenuImages>}) {
         <div className="band-head">
           <p className="eyebrow eyebrow--light">{EDITORIAL.kicker}</p>
           <h2 id="band-title" className="display-l">
-            Vérifiée à la main.
+            Tu commandes.
             <br />
-            <span className="outline">Portée sans doute.</span>
+            <span className="outline">Tu payes à la livraison.</span>
           </h2>
           <p className="band-copy">{EDITORIAL.copy}</p>
           <Link to={EDITORIAL.cta.to} className="btn btn--light">

@@ -2,7 +2,7 @@ import {Link} from 'react-router';
 import type {FooterQuery, HeaderQuery} from 'storefrontapi.generated';
 import {BRAND, SHIPPING} from '~/lib/config';
 import {FOOTER_COLUMNS} from '~/lib/navigation';
-import {IconCash, IconReturn, IconShield, IconTruck} from './Icons';
+import {IconCash, IconReturn, IconTruck, IconWhatsApp} from './Icons';
 import {BrandLogo} from './BrandLogo';
 
 interface FooterProps {
@@ -29,9 +29,9 @@ export function ServiceStrip() {
       copy: 'Pas la bonne pointure ? On vient la récupérer et on t’envoie la bonne.',
     },
     {
-      icon: <IconShield width={22} height={22} />,
-      title: '100% authentique',
-      copy: 'Chaque paire passe un contrôle en 12 points avant de partir. Sinon, remboursée.',
+      icon: <IconWhatsApp width={22} height={22} />,
+      title: 'Conseil sur WhatsApp',
+      copy: 'Une question de pointure ou de coloris ? On te répond rapidement, 7j/7.',
     },
   ];
   return (

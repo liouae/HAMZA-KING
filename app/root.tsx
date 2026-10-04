@@ -80,7 +80,7 @@ export function links() {
 }
 
 export const meta: Route.MetaFunction = () => [
-  {title: `${BRAND.name} | Sneakers authentiques au Maroc`},
+  {title: `${BRAND.name} | Sneakers au Maroc · Livraison gratuite`},
   {name: 'description', content: BRAND.tagline},
   {property: 'og:site_name', content: BRAND.name},
   {property: 'og:type', content: 'website'},

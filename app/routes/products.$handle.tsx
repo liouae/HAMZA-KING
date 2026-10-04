@@ -452,10 +452,10 @@ export default function Product() {
                 </span>
               </li>
               <li>
-                <IconShield />
+                <IconCash />
                 <span>
-                  <strong>Authenticité garantie</strong>
-                  Contrôle en 12 points avant expédition, ou remboursée.
+                  <strong>Paiement à la livraison</strong>
+                  Tu reçois ta paire, tu la vérifies, puis tu payes en espèces.
                 </span>
               </li>
             </ul>

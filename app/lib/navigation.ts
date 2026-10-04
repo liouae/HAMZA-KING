@@ -240,7 +240,6 @@ export const FOOTER_COLUMNS: NavColumn[] = [
     title: 'La maison',
     links: [
       {label: 'Notre histoire', to: '/pages/a-propos'},
-      {label: 'Authenticité', to: '/pages/authenticite'},
       {label: 'Journal', to: '/blogs/journal'},
       {label: 'Conditions générales', to: '/policies/terms-of-service'},
       {label: 'Confidentialité', to: '/policies/privacy-policy'},

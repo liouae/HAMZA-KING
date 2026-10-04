@@ -2,7 +2,8 @@ import type {CartApiQueryFragment} from 'storefrontapi.generated';
 import type {CartLayout} from '~/components/CartMain';
 import {CartForm, type OptimisticCart} from '@shopify/hydrogen';
 import {formatMoney} from './Price';
-import {IconArrow, IconCash, IconShield, IconWhatsApp} from './Icons';
+import {IconArrow, IconCash, IconReturn, IconWhatsApp} from './Icons';
+import {SHIPPING} from '~/lib/config';
 import {whatsappLink} from '~/lib/config';
 import {useEffect, useId, useRef, useState} from 'react';
 import {useFetcher} from 'react-router';
@@ -75,7 +76,8 @@ export function CartSummary({cart, layout}: CartSummaryProps) {
           <IconCash width={16} height={16} /> Tu payes en espèces à la livraison
         </li>
         <li>
-          <IconShield width={16} height={16} /> Paires 100% authentiques
+          <IconReturn width={16} height={16} /> Échange de pointure sous{' '}
+          {SHIPPING.returnDays} jours
         </li>
       </ul>
     </div>

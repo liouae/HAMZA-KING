@@ -55,7 +55,7 @@ export default function Page() {
           <span>/</span>
           <span aria-current="page">{title}</span>
         </nav>
-        {handle === 'a-propos' || handle === 'authenticite' ? (
+        {handle === 'a-propos' ? (
           <BrandLogo
             variant="crown-wordmark"
             height={48}
@@ -88,7 +88,7 @@ export default function Page() {
               </div>
             </section>
           ))}
-          {handle === 'authenticite' ? (
+          {handle === 'a-propos' ? (
             <div className="page-cta">
               <Link to="/collections/all" className="btn">
                 Voir les paires <IconArrow width={16} height={16} />

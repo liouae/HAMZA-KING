@@ -34,7 +34,7 @@ export type Campaign = {
 export const CAMPAIGN: Campaign = {
   eyebrow: 'Nouvelle saison',
   title: ['Marche', 'sur ton', 'propre', 'rythme.'],
-  copy: 'Les modèles les plus recherchés des grandes marques, sélectionnés et vérifiés un par un. Livrés partout au Maroc.',
+  copy: 'Les modèles les plus recherchés, sélectionnés pour toi. Livraison gratuite partout au Maroc, paiement à la livraison.',
   primary: {
     label: 'Découvrir les nouveautés',
     to: '/collections/all?sort=newest',
@@ -86,10 +86,10 @@ export const STORIES: Story[] = [
 
 /* ---------- Full-bleed editorial banner ---------- */
 export const EDITORIAL = {
-  kicker: 'La maison',
-  title: 'Vérifiée à la main. Portée sans doute.',
-  copy: 'Chaque paire passe entre nos mains avant de partir : étiquettes, coutures, boîte, odeur de colle. Si quelque chose cloche, elle ne part pas.',
-  cta: {label: 'Notre promesse d’authenticité', to: '/pages/authenticite'},
+  kicker: 'Comment ça marche',
+  title: 'Tu commandes. Tu payes à la livraison.',
+  copy: 'Pas de carte, pas de paiement en ligne. Tu reçois ta paire chez toi, tu l’essaies, et tu payes le livreur. La livraison est gratuite partout au Maroc.',
+  cta: {label: 'Questions fréquentes', to: '/pages/faq'},
   image: '/home/band-authenticite.webp',
 };
 
@@ -116,7 +116,7 @@ export const ICON_MODELS: IconModel[] = [
 /* ---------- Guides (blog articles) linked from the menu ---------- */
 export const GUIDES = [
   {label: 'Comment choisir sa pointure ?', to: '/pages/guide-des-tailles'},
-  {label: 'Reconnaître une paire authentique', to: '/pages/authenticite'},
+  {label: 'Livraison et paiement à la livraison', to: '/pages/faq'},
   {label: 'Entretenir ses sneakers', to: '/blogs/journal'},
   {label: 'Quelle paire pour courir au Maroc ?', to: '/blogs/journal'},
 ];
@@ -245,8 +245,8 @@ export const BENEFITS_BY_TAG: Record<string, Benefit[]> = {
   default: [
     {
       icon: 'shield',
-      title: 'Authenticité',
-      copy: 'Contrôle en 12 points avant expédition.',
+      title: 'Finitions soignées',
+      copy: 'Chaque paire est contrôlée avant de partir : coutures, semelle, boîte.',
     },
     {
       icon: 'cushion',
@@ -264,8 +264,8 @@ export const BENEFITS_BY_TAG: Record<string, Benefit[]> = {
 /* ---------- FAQ ---------- */
 export const FAQ: {q: string; a: string}[] = [
   {
-    q: 'Vos paires sont-elles authentiques ?',
-    a: 'Oui, à 100 %. Nous travaillons uniquement avec des distributeurs officiels et des revendeurs vérifiés. Chaque paire est inspectée à la main avant expédition (étiquettes, coutures, boîte, codes). Si une paire ne passe pas le contrôle, elle ne part pas.',
+    q: 'Comment se passe une commande ?',
+    a: 'Tu commandes sur le site ou sur WhatsApp. On te contacte pour confirmer la pointure et l’adresse, puis ta paire part. Tu la reçois, tu la vérifies, et tu payes le livreur en espèces. La livraison est gratuite.',
   },
   {
     q: 'Comment payer ?',
@@ -301,13 +301,13 @@ export const PAGES: Record<
   'a-propos': {
     title: 'Notre histoire',
     intro:
-      'HAMZA KING est né d’une obsession : trouver les bonnes paires, les vraies, et les rendre accessibles partout au Maroc.',
+      'HAMZA KING est né d’une obsession : trouver les bonnes paires et les rendre accessibles partout au Maroc.',
     sections: [
       {
         title: 'Pourquoi nous',
         body: [
-          'On a tous connu la déception d’une paire commandée en ligne qui arrive avec une boîte abîmée, une taille approximative ou, pire, un doute sur son authenticité. On a construit HAMZA KING pour que ça n’arrive plus.',
-          'Chaque modèle est choisi pour sa qualité et sa pertinence, puis contrôlé à la main avant de partir.',
+          'On a tous connu la déception d’une paire commandée en ligne qui arrive en retard, dans une boîte abîmée ou dans la mauvaise taille. On a construit HAMZA KING pour que ça n’arrive plus.',
+          'Chaque modèle est choisi pour son style et son confort, contrôlé avant de partir, et livré gratuitement. Tu payes seulement quand tu l’as entre les mains.',
         ],
       },
       {
@@ -320,31 +320,6 @@ export const PAGES: Record<
         title: 'Casablanca, puis tout le Maroc',
         body: [
           'Basés à Casablanca, nous livrons dans tout le Royaume avec paiement à la livraison. Tu vérifies ta paire, puis tu payes.',
-        ],
-      },
-    ],
-  },
-  authenticite: {
-    title: 'Notre promesse d’authenticité',
-    intro:
-      'Zéro compromis. Chaque paire est vérifiée avant de quitter notre entrepôt.',
-    sections: [
-      {
-        title: 'Un contrôle en 12 points',
-        body: [
-          'Boîte et étiquette (code produit, pointure, pays de fabrication), étiquette intérieure, coutures, forme de la semelle, odeur de colle, qualité du cuir ou du mesh, lacets, semelle intérieure, logo et sérigraphie, poids, symétrie des deux pieds, cohérence des codes.',
-        ],
-      },
-      {
-        title: 'Notre sourcing',
-        body: [
-          'Distributeurs officiels et revendeurs agréés uniquement. Pas de marché gris, pas de « réplique AAA », jamais.',
-        ],
-      },
-      {
-        title: 'Et si tu as un doute ?',
-        body: [
-          'Envoie-nous des photos sur WhatsApp. Si une paire n’est pas authentique, on la reprend et on te rembourse intégralement.',
         ],
       },
     ],

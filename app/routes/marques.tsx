@@ -14,7 +14,7 @@ export const meta: Route.MetaFunction = () => [
   {
     name: 'description',
     content:
-      'Nike, Jordan, Adidas, New Balance, Asics, Puma, On, Hoka, Converse, Vans : toutes les marques authentiques disponibles au Maroc.',
+      'Nike, Jordan, Adidas, New Balance, Asics, Puma, On, Hoka, Converse, Vans : toutes les marques disponibles au Maroc.',
   },
 ];
 
