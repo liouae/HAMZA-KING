@@ -2,7 +2,7 @@ import {seoMeta} from '~/lib/seo';
 import {Link, useLoaderData} from 'react-router';
 import type {Route} from './+types/policies.$handle';
 import {type Shop} from '@shopify/hydrogen/storefront-api-types';
-import {BUILTIN_POLICIES} from '~/lib/policies';
+import {BUILTIN_POLICIES, frTitle} from '~/lib/policies';
 
 type SelectedPolicies = keyof Pick<
   Shop,
@@ -44,7 +44,7 @@ export async function loader({params, context}: Route.LoaderArgs) {
     throw new Response('Could not find the policy', {status: 404});
   }
 
-  return {policy};
+  return {policy: frTitle(policy)};
 }
 
 export default function Policy() {

@@ -36,3 +36,19 @@ export const BUILTIN_POLICIES: Record<string, BuiltinPolicy> = {
     '<p>Dernière mise à jour : 4 octobre 2026</p><h2>1. Vendeur</h2><p>Le site et la boutique sont exploités par HAMZA KING, vendeur de sneakers au Maroc. Contact : WhatsApp +212 614-719446 · hamza20king00@gmail.com.</p><h2>2. Commandes</h2><p>Les commandes peuvent être passées sur le site ou sur WhatsApp. Une commande devient ferme après notre appel ou message de confirmation (modèle, couleur, pointure, prix, adresse). Nous pouvons refuser ou annuler une commande en cas de rupture de stock, d’erreur manifeste de prix, d’informations incomplètes ou de refus répétés de colis.</p><h2>3. Prix</h2><p>Les prix sont indiqués en dirhams marocains (DH), toutes taxes applicables comprises. La livraison est gratuite partout au Maroc. Le prix applicable est celui affiché au moment de la commande et confirmé lors de l’appel.</p><h2>4. Paiement</h2><p>Le paiement s’effectue uniquement en espèces, à la livraison, auprès du livreur. Aucun paiement en ligne n’est demandé.</p><h2>5. Livraison</h2><p>Les modalités et délais de livraison sont décrits dans notre politique d’expédition. Les délais sont indicatifs.</p><h2>6. Produits</h2><p>Nous décrivons chaque paire (modèle, couleur, pointures, photos) le plus fidèlement possible. Les couleurs peuvent légèrement varier selon l’écran. En cas de doute sur une paire ou une pointure, contacte-nous sur WhatsApp avant de commander.</p><h2>7. Échanges et remboursements</h2><p>Les conditions sont décrites dans notre politique de retour et d’échange (échange de pointure gratuit sous 7 jours).</p><h2>8. Données personnelles</h2><p>Les informations collectées servent à traiter et livrer ta commande et à améliorer nos services, conformément à notre politique de confidentialité. Les outils de mesure d’audience et de publicité ne sont activés qu’après ton accord dans le bandeau cookies.</p><h2>9. Droit applicable</h2><p>Les présentes conditions sont régies par le droit marocain, notamment la loi n° 31-08 édictant des mesures de protection du consommateur. En cas de litige, contacte-nous d’abord : nous cherchons toujours une solution amiable.</p>',
   ),
 };
+
+/** French titles by handle (Shopify names saved policies in English). */
+export const POLICY_TITLES: Record<string, string> = {
+  'shipping-policy': 'Livraison',
+  'refund-policy': 'Retours & échanges',
+  'terms-of-service': 'Conditions générales',
+  'privacy-policy': 'Confidentialité',
+  'contact-information': 'Contact',
+};
+
+export const frTitle = <T extends {handle: string; title: string}>(
+  p: T,
+): T => ({
+  ...p,
+  title: POLICY_TITLES[p.handle] ?? p.title,
+});

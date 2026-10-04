@@ -1,7 +1,7 @@
 import {useLoaderData, Link} from 'react-router';
 import type {Route} from './+types/policies._index';
 import type {PoliciesQuery, PolicyItemFragment} from 'storefrontapi.generated';
-import {BUILTIN_POLICIES} from '~/lib/policies';
+import {BUILTIN_POLICIES, frTitle} from '~/lib/policies';
 
 export async function loader({context}: Route.LoaderArgs) {
   const data: PoliciesQuery = await context.storefront.query(POLICIES_QUERY);
@@ -14,7 +14,9 @@ export async function loader({context}: Route.LoaderArgs) {
     shopPolicies?.termsOfService ?? b.termsOfService,
     shopPolicies?.privacyPolicy,
     shopPolicies?.subscriptionPolicy,
-  ].filter((policy): policy is PolicyItemFragment => policy != null);
+  ]
+    .filter((policy): policy is PolicyItemFragment => policy != null)
+    .map(frTitle);
 
   if (!policies.length) {
     throw new Response('No policies found', {status: 404});
