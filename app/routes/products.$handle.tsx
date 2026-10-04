@@ -206,9 +206,9 @@ function plainIntro(text?: string | null) {
 }
 
 /**
- * A photo belongs to a colour when its alt text is the colour name, or ends
- * with it after a separator ("Nike Vomero Plus — Noir"). "Noir" therefore
- * does not match "… — Noir/Blanc".
+ * A photo belongs to a colour when its alt text is the colour name or contains
+ * it as a separate label ("Adidas Supernova Rise 3 — Noir — profil").
+ * "Noir" does not match "… — Noir/Blanc".
  */
 function altMatchesColor(alt: string | null | undefined, color: string) {
   const a = (alt ?? '').toLowerCase().trim();
@@ -216,7 +216,7 @@ function altMatchesColor(alt: string | null | undefined, color: string) {
   if (!a || !c) return false;
   if (a === c) return true;
   return [' — ', ' – ', ' - ', ': ', ' | '].some((sep) =>
-    a.endsWith(`${sep}${c}`),
+    a.split(sep).some((part) => part.trim() === c),
   );
 }
 
@@ -480,7 +480,11 @@ export default function Product() {
       </nav>
 
       <div className="pdp-grid container">
-        <ProductGallery images={images} title={title} />
+        <ProductGallery
+          key={colorValue ?? product.handle}
+          images={images}
+          title={title}
+        />
 
         <div className="pdp-panel">
           <div className="pdp-panel-inner" ref={buyRef}>
