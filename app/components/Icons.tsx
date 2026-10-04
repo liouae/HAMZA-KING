@@ -187,6 +187,14 @@ export const IconCushion = (p: P) => (
     <path d="M12 4v6M9 7l3 3 3-3" />
   </svg>
 );
+export const IconHeadset = (p: P) => (
+  <svg {...base} {...p}>
+    <path d="M4 14v-2a8 8 0 0 1 16 0v2" />
+    <rect x="3" y="13" width="4" height="6" rx="1.5" />
+    <rect x="17" y="13" width="4" height="6" rx="1.5" />
+    <path d="M19 19c0 1.5-2 2.5-5 2.5" />
+  </svg>
+);
 export const IconLock = (p: P) => (
   <svg {...base} {...p}>
     <rect x="5" y="10" width="14" height="10" rx="1.5" />

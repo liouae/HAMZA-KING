@@ -31,6 +31,7 @@ import {
 import {
   IconCash,
   IconChevron,
+  IconHeadset,
   IconReturn,
   IconShare,
   IconShield,
@@ -449,6 +450,17 @@ export default function Product() {
               }
             />
 
+            <div className="pdp-confirm">
+              <p className="pdp-confirm-title">
+                <IconHeadset width={20} height={20} /> Appel de confirmation
+              </p>
+              <p className="pdp-confirm-copy">
+                Après ta commande, notre équipe t’appelle rapidement pour
+                confirmer la pointure, le coloris et l’adresse avant
+                l’expédition. Rien à payer avant la livraison.
+              </p>
+            </div>
+
             <ul className="pdp-perks">
               <li>
                 <IconTruck />
@@ -528,6 +540,26 @@ export default function Product() {
                 </p>
               </Accordion>
             </div>
+
+            <aside className="pdp-brand" aria-label={BRAND.name}>
+              <p className="pdp-brand-kicker">{BRAND.name}</p>
+              <h2 className="pdp-brand-title">
+                Les sneakers du moment,
+                <br />
+                livrées partout au Maroc.
+              </h2>
+              <p className="pdp-brand-copy">
+                Running, lifestyle, basket : découvre les paires préférées de
+                nos clients. Livraison gratuite, paiement à la livraison,
+                conseil pointure sur WhatsApp.
+              </p>
+              <Link
+                to="/collections/all?sort=best-selling"
+                className="btn pdp-brand-cta"
+              >
+                Voir les best-sellers
+              </Link>
+            </aside>
           </div>
         </div>
       </div>
