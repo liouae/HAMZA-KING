@@ -2,8 +2,9 @@
  * HAMZA KING — SEO helpers. One place builds titles, canonicals, robots,
  * Open Graph and JSON-LD so every route follows the same rules:
  *
- * - The site URL comes from PUBLIC_SITE_URL (or the request origin) — never a
- *   hard-coded domain we might not own. Attach the domain → set the env var.
+ * - The site URL is PUBLIC_SITE_URL if set, otherwise SITE.url
+ *   (https://hamzaking.com). Every other host (*.myshopify.dev preview) points
+ *   its canonicals there and is blocked in robots.txt.
  * - Filtered, sorted, paginated or searched URLs are `noindex, follow` and
  *   canonicalise to the clean path, so Google sees one URL per page.
  * - Titles put the keyword first and the brand last.
@@ -24,6 +25,7 @@ export function siteUrl(matches: Match[] | undefined) {
 export function resolveSiteUrl(request: Request, env: Env) {
   const fromEnv = (env.PUBLIC_SITE_URL || '').trim().replace(/\/$/, '');
   if (fromEnv) return fromEnv;
+  if (SITE.url) return SITE.url.replace(/\/$/, '');
   const url = new URL(request.url);
   const proto =
     url.hostname === 'localhost' || url.hostname === '127.0.0.1'

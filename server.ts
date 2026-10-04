@@ -11,6 +11,13 @@ export default {
     env: Env,
     executionContext: ExecutionContext,
   ): Promise<Response> {
+    // www → apex, one address for Google and customers.
+    const incoming = new URL(request.url);
+    if (incoming.hostname === 'www.hamzaking.com') {
+      incoming.hostname = 'hamzaking.com';
+      incoming.protocol = 'https:';
+      return Response.redirect(incoming.toString(), 301);
+    }
     try {
       const hydrogenContext = await createHydrogenRouterContext(
         request,
