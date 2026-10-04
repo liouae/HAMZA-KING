@@ -115,6 +115,9 @@ export function pushRecentlyViewed(handle: string) {
 /* ---------- Cookie consent ---------- */
 export type Consent = 'unknown' | 'accepted' | 'refused';
 const consentStore = createLocalStore<Consent>('hk:consent', 'unknown');
+/** Synchronous read, for places that can't use hooks (analytics gate). */
+export const hasTrackingConsent = () => consentStore.read() === 'accepted';
+
 export function useConsent() {
   const consent = useSyncExternalStore(
     consentStore.subscribe,

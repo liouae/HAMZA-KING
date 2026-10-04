@@ -15,6 +15,28 @@ export const BRAND = {
   email: 'hamza20king00@gmail.com',
 };
 
+/**
+ * Analytics & ads IDs. These are public identifiers (they end up in the page
+ * anyway), so they can live here; an Oxygen environment variable with the
+ * same purpose overrides each one (PUBLIC_GA4_ID, PUBLIC_META_PIXEL_ID,
+ * PUBLIC_TIKTOK_PIXEL_ID, PUBLIC_CLARITY_ID, PUBLIC_GOOGLE_SITE_VERIFICATION,
+ * PUBLIC_META_DOMAIN_VERIFICATION). Leave '' to disable.
+ */
+export const TRACKING = {
+  /** Google Analytics 4 measurement ID, e.g. 'G-ABC123XYZ9'. */
+  ga4: '',
+  /** Meta (Facebook/Instagram) Pixel / dataset ID, digits only. */
+  metaPixel: '',
+  /** TikTok Pixel ID, e.g. 'CQ1ABCDEF2GHIJ3KLMN0'. */
+  tiktokPixel: '',
+  /** Microsoft Clarity project ID (heatmaps + session recordings). */
+  clarity: '',
+  /** Google Search Console "HTML tag" content value. */
+  googleSiteVerification: '',
+  /** Meta Business "Domain verification" meta-tag content value. */
+  metaDomainVerification: '',
+};
+
 /** Social profiles shown in the footer and on the contact page (empty URL = hidden). */
 export const SOCIALS = [
   {

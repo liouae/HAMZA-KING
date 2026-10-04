@@ -10,5 +10,10 @@ declare global {
   interface Env {
     /** Meta (Facebook/Instagram) Pixel ID — enables tracking when set. */
     PUBLIC_META_PIXEL_ID?: string;
+    PUBLIC_GA4_ID?: string;
+    PUBLIC_TIKTOK_PIXEL_ID?: string;
+    PUBLIC_CLARITY_ID?: string;
+    PUBLIC_GOOGLE_SITE_VERIFICATION?: string;
+    PUBLIC_META_DOMAIN_VERIFICATION?: string;
   }
 }

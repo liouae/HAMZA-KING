@@ -15,23 +15,38 @@ export default async function handleRequest(
   context: HydrogenRouterContextProvider,
 ) {
   const {nonce, header, NonceProvider} = createContentSecurityPolicy({
-    // Allow the Meta Pixel (Facebook / Instagram ads tracking).
+    // Analytics & ads: GA4, Meta Pixel, TikTok Pixel, Microsoft Clarity.
     scriptSrc: [
       "'self'",
       'https://cdn.shopify.com',
       'https://connect.facebook.net',
+      'https://www.googletagmanager.com',
+      'https://analytics.tiktok.com',
+      'https://*.clarity.ms',
     ],
     imgSrc: [
       "'self'",
       'data:',
       'https://cdn.shopify.com',
       'https://www.facebook.com',
+      'https://www.google-analytics.com',
+      'https://www.googletagmanager.com',
+      'https://*.google-analytics.com',
+      'https://analytics.tiktok.com',
+      'https://*.clarity.ms',
+      'https://c.bing.com',
     ],
     connectSrc: [
       "'self'",
       'https://monorail-edge.shopifysvc.com',
       'https://www.facebook.com',
       'https://connect.facebook.net',
+      'https://*.google-analytics.com',
+      'https://*.analytics.google.com',
+      'https://www.googletagmanager.com',
+      'https://analytics.tiktok.com',
+      'https://*.tiktokw.us',
+      'https://*.clarity.ms',
     ],
     mediaSrc: ["'self'", 'https://cdn.shopify.com'],
     shop: {

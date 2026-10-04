@@ -7,6 +7,7 @@ import {CartSummary} from './CartSummary';
 import {CartUpsell} from './CartUpsell';
 import {IconArrow} from './Icons';
 import {BrandLogo} from './BrandLogo';
+import {AttributionSync} from './AttributionSync';
 
 export type CartLayout = 'page' | 'aside';
 
@@ -47,6 +48,12 @@ export function CartMain({layout, cart: originalCart}: CartMainProps) {
       className={`cart cart--${layout}`}
       aria-label={layout === 'page' ? 'Panier' : 'Panier (tiroir)'}
     >
+      {layout === 'aside' && hasLines ? (
+        <AttributionSync
+          cartId={originalCart?.id}
+          attributes={originalCart?.attributes}
+        />
+      ) : null}
       {!hasLines ? (
         <CartEmpty layout={layout} />
       ) : (

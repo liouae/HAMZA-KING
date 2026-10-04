@@ -1,4 +1,6 @@
 import {useLoaderData} from 'react-router';
+import {track} from '~/lib/tracking';
+import {useEffect} from 'react';
 import {useWhatsAppTopic} from '~/lib/whatsapp';
 import type {Route} from './+types/search';
 import {getPaginationVariables, Analytics} from '@shopify/hydrogen';
@@ -46,6 +48,9 @@ export default function SearchPage() {
   if (type === 'predictive') return null;
   const total = result?.total ?? 0;
   useWhatsAppTopic(term ? {kind: 'search', query: term, count: total} : null);
+  useEffect(() => {
+    if (term) track({name: 'search', term});
+  }, [term]);
 
   return (
     <div className="search">

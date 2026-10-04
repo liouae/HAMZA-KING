@@ -1,4 +1,5 @@
 import {useEffect, useState} from 'react';
+import {track} from '~/lib/tracking';
 import {useWhatsAppTopic} from '~/lib/whatsapp';
 import {SmartImage} from '~/components/SmartImage';
 import {
@@ -101,6 +102,21 @@ export function CollectionView({
   };
   const chips = subChips(handle);
   useWhatsAppTopic({kind: 'collection', title, handle});
+  useEffect(() => {
+    track({
+      name: 'view_item_list',
+      listId: handle,
+      listName: title,
+      items: products.nodes.slice(0, 20).map((p) => ({
+        productId: p.id,
+        variantId: p.variants?.nodes?.[0]?.id,
+        title: p.title,
+        brand: p.vendor,
+        price: Number(p.priceRange.minVariantPrice.amount),
+      })),
+    });
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [handle]);
   const brand = BRANDS.find((b) => b.handle === handle);
   const location = useLocation();
   const navigate = useNavigate();

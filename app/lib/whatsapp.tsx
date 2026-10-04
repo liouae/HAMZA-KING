@@ -9,6 +9,8 @@ import {
 } from 'react';
 import {useLocation} from 'react-router';
 import {BRAND, BRANDS, whatsappLink} from './config';
+import {attributionRef} from './attribution';
+import {track} from './tracking';
 
 /**
  * Context-aware WhatsApp messages.
@@ -35,10 +37,14 @@ export type WaTopic =
       color?: string;
       size?: string;
       price?: string;
+      /** For tracking only (never shown in the message). */
+      productId?: string;
+      variantId?: string;
+      amount?: number;
     }
   | {kind: 'collection'; title: string; handle: string}
   | {kind: 'search'; query: string; count?: number}
-  | {kind: 'cart'; lines: WaLine[]; total?: string}
+  | {kind: 'cart'; lines: WaLine[]; total?: string; amount?: number}
   | {kind: 'wishlist'; items: WaLine[]};
 
 export type WaIntent = 'question' | 'order';
@@ -88,7 +94,26 @@ export function describeFilters(search: string) {
   return out;
 }
 
-export function buildWhatsAppMessage({
+export function buildWhatsAppMessage(args: {
+  intent?: WaIntent;
+  topic?: WaTopic | null;
+  pathname: string;
+  search?: string;
+  url?: string;
+  /** Ad reference shown at the end, e.g. "meta/2610-sales-broad". */
+  adRef?: string;
+}): string {
+  const msg = buildMessageBody(args);
+  if (!args.adRef) return msg;
+  // Put the reference under the link (or under the greeting), never after
+  // the lines the customer is meant to fill in.
+  const lines = msg.split('\n');
+  const at = lines.findIndex((l) => l.startsWith('🔗 '));
+  lines.splice(at >= 0 ? at + 1 : 1, 0, `🏷️ Réf. : ${args.adRef}`);
+  return lines.join('\n');
+}
+
+function buildMessageBody({
   intent = 'question',
   topic,
   pathname,
@@ -228,6 +253,7 @@ export function useWhatsAppLink(
         pathname: window.location.pathname,
         search: window.location.search,
         url: window.location.href,
+        adRef: attributionRef(),
       }),
     );
   const [href, setHref] = useState(() =>
@@ -242,6 +268,45 @@ export function useWhatsAppLink(
     href,
     onClick: (e: ReactMouseEvent<HTMLAnchorElement>) => {
       e.currentTarget.href = build();
+      trackWhatsApp(intent, topic, location.pathname);
     },
   };
+}
+
+/** Report a WhatsApp click to GA4 / Meta / TikTok as a lead. */
+function trackWhatsApp(
+  intent: WaIntent,
+  topic: WaTopic | null | undefined,
+  pathname: string,
+) {
+  const context =
+    topic?.kind ??
+    (pathname === '/' ? 'home' : pathname.split('/')[1] || 'page');
+  if (topic?.kind === 'product') {
+    const amount = topic.amount ?? 0;
+    track({
+      name: 'whatsapp_click',
+      intent,
+      context,
+      value: amount,
+      items: topic.productId
+        ? [
+            {
+              productId: topic.productId,
+              variantId: topic.variantId,
+              title: topic.title,
+              brand: topic.vendor,
+              variant: [topic.color, topic.size].filter(Boolean).join(' / '),
+              price: amount,
+            },
+          ]
+        : [],
+    });
+    return;
+  }
+  if (topic?.kind === 'cart') {
+    track({name: 'whatsapp_click', intent, context, value: topic.amount ?? 0});
+    return;
+  }
+  track({name: 'whatsapp_click', intent, context});
 }

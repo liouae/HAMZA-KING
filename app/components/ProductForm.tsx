@@ -1,4 +1,5 @@
 import {useState} from 'react';
+import {track} from '~/lib/tracking';
 import {Link, useNavigate} from 'react-router';
 import {type MappedProductOptions} from '@shopify/hydrogen';
 import type {
@@ -12,7 +13,6 @@ import {SizeGuide} from './SizeGuide';
 import {isColorOption, isSizeOption} from '~/lib/config';
 import {useWhatsAppLink, useWhatsAppTopic, type WaTopic} from '~/lib/whatsapp';
 import {formatMoney} from './Price';
-import {trackLead} from './MetaPixel';
 import type {ProductFragment} from 'storefrontapi.generated';
 
 export function ProductForm({
@@ -22,6 +22,7 @@ export function ProductForm({
   fitNote,
   stockMessage,
   colorImages = {},
+  productId,
 }: {
   productOptions: MappedProductOptions[];
   selectedVariant: ProductFragment['selectedOrFirstAvailableVariant'];
@@ -30,6 +31,8 @@ export function ProductForm({
   stockMessage?: string;
   /** Colour name → photo for the swatch tiles. */
   colorImages?: Record<string, string>;
+  /** Product GID, for ad catalogue matching. */
+  productId?: string;
 }) {
   const navigate = useNavigate();
   const {open} = useAside();
@@ -56,6 +59,9 @@ export function ProductForm({
         ? `EU ${sizeValue}`
         : undefined,
     price: selectedVariant?.price ? formatMoney(selectedVariant.price) : '',
+    productId,
+    variantId: selectedVariant?.id,
+    amount: Number(selectedVariant?.price?.amount ?? 0),
   };
   useWhatsAppTopic(topic);
   const orderLink = useWhatsAppLink('order', topic);
@@ -187,7 +193,21 @@ export function ProductForm({
         ) : (
           <AddToCartButton
             disabled={!selectedVariant || !available}
-            onClick={() => open('cart')}
+            onClick={() => {
+              open('cart');
+              if (selectedVariant)
+                track({
+                  name: 'add_to_cart',
+                  item: {
+                    productId: productId ?? '',
+                    variantId: selectedVariant.id,
+                    title: productTitle,
+                    variant: selectedVariant.title,
+                    price: Number(selectedVariant.price?.amount ?? 0),
+                    quantity: 1,
+                  },
+                });
+            }}
             className="btn btn--block btn--xl"
             lines={
               selectedVariant
@@ -209,14 +229,7 @@ export function ProductForm({
           href={orderLink.href}
           target="_blank"
           rel="noreferrer"
-          onClick={(e) => {
-            orderLink.onClick(e);
-            trackLead({
-              content_name: productTitle,
-              value: Number(selectedVariant?.price?.amount ?? 0),
-              currency: selectedVariant?.price?.currencyCode ?? 'MAD',
-            });
-          }}
+          onClick={orderLink.onClick}
         >
           <IconWhatsApp /> Commander sur WhatsApp
         </a>

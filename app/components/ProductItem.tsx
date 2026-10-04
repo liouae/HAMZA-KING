@@ -1,4 +1,5 @@
 import {useState} from 'react';
+import {track} from '~/lib/tracking';
 import {Link} from 'react-router';
 import {CartForm, Image} from '@shopify/hydrogen';
 import type {FetcherWithComponents} from 'react-router';
@@ -325,7 +326,23 @@ function QuickAdd({product}: {product: CardProduct}) {
                   type="submit"
                   className="quickadd-size"
                   disabled={fetcher.state !== 'idle'}
-                  onClick={() => open('cart')}
+                  onClick={() => {
+                    open('cart');
+                    track({
+                      name: 'add_to_cart',
+                      item: {
+                        productId: product.id,
+                        variantId: variant.id,
+                        title: product.title,
+                        brand: product.vendor,
+                        variant: name,
+                        price: Number(
+                          variant.price?.amount ??
+                            product.priceRange.minVariantPrice.amount,
+                        ),
+                      },
+                    });
+                  }}
                 >
                   {name}
                 </button>

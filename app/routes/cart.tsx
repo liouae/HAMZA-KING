@@ -66,6 +66,13 @@ export async function action({request, context}: Route.ActionArgs) {
       result = await cart.removeGiftCardCodes(appliedGiftCardIds);
       break;
     }
+    case CartForm.ACTIONS.AttributesUpdateInput: {
+      // Ad-source attribution (utm/fbclid/ttclid) carried onto the order.
+      result = await cart.updateAttributes(
+        (inputs.attributes ?? []) as {key: string; value: string}[],
+      );
+      break;
+    }
     case CartForm.ACTIONS.BuyerIdentityUpdate: {
       result = await cart.updateBuyerIdentity({
         ...inputs.buyerIdentity,

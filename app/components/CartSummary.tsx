@@ -1,4 +1,6 @@
 import type {CartApiQueryFragment} from 'storefrontapi.generated';
+import {track} from '~/lib/tracking';
+import {cartLineItem} from '~/components/Tracking';
 import {useWhatsAppLink} from '~/lib/whatsapp';
 import type {CartLayout} from '~/components/CartMain';
 import {CartForm, type OptimisticCart} from '@shopify/hydrogen';
@@ -32,6 +34,7 @@ export function CartSummary({cart, layout}: CartSummaryProps) {
     total: cart?.cost?.subtotalAmount?.amount
       ? formatMoney(cart.cost.subtotalAmount)
       : undefined,
+    amount: Number(cart?.cost?.subtotalAmount?.amount ?? 0),
   });
 
   return (
@@ -67,7 +70,7 @@ export function CartSummary({cart, layout}: CartSummaryProps) {
         </div>
       </dl>
       <CartNote note={cart?.note ?? ''} />
-      <CartCheckoutActions checkoutUrl={cart?.checkoutUrl} />
+      <CartCheckoutActions checkoutUrl={cart?.checkoutUrl} cart={cart} />
       <a
         className="btn btn--block btn--wa"
         {...waLink}
@@ -112,10 +115,27 @@ function CartNote({note}: {note: string}) {
   );
 }
 
-function CartCheckoutActions({checkoutUrl}: {checkoutUrl?: string}) {
+function CartCheckoutActions({
+  checkoutUrl,
+  cart,
+}: {
+  checkoutUrl?: string;
+  cart: OptimisticCart<CartApiQueryFragment | null>;
+}) {
   if (!checkoutUrl) return null;
   return (
-    <a href={checkoutUrl} target="_self" className="btn btn--block btn--lg">
+    <a
+      href={checkoutUrl}
+      target="_self"
+      className="btn btn--block btn--lg"
+      onClick={() =>
+        track({
+          name: 'begin_checkout',
+          value: Number(cart?.cost?.totalAmount?.amount ?? 0),
+          items: (cart?.lines?.nodes ?? []).map((l) => cartLineItem(l)),
+        })
+      }
+    >
       Commander <IconArrow width={18} height={18} />
     </a>
   );

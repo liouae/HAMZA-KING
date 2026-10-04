@@ -1,4 +1,5 @@
 import {redirect, useLoaderData} from 'react-router';
+import {track} from '~/lib/tracking';
 import type {Route} from './+types/products.$handle';
 import {
   getSelectedProductOptions,
@@ -336,6 +337,22 @@ export default function Product() {
   useEffect(() => {
     pushRecentlyViewed(product.handle);
   }, [product.handle]);
+  // Analytics: one view_item per product page (not per size click).
+  useEffect(() => {
+    track({
+      name: 'view_item',
+      item: {
+        productId: product.id,
+        variantId: selectedVariant?.id,
+        title: product.title,
+        brand: product.vendor,
+        category: product.productType,
+        variant: selectedVariant?.title,
+        price: Number(selectedVariant?.price?.amount ?? 0),
+      },
+    });
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [product.id]);
 
   const [shareState, setShareState] = useState<'idle' | 'copied'>('idle');
   const share = async () => {
@@ -441,6 +458,7 @@ export default function Product() {
               productTitle={title}
               fitNote={fit}
               colorImages={colorImages}
+              productId={product.id}
               stockMessage={
                 !selectedVariant?.availableForSale
                   ? 'Cette pointure est épuisée. Choisis-en une autre ou écris-nous : on te prévient dès le retour en stock.'

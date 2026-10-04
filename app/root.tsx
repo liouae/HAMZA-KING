@@ -1,4 +1,5 @@
 import {Analytics, getShopAnalytics, useNonce} from '@shopify/hydrogen';
+import {hasTrackingConsent} from '~/lib/ui';
 import {
   Outlet,
   useRouteError,
@@ -24,7 +25,8 @@ import resetStyles from '~/styles/reset.css?url';
 import appStyles from '~/styles/app.css?url';
 import {PageLayout} from './components/PageLayout';
 import {BrandLogo} from './components/BrandLogo';
-import {MetaPixel} from './components/MetaPixel';
+import {Tracking} from './components/Tracking';
+import {TRACKING} from '~/lib/config';
 import fontStyles from '~/styles/fonts.css?url';
 import {COLLECTION_IMAGES} from '~/lib/content';
 
@@ -102,7 +104,18 @@ export async function loader(args: Route.LoaderArgs) {
     ...criticalData,
     publicStoreDomain: env.PUBLIC_STORE_DOMAIN,
     origin: new URL(args.request.url).origin,
-    metaPixelId: env.PUBLIC_META_PIXEL_ID,
+    tracking: {
+      ga4: env.PUBLIC_GA4_ID || TRACKING.ga4,
+      metaPixel: env.PUBLIC_META_PIXEL_ID || TRACKING.metaPixel,
+      tiktokPixel: env.PUBLIC_TIKTOK_PIXEL_ID || TRACKING.tiktokPixel,
+      clarity: env.PUBLIC_CLARITY_ID || TRACKING.clarity,
+    },
+    verification: {
+      google:
+        env.PUBLIC_GOOGLE_SITE_VERIFICATION || TRACKING.googleSiteVerification,
+      meta:
+        env.PUBLIC_META_DOMAIN_VERIFICATION || TRACKING.metaDomainVerification,
+    },
     shop: getShopAnalytics({
       storefront,
       publicStorefrontId: env.PUBLIC_STOREFRONT_ID,
@@ -193,6 +206,22 @@ function loadDeferredData({context}: Route.LoaderArgs) {
   };
 }
 
+/** Google Search Console + Meta Business domain verification tags. */
+function VerificationTags() {
+  const data = useRouteLoaderData<RootLoader>('root');
+  const v = data?.verification;
+  return (
+    <>
+      {v?.google ? (
+        <meta name="google-site-verification" content={v.google} />
+      ) : null}
+      {v?.meta ? (
+        <meta name="facebook-domain-verification" content={v.meta} />
+      ) : null}
+    </>
+  );
+}
+
 export function Layout({children}: {children?: React.ReactNode}) {
   const nonce = useNonce();
 
@@ -222,6 +251,7 @@ export function Layout({children}: {children?: React.ReactNode}) {
         <Meta />
         <Links />
         <DefaultSocialTags />
+        <VerificationTags />
         <script
           nonce={nonce}
           suppressHydrationWarning
@@ -265,13 +295,15 @@ export default function App() {
       cart={data.cart}
       shop={data.shop}
       consent={data.consent}
+      // Our cookie banner is the single source of truth for tracking.
+      canTrack={hasTrackingConsent}
     >
       <ToastProvider>
         <PageLayout {...data}>
           <Outlet />
         </PageLayout>
         <CookieConsent />
-        <MetaPixel pixelId={data.metaPixelId} />
+        <Tracking ids={data.tracking} />
       </ToastProvider>
     </Analytics.Provider>
   );
