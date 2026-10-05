@@ -11,15 +11,9 @@ export default {
     env: Env,
     executionContext: ExecutionContext,
   ): Promise<Response> {
-    // Keep every public request on the canonical production domain.
-    // Customer Account OAuth derives its redirect_uri from request.url, so
-    // allowing an Oxygen *.o2.myshopify.dev preview hostname through would
-    // produce a redirect URI that Shopify has not registered.
+    // www → apex, one address for Google and customers.
     const incoming = new URL(request.url);
-    const isWww = incoming.hostname === 'www.hamzaking.com';
-    const isOxygenPreview = incoming.hostname.endsWith('.o2.myshopify.dev');
-
-    if (isWww || isOxygenPreview) {
+    if (incoming.hostname === 'www.hamzaking.com') {
       incoming.hostname = 'hamzaking.com';
       incoming.protocol = 'https:';
       return Response.redirect(incoming.toString(), 301);
