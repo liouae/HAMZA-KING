@@ -6558,3 +6558,63 @@ body:has(.consent) .wa-float {
     letter-spacing: 0;
   }
 }
+
+/* Mobile header: larger lockup, balanced icon spacing and vertical alignment. */
+@media (max-width: 44.99em) {
+  :root {
+    --header-h: 64px;
+  }
+
+  .header-inner {
+    grid-template-columns: minmax(0, 1fr) auto;
+    padding-inline: 14px;
+  }
+
+  .header-left {
+    min-width: 0;
+    gap: 10px;
+  }
+
+  .wordmark-logo {
+    height: 30px;
+  }
+
+  .header-actions {
+    gap: 2px;
+  }
+
+  .header .icon-btn {
+    width: 40px;
+    height: 40px;
+  }
+
+  .header .icon-btn svg {
+    width: 23px;
+    height: 23px;
+  }
+}
+
+@media (max-width: 23em) {
+  .header-inner {
+    padding-inline: 10px;
+  }
+
+  .header-left {
+    gap: 6px;
+  }
+
+  .wordmark-logo {
+    height: 27px;
+  }
+
+  .header .icon-btn {
+    width: 36px;
+    height: 36px;
+  }
+
+  .header .icon-btn svg {
+    width: 21px;
+    height: 21px;
+  }
+}
+
