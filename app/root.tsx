@@ -208,8 +208,14 @@ function loadDeferredData({context}: Route.LoaderArgs) {
       return {...COLLECTION_IMAGES} as Record<string, {url: string}>;
     });
   return {
-    cart: cart.get(),
-    isLoggedIn: customerAccount.isLoggedIn(),
+    cart: cart.get().catch((error: Error) => {
+      console.error('Cart fetch failed', error);
+      return null;
+    }),
+    isLoggedIn: customerAccount.isLoggedIn().catch((error: Error) => {
+      console.error('Customer account status fetch failed', error);
+      return false;
+    }),
     footer,
     menuImages,
   };
