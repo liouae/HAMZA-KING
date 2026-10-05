@@ -54,8 +54,15 @@ export async function loader(args: Route.LoaderArgs) {
 }
 
 async function loadCriticalData({context}: Route.LoaderArgs) {
-  const {newest} = await context.storefront.query(HOME_NEWEST_QUERY);
-  return {newest: newest.nodes as CardProduct[]};
+  try {
+    const {newest} = await context.storefront.query(HOME_NEWEST_QUERY);
+    return {newest: newest.nodes as CardProduct[]};
+  } catch (error) {
+    console.error('Homepage Storefront API query failed', error);
+    // The campaign has local media and can render without product data.
+    // Avoid taking the entire storefront down on a transient upstream failure.
+    return {newest: [] as CardProduct[]};
+  }
 }
 
 function loadDeferredData({context}: Route.LoaderArgs) {
