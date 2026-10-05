@@ -454,7 +454,7 @@ function WishlistLink() {
   return (
     <Link
       to="/wishlist"
-      className="icon-btn hide-sm"
+      className="icon-btn wishlist-btn hide-sm"
       aria-label={`Wishlist, ${count} article(s)`}
     >
       <IconHeart filled={count > 0} />

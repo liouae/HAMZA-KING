@@ -542,7 +542,8 @@ main {
   background: var(--line);
   color: var(--ink);
 }
-.cart-btn {
+.cart-btn,
+.wishlist-btn {
   position: relative;
 }
 .cart-count {
