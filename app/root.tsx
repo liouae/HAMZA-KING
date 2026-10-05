@@ -141,12 +141,19 @@ async function loadCriticalData({context}: Route.LoaderArgs) {
   const {storefront} = context;
 
   const [header, emptyCollections] = await Promise.all([
-    storefront.query(HEADER_QUERY, {
-      cache: storefront.CacheLong(),
-      variables: {
-        headerMenuHandle: 'main-menu', // Adjust to your header menu handle
-      },
-    }),
+    storefront
+      .query(HEADER_QUERY, {
+        cache: storefront.CacheLong(),
+        variables: {
+          headerMenuHandle: 'main-menu', // Adjust to your header menu handle
+        },
+      })
+      .catch((error: Error) => {
+        console.error('Header Storefront API query failed', error);
+        // Header/Footer navigation is driven by local config, so keep the
+        // storefront available even if Shopify has a transient fetch failure.
+        return {} as Awaited<ReturnType<typeof storefront.query>>;
+      }),
     loadEmptyCollections(storefront),
   ]);
 
