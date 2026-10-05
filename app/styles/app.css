@@ -6523,3 +6523,38 @@ body:has(.consent) .wa-float {
 .ship .plp-faq-list {
   max-width: 820px;
 }
+
+
+/* Mobile announcement bar: keep the active message fully visible and centered. */
+@media (max-width: 63.99em) {
+  .announce-inner {
+    display: block;
+    padding-inline: 0;
+  }
+
+  .announce-track {
+    width: 100%;
+    min-width: 0;
+    height: 100%;
+  }
+
+  .announce-msg {
+    width: 100%;
+    padding-inline: 16px;
+    white-space: nowrap;
+    overflow: visible;
+    text-overflow: clip;
+    text-align: center;
+    font-size: 11px;
+    letter-spacing: 0.02em;
+    line-height: var(--announce-h);
+  }
+}
+
+@media (max-width: 23em) {
+  .announce-msg {
+    padding-inline: 10px;
+    font-size: 10px;
+    letter-spacing: 0;
+  }
+}
