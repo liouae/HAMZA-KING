@@ -39,3 +39,10 @@ jobs:
         run: npx shopify hydrogen deploy
         env:
           SHOPIFY_HYDROGEN_DEPLOYMENT_TOKEN: ${{ secrets.OXYGEN_DEPLOYMENT_TOKEN_1000181564 }}
+
+      - name: Runtime health check
+        if: github.ref == 'refs/heads/main'
+        run: |
+          sleep 8
+          curl -sS --max-time 20 https://hamza-king-e06bade0fb6463074128.o2.myshopify.dev/__health || true
+          echo
