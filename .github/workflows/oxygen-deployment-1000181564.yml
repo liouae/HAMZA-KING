@@ -40,13 +40,8 @@ jobs:
         env:
           SHOPIFY_HYDROGEN_DEPLOYMENT_TOKEN: ${{ secrets.OXYGEN_DEPLOYMENT_TOKEN_1000181564 }}
 
-      - name: Runtime health check
+      - name: Homepage smoke test
         if: github.ref == 'refs/heads/main'
         run: |
           sleep 8
-          curl -sS --max-time 20 https://hamza-king-e06bade0fb6463074128.o2.myshopify.dev/__health || true
-          echo
-          echo "Homepage status:"
-          curl -sS --max-time 20 -o /tmp/homepage.html -w "%{http_code}\n" https://hamza-king-e06bade0fb6463074128.o2.myshopify.dev/ || true
-          echo "Homepage marker:"
-          grep -Eo "ERREUR [0-9]+|Oups, un faux pas|Failed to fetch|HAMZA KING" /tmp/homepage.html | head -20 || true
+          curl --fail --silent --show-error --max-time 20 https://hamza-king-e06bade0fb6463074128.o2.myshopify.dev/ > /dev/null
