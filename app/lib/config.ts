@@ -186,6 +186,12 @@ export const BRANDS: Brand[] = [
     focus: ['running'],
   },
   {
+    name: 'Off-White',
+    handle: 'off-white',
+    tagline: 'Design contemporain et sneakers audacieuses.',
+    focus: ['lifestyle'],
+  },
+  {
     name: 'Hoka',
     handle: 'hoka',
     logo: '/brands/hoka.png',
