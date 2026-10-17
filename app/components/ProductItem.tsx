@@ -319,6 +319,7 @@ function QuickAdd({product}: {product: CardProduct}) {
               key={name}
               className="quickadd-size"
               lines={[{merchandiseId: variant.id, quantity: 1}]}
+              onClick={() => open('cart')}
               onAdded={() => {
                 track({
                   name: 'add_to_cart',
@@ -334,7 +335,6 @@ function QuickAdd({product}: {product: CardProduct}) {
                     ),
                   },
                 });
-                open('cart');
               }}
             >
               {name}
