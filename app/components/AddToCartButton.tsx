@@ -68,30 +68,34 @@ function CartSubmitButton({
   const requestedVariant = useRef<string | null>(null);
   const submittedCallback = useRef<(() => void) | undefined>(undefined);
   const [isPending, setIsPending] = useState(false);
+  const [timedOut, setTimedOut] = useState(false);
   const [errorMessage, setErrorMessage] = useState('');
+  const requestStarted = useRef(false);
 
   useEffect(() => {
-    if (
-      fetcher.state !== 'idle' ||
-      !requestedVariant.current ||
-      !fetcher.data
-    ) {
+    if (fetcher.state !== 'idle') {
+      requestStarted.current = true;
       return;
     }
+    // A request can fail or be interrupted without returning fetcher.data.
+    // Never leave "Ajout…" disabled permanently after that transition.
+    if (!requestedVariant.current || !requestStarted.current) return;
+
     const requestedId = requestedVariant.current;
     requestedVariant.current = null;
+    requestStarted.current = false;
     const onSuccess = submittedCallback.current;
     submittedCallback.current = undefined;
     setIsPending(false);
 
-    const result = fetcher.data as CartAddResponse;
-    const wasAdded = result.cart?.lines?.nodes?.some(
+    const result = fetcher.data as CartAddResponse | undefined;
+    const wasAdded = result?.cart?.lines?.nodes?.some(
       (line) => line.merchandise?.id === requestedId,
     );
-    if ((result.errors?.length ?? 0) > 0 || !wasAdded) {
+    if ((result?.errors?.length ?? 0) > 0 || !wasAdded) {
       setErrorMessage(
-        result.errors?.[0]?.message ||
-          "L'ajout au panier n'a pas abouti. Merci de réessayer.",
+        result?.errors?.[0]?.message ||
+          "Impossible de confirmer l'ajout. Vérifie ton panier avant de réessayer.",
       );
       return;
     }
@@ -99,6 +103,24 @@ function CartSubmitButton({
     setErrorMessage('');
     onSuccess?.();
   }, [fetcher.state, fetcher.data]);
+
+  useEffect(() => {
+    if (!isPending) return;
+    // Particularly in Instagram's in-app browser, stalled requests must
+    // have an exit. Do not silently retry: Shopify may have added the item.
+    const timer = window.setTimeout(() => {
+      if (!requestedVariant.current) return;
+      requestedVariant.current = null;
+      submittedCallback.current = undefined;
+      requestStarted.current = false;
+      setIsPending(false);
+      setTimedOut(true);
+      setErrorMessage(
+        "La connexion prend trop de temps. Vérifie ton panier avant de réessayer.",
+      );
+    }, 15000);
+    return () => window.clearTimeout(timer);
+  }, [isPending]);
 
   return (
     <>
@@ -110,7 +132,7 @@ function CartSubmitButton({
       <button
         type="submit"
         className={`${className} ${isPending || fetcher.state !== 'idle' ? 'is-busy' : ''}`}
-        disabled={Boolean(disabled) || isPending || fetcher.state !== 'idle'}
+        disabled={Boolean(disabled) || isPending || timedOut || fetcher.state !== 'idle'}
         onClick={(event) => {
           if (requestedVariant.current || fetcher.state !== 'idle') {
             event.preventDefault();
@@ -125,6 +147,7 @@ function CartSubmitButton({
           requestedVariant.current = variantId;
           submittedCallback.current = onAdded;
           setIsPending(true);
+          setTimedOut(false);
           setErrorMessage('');
           onClick?.();
         }}
@@ -132,9 +155,10 @@ function CartSubmitButton({
         {isPending || fetcher.state !== 'idle' ? 'Ajout…' : children}
       </button>
       {errorMessage ? (
-        <p className="opt-nudge" role="alert">
-          {errorMessage}
-        </p>
+        <div role="alert" className="opt-nudge">
+          <p>{errorMessage}</p>
+          <a href="/cart" className="link-btn">Voir mon panier</a>
+        </div>
       ) : null}
     </>
   );
