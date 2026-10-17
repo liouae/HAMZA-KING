@@ -1,8 +1,8 @@
 import {useState} from 'react';
 import {track} from '~/lib/tracking';
 import {Link} from 'react-router';
-import {Image} from '@shopify/hydrogen';
-import {AddToCartButton} from './AddToCartButton';
+import {CartForm, Image} from '@shopify/hydrogen';
+import type {FetcherWithComponents} from 'react-router';
 import {useVariantUrl} from '~/lib/variants';
 import {isColorOption, isSizeOption} from '~/lib/config';
 import {Price} from './Price';
@@ -315,30 +315,39 @@ function QuickAdd({product}: {product: CardProduct}) {
       <div className="quickadd-sizes">
         {sizes.map(({name, variant}) =>
           variant?.availableForSale ? (
-            <AddToCartButton
+            <CartForm
               key={name}
-              className="quickadd-size"
-              lines={[{merchandiseId: variant.id, quantity: 1}]}
-              onClick={() => open('cart')}
-              onAdded={() => {
-                track({
-                  name: 'add_to_cart',
-                  item: {
-                    productId: product.id,
-                    variantId: variant.id,
-                    title: product.title,
-                    brand: product.vendor,
-                    variant: name,
-                    price: Number(
-                      variant.price?.amount ??
-                        product.priceRange.minVariantPrice.amount,
-                    ),
-                  },
-                });
-              }}
+              route="/cart"
+              action={CartForm.ACTIONS.LinesAdd}
+              inputs={{lines: [{merchandiseId: variant.id, quantity: 1}]}}
             >
-              {name}
-            </AddToCartButton>
+              {(fetcher: FetcherWithComponents<unknown>) => (
+                <button
+                  type="submit"
+                  className="quickadd-size"
+                  disabled={fetcher.state !== 'idle'}
+                  onClick={() => {
+                    open('cart');
+                    track({
+                      name: 'add_to_cart',
+                      item: {
+                        productId: product.id,
+                        variantId: variant.id,
+                        title: product.title,
+                        brand: product.vendor,
+                        variant: name,
+                        price: Number(
+                          variant.price?.amount ??
+                            product.priceRange.minVariantPrice.amount,
+                        ),
+                      },
+                    });
+                  }}
+                >
+                  {name}
+                </button>
+              )}
+            </CartForm>
           ) : (
             <span key={name} className="quickadd-size is-out" aria-disabled>
               {name}
