@@ -193,20 +193,21 @@ export function ProductForm({
         ) : (
           <AddToCartButton
             disabled={!selectedVariant || !available}
-            onClick={() => {
+            onAdded={() => {
+              // Only report an addition and open the cart after Shopify confirms it.
+              if (!selectedVariant) return;
+              track({
+                name: 'add_to_cart',
+                item: {
+                  productId: productId ?? '',
+                  variantId: selectedVariant.id,
+                  title: productTitle,
+                  variant: selectedVariant.title,
+                  price: Number(selectedVariant.price?.amount ?? 0),
+                  quantity: 1,
+                },
+              });
               open('cart');
-              if (selectedVariant)
-                track({
-                  name: 'add_to_cart',
-                  item: {
-                    productId: productId ?? '',
-                    variantId: selectedVariant.id,
-                    title: productTitle,
-                    variant: selectedVariant.title,
-                    price: Number(selectedVariant.price?.amount ?? 0),
-                    quantity: 1,
-                  },
-                });
             }}
             className="btn btn--block btn--xl"
             lines={
