@@ -193,8 +193,9 @@ export function ProductForm({
         ) : (
           <AddToCartButton
             disabled={!selectedVariant || !available}
+            onClick={() => open('cart')}
             onAdded={() => {
-              // Only report an addition and open the cart after Shopify confirms it.
+              // Track only after Shopify confirms that the variant was added.
               if (!selectedVariant) return;
               track({
                 name: 'add_to_cart',
@@ -207,7 +208,6 @@ export function ProductForm({
                   quantity: 1,
                 },
               });
-              open('cart');
             }}
             className="btn btn--block btn--xl"
             lines={
