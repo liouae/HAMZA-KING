@@ -5,7 +5,7 @@ import measuredFrames from './productPhotoFrames.json';
 const frames: Record<string, number[] | null> = measuredFrames;
 
 export function productPhotoStyle(url: string): CSSProperties | undefined {
-  const key = url.split('/files/')[1]?.split('?')[0];
+  const key = url.split('/files/').pop()?.split('?')[0];
   const frame = key ? frames[key] : undefined;
   if (!frame || frame.length !== 5) return undefined;
   const [x, y, width, height, aspect] = frame;
