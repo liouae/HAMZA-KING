@@ -1,13 +1,14 @@
 import {useState} from 'react';
 import {track} from '~/lib/tracking';
 import {Link} from 'react-router';
-import {CartForm, Image} from '@shopify/hydrogen';
+import {CartForm} from '@shopify/hydrogen';
 import type {FetcherWithComponents} from 'react-router';
 import {useVariantUrl} from '~/lib/variants';
 import {isColorOption, isSizeOption} from '~/lib/config';
 import {Price} from './Price';
 import {useAside} from './Aside';
 import {WishlistButton} from './WishlistButton';
+import {ProductPhoto} from './ProductPhoto';
 
 type Money = {amount: string; currencyCode: string};
 type Img = {
@@ -210,10 +211,9 @@ export function ProductItem({
           aria-label={product.title}
         >
           {image ? (
-            <Image
+            <ProductPhoto
               className="card-img"
               alt={image.altText || product.title}
-              aspectRatio="1/1"
               data={image}
               loading={loading}
               sizes="(min-width: 64em) 25vw, (min-width: 45em) 33vw, 50vw"
@@ -222,10 +222,9 @@ export function ProductItem({
             <span className="card-img card-img--empty" />
           )}
           {hoverImage ? (
-            <Image
+            <ProductPhoto
               className="card-img card-img--hover"
               alt=""
-              aspectRatio="1/1"
               data={hoverImage}
               loading="lazy"
               sizes="(min-width: 64em) 25vw, (min-width: 45em) 33vw, 50vw"

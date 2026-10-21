@@ -1,6 +1,6 @@
 import {useEffect, useRef, useState} from 'react';
-import {Image} from '@shopify/hydrogen';
 import {IconClose, IconPlus} from './Icons';
+import {ProductPhoto} from './ProductPhoto';
 
 type Img = {
   id?: string | null;
@@ -66,10 +66,9 @@ export function ProductGallery({
             onClick={() => setZoom(i)}
             aria-label={`Agrandir l’image ${i + 1}`}
           >
-            <Image
+            <ProductPhoto
               data={img}
               alt={img.altText || `${title} — vue ${i + 1}`}
-              aspectRatio="1/1"
               sizes="(min-width: 64em) 30vw, 100vw"
               loading={i < 2 ? 'eager' : 'lazy'}
             />
@@ -103,7 +102,7 @@ export function ProductGallery({
             onClick={() => setZoom(null)}
             role="presentation"
           >
-            <Image
+            <ProductPhoto
               data={images[zoom]}
               alt={images[zoom].altText || title}
               sizes="100vw"
@@ -118,13 +117,7 @@ export function ProductGallery({
                 onClick={() => setZoom(i)}
                 aria-label={`Image ${i + 1}`}
               >
-                <Image
-                  data={img}
-                  alt=""
-                  width={72}
-                  height={72}
-                  aspectRatio="1/1"
-                />
+                <ProductPhoto data={img} alt="" />
               </button>
             ))}
           </div>
