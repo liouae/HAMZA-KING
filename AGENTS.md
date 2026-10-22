@@ -6,7 +6,7 @@ This storefront is scaffolded from Shopify's Hydrogen skeleton template. See the
 
 - Primary colour photos must show a complete single shoe, toe pointing left; never mirror readable branding.
 - Centre the actual shoe both vertically and horizontally, with balanced empty space and consistent visual scale across products.
-- Use a flat white (#FFFFFF) studio background for every colour and gallery view. Preserve the actual shoe colours and branding, with only a subtle neutral contact shadow. Check thumbnails and editorial photos as well as cards and galleries. Avoid gray, blue, warm, gradient or black backdrops and blanket filters that bleach the product.
+- Present every colour and gallery view on the approved flat light-gray studio surface (#F4F4F2), sampled from the user's product-page screenshot. Use the shared --product-studio token across cards, galleries, zoom, thumbnails, cart and editorial photos. Keep neutral white source masters so ProductPhoto can composite them consistently onto the shared surface. Preserve shoe details and readable branding, with only a subtle neutral contact shadow; avoid gradients, colored casts and blanket filters that bleach the product.
 - Generated studio references: clean neutral background, shoe bounding-box centre at 50% / 50%, about 84% canvas width, no clipped toe or heel. Inspect the result rather than relying on the prompt alone.
 - Cards and galleries use ProductPhoto and measured subject bounds in app/lib/productPhotoFrames.json. Add measurements when adding or replacing images; preserve source files and alternate views.
 

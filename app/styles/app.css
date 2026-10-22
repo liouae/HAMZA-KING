@@ -6614,7 +6614,10 @@ body:has(.consent) .wa-float {
   }
 }
 
-/* One white studio surface across every product-photo context. */
+/* Studio surface sampled from the approved product-page reference. */
+:root {
+  --product-studio: #f4f4f2;
+}
 .card-media,
 .gallery-item,
 .lightbox,
@@ -6622,14 +6625,17 @@ body:has(.consent) .wa-float {
 .showcase-panels,
 .product-photo,
 .opt-item--swatch .opt-swatch {
-  background: #fff;
+  background: var(--product-studio);
 }
-.product-photo,
+.product-photo {
+  isolation: isolate;
+  mix-blend-mode: normal;
+}
 .product-photo > img,
 .cart-line-media img,
 .showcase-panels img,
 .opt-item--swatch .opt-swatch img {
-  mix-blend-mode: normal;
+  mix-blend-mode: multiply;
 }
 .opt-item--swatch .opt-swatch .product-photo > img {
   padding: 0;
