@@ -40,9 +40,9 @@ export const meta: Route.MetaFunction = ({matches, location}) => {
     matches,
     location,
     path: '/',
-    title: 'Sneakers au Maroc — Livraison gratuite, paiement à la livraison',
+    title: 'Sneakers Maroc : Nike, Adidas, New Balance',
     description:
-      'Sneakers homme, femme et enfant au Maroc : running, lifestyle, basket. Livraison gratuite partout, paiement à la livraison, échange de pointure gratuit sous 7 jours.',
+      'Découvrez les sneakers Nike, Adidas, New Balance et ASICS chez HAMZA KING. Livraison gratuite au Maroc, paiement à la livraison et échange de pointure.',
     jsonLd: base ? [organizationLd(base), websiteLd(base)] : [],
   });
 };
