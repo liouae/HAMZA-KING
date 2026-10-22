@@ -4,6 +4,7 @@ This storefront is scaffolded from Shopify's Hydrogen skeleton template. See the
 
 ## Product photography
 
+- Check Adidas side branding against the original product photos before publishing: exactly three side stripes, with the correct shape and spacing. Reject generated views that add a fourth stripe or distort the logo.
 - Primary colour photos must show a complete single shoe, toe pointing left; never mirror readable branding.
 - Centre the actual shoe both vertically and horizontally, with balanced empty space and consistent visual scale across products.
 - Present every colour and gallery view on the approved flat light-gray studio surface (#F4F4F2), sampled from the user's product-page screenshot. Use the shared --product-studio token across cards, galleries, zoom, thumbnails, cart and editorial photos. Keep neutral white source masters so ProductPhoto can composite them consistently onto the shared surface. Preserve shoe details and readable branding, with only a subtle neutral contact shadow; avoid gradients, colored casts and blanket filters that bleach the product.
