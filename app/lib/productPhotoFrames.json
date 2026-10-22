@@ -1,4 +1,38 @@
 {
+  "dior-b22-gris-bleu-clair-profil-gauche-studio.png": [
+    0.0311, 0.251994, 0.940989, 0.541467, 1
+  ],
+  "dior-b22-gris-bleu-clair-profil-oppose-studio.png": [
+    0.027113, 0.23445, 0.952153, 0.529506, 1
+  ],
+  "dior-b22-gris-bleu-clair-arriere-studio.png": [
+    0.286284, 0.157895, 0.445774, 0.741627, 1
+  ],
+  "dior-b22-gris-bleu-clair-avant-studio.png": [
+    0.23445, 0.153907, 0.560606, 0.773525, 1
+  ],
+  "dior-b22-bleu-marine-blanc-profil-gauche-studio.png": [
+    0.016746, 0.245614, 0.972089, 0.536683, 1
+  ],
+  "dior-b22-bleu-marine-blanc-profil-oppose-studio.png": [
+    0.023923, 0.246411, 0.952153, 0.50638, 1
+  ],
+  "dior-b22-bleu-marine-blanc-arriere-studio.png": [
+    0.295853, 0.158692, 0.429825, 0.732855, 1
+  ],
+  "dior-b22-bleu-marine-blanc-avant-studio.png": [
+    0.235247, 0.1563, 0.522329, 0.744817, 1
+  ],
+  "dior-b22-noir-profil-gauche-studio.png": [
+    0.027911, 0.255981, 0.957735, 0.500797, 1
+  ],
+  "dior-b22-noir-profil-oppose-studio.png": [
+    0.043062, 0.27193, 0.913876, 0.460128, 1
+  ],
+  "dior-b22-noir-arriere-studio.png": [
+    0.279904, 0.174641, 0.441786, 0.701754, 1
+  ],
+  "dior-b22-noir-avant-studio.png": [0.276715, 0.169856, 0.447368, 0.705742, 1],
   "noir-01.jpg": [0.016927, 0.300781, 0.964844, 0.457031, 1.0],
   "noir-02.jpg": [0.028646, 0.317708, 0.928385, 0.36849, 1.0],
   "noir-03.jpg": [0.033854, 0.285156, 0.933594, 0.441406, 1.0],
