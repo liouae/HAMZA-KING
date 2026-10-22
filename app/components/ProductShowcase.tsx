@@ -1,4 +1,5 @@
 import type {Benefit} from '~/lib/content';
+import {ProductPhoto} from './ProductPhoto';
 
 type ShowcaseImage = {url: string; altText?: string | null};
 
@@ -54,11 +55,12 @@ export function ProductShowcase({
             className={`showcase-panels showcase-panels--${panels.length}`}
             aria-hidden
           >
-            <img
-              src={withWidth(image.url, 1800)}
+            <ProductPhoto
+              data={image}
+              aspectRatio={1.5}
+              sizes="(min-width: 64em) 50vw, 100vw"
               alt=""
               loading="lazy"
-              decoding="async"
             />
             {panels.slice(1).map((_, i) => (
               <span
@@ -82,10 +84,4 @@ export function ProductShowcase({
       </div>
     </section>
   );
-}
-
-/** Ask the Shopify CDN for a sized image (no-op for other URLs). */
-function withWidth(url: string, width: number) {
-  if (!url.includes('cdn.shopify.com')) return url;
-  return `${url}${url.includes('?') ? '&' : '?'}width=${width}`;
 }

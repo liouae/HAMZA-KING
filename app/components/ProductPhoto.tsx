@@ -15,21 +15,23 @@ export function ProductPhoto({
   className = '',
   sizes,
   loading = 'lazy',
+  aspectRatio = 1,
 }: {
   data: Photo;
   alt: string;
   className?: string;
   sizes?: string;
   loading?: 'eager' | 'lazy';
+  aspectRatio?: number;
 }) {
   return (
-    <span className={`product-photo ${className}`}>
+    <span className={`product-photo ${className}`} style={{aspectRatio}}>
       <Image
         data={data}
         alt={alt}
         sizes={sizes}
         loading={loading}
-        style={productPhotoStyle(data.url)}
+        style={productPhotoStyle(data.url, aspectRatio)}
       />
     </span>
   );

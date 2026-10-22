@@ -1,11 +1,11 @@
 {
-  "noir-01.jpg": [0.05854, 0.39844, 0.88049, 0.33203, 0.80078],
-  "noir-02.jpg": [0.05854, 0.45117, 0.88293, 0.2832, 0.80078],
-  "noir-03.jpg": [0.05854, 0.39648, 0.88293, 0.33398, 0.80078],
-  "noir-06.jpg": [0.15366, 0.39844, 0.6878, 0.3457, 0.80078],
-  "noir-09.jpg": [0.20244, 0.39453, 0.61707, 0.24219, 0.80078],
-  "noir-04.jpg": [0.15854, 0.14258, 0.68537, 0.71875, 0.80078],
-  "noir-05.jpg": [0.05854, 0.41602, 0.88293, 0.32617, 0.80078],
+  "noir-01.jpg": [0.016927, 0.300781, 0.964844, 0.457031, 1.0],
+  "noir-02.jpg": [0.028646, 0.317708, 0.928385, 0.36849, 1.0],
+  "noir-03.jpg": [0.033854, 0.285156, 0.933594, 0.441406, 1.0],
+  "noir-06.jpg": [0.102865, 0.261719, 0.790365, 0.503906, 1.0],
+  "noir-09.jpg": [0.026042, 0.292969, 0.950521, 0.453125, 1.0],
+  "noir-04.jpg": [0.16276, 0.0625, 0.673177, 0.88151, 1.0],
+  "noir-05.jpg": [0.022135, 0.289062, 0.960938, 0.459635, 1.0],
   "noir-blanc-02.jpg": [0.05854, 0.44922, 0.88293, 0.2832, 0.80078],
   "noir-blanc-01.jpg": [0.05854, 0.38672, 0.88293, 0.3457, 0.80078],
   "noir-blanc-03.jpg": [0.05854, 0.38672, 0.88049, 0.3457, 0.80078],
@@ -18,10 +18,10 @@
     0.03516, 0.30469, 0.9375, 0.44141, 1
   ],
   "adidas-supernova-rise-3-blanc-noir-detail-semelle-studio.png": [
-    0, 0, 1, 0.99414, 1
+    0.0, 0.0, 1.0, 0.996094, 1.0
   ],
   "adidas-supernova-rise-3-blanc-noir-paire-studio.png": [
-    0.02148, 0.29883, 0.96094, 0.48242, 1
+    0.022135, 0.298177, 0.960938, 0.484375, 1.0
   ],
   "noir-blanc-07.jpg": [0, 0, 1, 1, 0.80078],
   "adidas-supernova-rise-3-blanc-noir-detail-tige-studio.png": [0, 0, 1, 1, 1],
@@ -29,29 +29,31 @@
     0.02148, 0.23633, 0.96094, 0.58398, 1
   ],
   "adidas-supernova-rise-3-blanc-gris-paire-studio.png": [
-    0.0293, 0.30859, 0.94922, 0.47461, 1
+    0.028646, 0.307292, 0.951823, 0.476562, 1.0
   ],
   "adidas-supernova-rise-3-blanc-gris-profil-studio.png": [
-    0.03516, 0.29883, 0.93555, 0.44336, 1
+    0.033854, 0.296875, 0.938802, 0.446615, 1.0
   ],
-  "noir-blanc-08.jpg": [0, 0, 1, 1, 0.80078],
+  "noir-blanc-08.jpg": [0.0, 0.0, 1.0, 1.0, 1.0],
   "adidas-supernova-rise-3-blanc-gris-dessus-studio.png": [
-    0.02148, 0.17578, 0.96094, 0.69531, 1
+    0.019531, 0.173177, 0.964844, 0.695312, 1.0
   ],
   "adidas-supernova-rise-3-blanc-gris-detail-semelle-studio.png": [
     0, 0, 1, 0.99219, 1
   ],
   "adidas-supernova-rise-3-blanc-gris-detail-tige-studio.png": [0, 0, 1, 1, 1],
   "adidas-supernova-rise-3-noir-blanc-paire-studio.png": [
-    0.01758, 0.32031, 0.96875, 0.46094, 1
+    0.016927, 0.31901, 0.970052, 0.460938, 1.0
   ],
   "adidas-supernova-rise-3-noir-blanc-profil-studio.png": [
     0.0332, 0.29688, 0.94141, 0.45117, 1
   ],
   "adidas-supernova-rise-3-noir-blanc-dessus-studio.png": [
-    0.01172, 0.22461, 0.97656, 0.61133, 1
+    0.011719, 0.22526, 0.977865, 0.605469, 1.0
   ],
-  "adidas-supernova-rise-3-noir-blanc-detail-tige-studio.png": [0, 0, 1, 1, 1],
+  "adidas-supernova-rise-3-noir-blanc-detail-tige-studio.png": [
+    0.0, 0.0, 1.0, 1.0, 1.0
+  ],
   "adidas-supernova-rise-3-blanc-bleu-dessus-studio.png": [
     0.02148, 0.19531, 0.96289, 0.69531, 1
   ],
@@ -66,10 +68,10 @@
     0, 0, 1, 0.98828, 1
   ],
   "adidas-supernova-rise-3-noir-blanc-detail-semelle-studio.png": [
-    0, 0, 1, 0.98828, 1
+    0.0, 0.0, 0.989583, 0.989583, 1.0
   ],
   "adidas-supernova-rise-3-noir-jaune-profil-studio.png": [
-    0.03125, 0.28906, 0.94141, 0.45508, 1
+    0.029948, 0.286458, 0.94401, 0.459635, 1.0
   ],
   "adidas-supernova-rise-3-noir-jaune-detail-tige-studio.png": [0, 0, 1, 1, 1],
   "adidas-supernova-rise-3-noir-jaune-dessus-studio.png": [
@@ -85,16 +87,16 @@
     0.02734, 0.30273, 0.95312, 0.44531, 1
   ],
   "air-jordan-1-low-se-gris-bleu-profil.png": [
-    0.0293, 0.27344, 0.94727, 0.44531, 1
+    0.02474, 0.273438, 0.955729, 0.446615, 1.0
   ],
   "adidas-supernova-rise-3-noir-argent-dessus-studio.png": [
     0.02539, 0.23828, 0.95508, 0.58203, 1
   ],
   "air-jordan-1-low-se-gris-bleu-paire.png": [
-    0.02734, 0.29883, 0.94922, 0.46484, 1
+    0.027344, 0.298177, 0.951823, 0.466146, 1.0
   ],
   "air-jordan-1-low-se-gris-bleu-dessus.png": [
-    0.0332, 0.16797, 0.9375, 0.62305, 1
+    0.032552, 0.167969, 0.9375, 0.621094, 1.0
   ],
   "adidas-supernova-rise-3-noir-argent-paire-studio.png": [
     0.02344, 0.26758, 0.95898, 0.53711, 1
@@ -106,11 +108,11 @@
     0.02344, 0.31445, 0.95312, 0.46484, 1
   ],
   "air-jordan-1-low-se-marron-blanc-profil.png": [
-    0.03125, 0.29883, 0.94336, 0.4668, 1
+    0.03125, 0.290365, 0.946615, 0.476562, 1.0
   ],
   "air-jordan-1-low-se-gris-bleu-detail-tige.png": [0, 0.01758, 1, 0.95312, 1],
   "air-jordan-1-low-se-gris-bleu-detail-semelle.png": [
-    0, 0.09375, 1, 0.75195, 1
+    0.0, 0.091146, 1.0, 0.753906, 1.0
   ],
   "adidas-supernova-rise-3-noir-argent-detail-tige-studio.png": [0, 0, 1, 1, 1],
   "air-jordan-1-low-se-marron-blanc-dessus.png": [
@@ -126,7 +128,7 @@
     0.0293, 0.38672, 0.94727, 0.36914, 1
   ],
   "air-jordan-1-low-se-marron-blanc-detail-tige.png": [
-    0, 0.0332, 1, 0.95703, 1
+    0.0, 0.022135, 1.0, 0.966146, 1.0
   ],
   "air-jordan-1-low-se-blanc-gris-dessus.png": [
     0.03125, 0.24414, 0.9375, 0.55469, 1
@@ -143,15 +145,17 @@
     0, 0.19727, 1, 0.66016, 1
   ],
   "air-jordan-1-low-se-bordeaux-blanc-profil.png": [
-    0.02539, 0.27148, 0.95117, 0.46094, 1
+    0.02474, 0.270833, 0.957031, 0.460938, 1.0
   ],
   "air-jordan-1-low-se-noir-detail-tige.png": [0, 0, 1, 0.97852, 1],
   "air-jordan-1-low-se-bordeaux-blanc-dessus.png": [
     0.02344, 0.2168, 0.95703, 0.63281, 1
   ],
-  "air-jordan-1-low-se-noir-detail-semelle.png": [0, 0.07422, 1, 0.87695, 1],
+  "air-jordan-1-low-se-noir-detail-semelle.png": [
+    0.0, 0.074219, 1.0, 0.873698, 1.0
+  ],
   "air-jordan-1-low-se-bordeaux-blanc-paire.png": [
-    0.02539, 0.30859, 0.94922, 0.49805, 1
+    0.02474, 0.308594, 0.953125, 0.497396, 1.0
   ],
   "air-jordan-1-low-se-bordeaux-blanc-detail-tige.png": [0, 0, 1, 1, 1],
   "air-jordan-1-low-se-bordeaux-blanc-detail-semelle.png": [
@@ -161,11 +165,11 @@
     0.02344, 0.26562, 0.95312, 0.45508, 1
   ],
   "air-jordan-1-low-se-noir-blanc-paire.png": [
-    0.02539, 0.31641, 0.95312, 0.42383, 1
+    0.02474, 0.316406, 0.955729, 0.427083, 1.0
   ],
   "air-jordan-1-low-se-noir-blanc-detail-tige.png": [0, 0.0332, 1, 0.96289, 1],
   "air-jordan-1-low-se-noir-blanc-dessus.png": [
-    0.01367, 0.18164, 0.97266, 0.62891, 1
+    0.014323, 0.179688, 0.973958, 0.632812, 1.0
   ],
   "air-jordan-1-low-se-noir-blanc-detail-semelle.png": [
     0, 0.14648, 1, 0.69141, 1
@@ -177,15 +181,17 @@
     0.03906, 0.1875, 0.93359, 0.63281, 1
   ],
   "air-jordan-1-low-se-noir-bleu-detail-semelle.png": [
-    0, 0.08984, 1, 0.7832, 1
+    0.0, 0.048177, 1.0, 0.825521, 1.0
   ],
   "air-jordan-1-low-se-beige-profil.png": [
     0.00781, 0.28711, 0.98438, 0.46875, 1
   ],
   "air-jordan-1-low-se-noir-bleu-paire.png": [
-    0.0293, 0.28906, 0.94531, 0.49414, 1
+    0.029948, 0.289062, 0.94401, 0.496094, 1.0
   ],
-  "air-jordan-1-low-se-beige-paire.png": [0.00781, 0.2793, 0.98242, 0.50977, 1],
+  "air-jordan-1-low-se-beige-paire.png": [
+    0.00651, 0.264323, 0.984375, 0.52474, 1.0
+  ],
   "air-jordan-1-low-se-noir-bleu-detail-tige.png": [0, 0, 1, 1, 1],
   "the-north-face-vectiv-enduris-4-bleu-jaune-profil.png": [
     0.03516, 0.28516, 0.94727, 0.45117, 1
@@ -194,10 +200,10 @@
     0.00195, 0.13281, 0.99805, 0.76758, 1
   ],
   "the-north-face-vectiv-enduris-4-bleu-jaune-paire.png": [
-    0.03125, 0.24805, 0.94922, 0.62305, 1
+    0.03125, 0.247396, 0.949219, 0.623698, 1.0
   ],
   "the-north-face-vectiv-enduris-4-bleu-jaune-semelle.png": [
-    0.03516, 0.30664, 0.92969, 0.39062, 1
+    0.033854, 0.30599, 0.93099, 0.393229, 1.0
   ],
   "air-jordan-1-low-se-beige-detail-tige.png": [0, 0, 1, 1, 1],
   "air-jordan-1-low-se-beige-detail-semelle.png": [0, 0, 1, 0.96289, 1],
@@ -208,10 +214,10 @@
     0.02734, 0.29102, 0.96289, 0.45703, 1
   ],
   "the-north-face-vectiv-enduris-4-noir-semelle.png": [
-    0.0332, 0.31836, 0.92383, 0.38867, 1
+    0.032552, 0.31901, 0.924479, 0.388021, 1.0
   ],
   "the-north-face-vectiv-enduris-4-bleu-jaune-detail-tige.png": [
-    0, 0.125, 1, 0.80664, 1
+    0.0, 0.123698, 1.0, 0.804688, 1.0
   ],
   "the-north-face-vectiv-enduris-4-noir-paire.png": [
     0.03711, 0.25781, 0.94922, 0.54102, 1
@@ -235,7 +241,7 @@
     0.01758, 0.23438, 0.9707, 0.59375, 1
   ],
   "the-north-face-vectiv-enduris-4-gris-arriere.png": [
-    0.03516, 0.24414, 0.92773, 0.55859, 1
+    0.035156, 0.239583, 0.929688, 0.565104, 1.0
   ],
   "the-north-face-vectiv-enduris-4-bleu-vert-semelle.png": [
     0.06445, 0.44336, 0.87305, 0.37109, 1
@@ -455,14 +461,14 @@
   ],
   "puma-180-gris-perle-paire.png": [0.01172, 0.25, 0.98047, 0.54492, 1],
   "puma-180-strong-gray-puma-black-detail.png": [0, 0, 1, 1, 1],
-  "puma-180-blanc-glacier-detail.png": [0, 0, 1, 0.98438, 1],
+  "puma-180-blanc-glacier-detail.png": [0.0, 0.0, 1.0, 1.0, 1.0],
   "puma-180-vapor-gray-chocolate-detail.png": [0, 0, 1, 1, 1],
   "puma-180-gris-amethyste-dessus.png": [0.02734, 0.12891, 0.95312, 0.79297, 1],
   "puma-180-gris-amethyste-detail.png": [0, 0, 1, 1, 1],
   "puma-180-vapor-gray-chocolate-dessus.png": [
     0.01562, 0.11523, 0.97656, 0.80664, 1
   ],
-  "puma-180-warm-white-spring-lavender-detail.png": [0, 0, 1, 1, 1],
+  "puma-180-warm-white-spring-lavender-detail.png": [0.0, 0.0, 1.0, 1.0, 1.0],
   "puma-180-warm-white-spring-lavender-dessus.png": [
     0.01172, 0.11328, 0.97852, 0.78711, 1
   ],
@@ -671,10 +677,10 @@
     0.01367, 0.26758, 0.96875, 0.46094, 1
   ],
   "asics-gel-nimbus-10-1-blanc-argent-paire.jpg": [
-    0.08594, 0.53906, 0.82812, 0.34961, 0.75
+    0.085938, 0.309896, 0.854167, 0.480469, 1.0
   ],
   "asics-gel-nimbus-10-1-blanc-argent-dessus.jpg": [
-    0.08594, 0.12695, 0.82812, 0.75195, 0.75
+    0.079861, 0.126302, 0.835069, 0.753906, 0.75
   ],
   "asics-gel-nimbus-10-1-noir-bleu-profil.png": [
     0.04688, 0.29492, 0.91211, 0.42188, 1
@@ -697,10 +703,10 @@
   "saucony-omni9-na-dessus.jpg": [0.02539, 0.11328, 0.93945, 0.77539, 1],
   "saucony-omni9-na-semelle.jpg": [0.08594, 0.625, 0.82552, 0.25391, 0.75],
   "saucony-omni9-ba-paire.jpg": [0.08594, 0.5, 0.82812, 0.40234, 0.75],
-  "saucony-omni9-ba-dessus.jpg": [0.28385, 0.0293, 0.4375, 0.85156, 0.75],
+  "saucony-omni9-ba-dessus.jpg": [0.315104, 0.032552, 0.36849, 0.93099, 1.0],
   "saucony-omni9-left-2.png": [0.01758, 0.26953, 0.9668, 0.45508, 1],
   "saucony-omni9-left-1.png": [0.01758, 0.26758, 0.9668, 0.47461, 1],
-  "saucony-omni9-ba-arriere.jpg": [0.08854, 0.48242, 0.82552, 0.40039, 0.75],
+  "saucony-omni9-ba-arriere.jpg": [0.058594, 0.259115, 0.888021, 0.565104, 1.0],
   "saucony-omni9-mc-paire.jpg": [0.00245, 0.34375, 0.97794, 0.3125, 0.79688],
   "saucony-omni9-mc-arriere.jpg": [0.01961, 0.24805, 0.96324, 0.50195, 0.79688],
   "saucony-omni9-n-paire.jpg": [0.18359, 0.41797, 0.63281, 0.28711, 1],
@@ -737,15 +743,17 @@
   "on-cloudtilt-remix-7-paire.jpg": [0.08594, 0.55859, 0.82812, 0.32422, 0.75],
   "on-cloudtilt-remix-8-dessus.jpg": [0.08594, 0.15625, 0.82812, 0.72266, 0.75],
   "ua-phantom4-1-arriere.jpg": [0.13086, 0.16146, 0.75, 0.60417, 1.33333],
-  "ua-phantom4-2-semelle.jpg": [0.15039, 0.36198, 0.71289, 0.39583, 1.33333],
+  "ua-phantom4-2-semelle.jpg": [
+    0.151042, 0.361111, 0.71224, 0.390625, 1.3333333333333333
+  ],
   "on-cloudtilt-remix-9-arriere.jpg": [
     0.08333, 0.49414, 0.83854, 0.39648, 0.75
   ],
   "ua-phantom4-4-arriere.jpg": [0.17188, 0.14844, 0.71484, 0.61719, 1.33333],
-  "ua-phantom4-0-dessus.jpg": [0.1582, 0.35677, 0.73242, 0.40104, 1.33333],
+  "ua-phantom4-0-dessus.jpg": [0.035156, 0.307292, 0.949219, 0.407552, 1.0],
   "ua-phantom4-3-dessus.jpg": [0.1543, 0.38542, 0.72266, 0.3724, 1.33333],
   "ua-phantom4-1-profil-left.png": [0.01562, 0.26758, 0.96875, 0.49414, 1],
-  "ua-phantom4-5-semelle.jpg": [0.1543, 0.36719, 0.70117, 0.38021, 1.33333],
+  "ua-phantom4-5-semelle.jpg": [0.042969, 0.35026, 0.916667, 0.369792, 1.0],
   "ua-phantom4-0-profil-left.png": [0.01172, 0.25, 0.97852, 0.50586, 1],
   "ua-phantom4-2-profil-left.png": [0, 0.23438, 1, 0.51758, 1],
   "ua-phantom4-8-interieur.jpg": [0, 0.29102, 1, 0.40625, 0.80078],
@@ -771,7 +779,7 @@
     0.05208, 0.36719, 0.89583, 0.33594, 0.75
   ],
   "ua-phantom4-noir-argent-semelle.jpg": [
-    0.10677, 0.24219, 0.78385, 0.51562, 0.75
+    0.075521, 0.130208, 0.854167, 0.757812, 1.0
   ],
   "adizero-evosl-0-profil-left.png": [0.00586, 0.29297, 0.98828, 0.45508, 1],
   "adizero-evosl-3-trois-quarts.jpg": [0, 0, 1, 1, 1.38378],
@@ -782,10 +790,12 @@
   "adizero-evosl-2-arriere.jpg": [0, 0.00195, 0.94894, 0.99805, 0.91797],
   "adizero-evosl-10-semelle.jpg": [0.06641, 0.11719, 0.59766, 0.76562, 1],
   "adizero-evosl-2-profil-left.png": [0.01758, 0.27734, 0.96484, 0.44141, 1],
-  "adizero-evosl-7-trois-quarts.jpg": [0.08984, 0.2832, 0.73633, 0.45117, 1],
+  "adizero-evosl-7-trois-quarts.jpg": [
+    0.108073, 0.28125, 0.723958, 0.451823, 1.0
+  ],
   "adizero-evosl-6-semelle.jpg": [0, 0, 1, 1, 0.4082],
   "adizero-evosl-3-profil-left.png": [0.00391, 0.27344, 0.99219, 0.45703, 1],
-  "adizero-evosl-8-dessus.jpg": [0.05469, 0.11719, 0.61328, 0.78711, 1],
+  "adizero-evosl-8-dessus.jpg": [0.065104, 0.117188, 0.605469, 0.786458, 1.0],
   "adizero-evosl-9-detail.jpg": [0, 0.0918, 1, 0.9082, 1],
   "adizero-evosl-11-trois-quarts.jpg": [0, 0, 1, 1, 1.52836],
   "adizero-evosl-12-detail.jpg": [0, 0.00195, 1, 0.99805, 1],

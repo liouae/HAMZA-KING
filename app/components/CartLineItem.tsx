@@ -1,6 +1,7 @@
 import type {CartLineUpdateInput} from '@shopify/hydrogen/storefront-api-types';
 import type {CartLayout, LineItemChildrenMap} from '~/components/CartMain';
-import {CartForm, Image, type OptimisticCartLine} from '@shopify/hydrogen';
+import {CartForm, type OptimisticCartLine} from '@shopify/hydrogen';
+import {ProductPhoto} from './ProductPhoto';
 import {useVariantUrl} from '~/lib/variants';
 import {Link} from 'react-router';
 import {Price} from './Price';
@@ -34,12 +35,10 @@ export function CartLineItem({
           onClick={() => layout === 'aside' && close()}
         >
           {image && (
-            <Image
+            <ProductPhoto
               alt={title}
-              aspectRatio="1/1"
               data={image}
-              width={120}
-              height={120}
+              sizes="96px"
               loading="lazy"
             />
           )}

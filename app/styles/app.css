@@ -6545,7 +6545,6 @@ body:has(.consent) .wa-float {
   max-width: 820px;
 }
 
-
 /* Mobile announcement bar: keep the active message fully visible and centered. */
 @media (max-width: 63.99em) {
   .announce-inner {
@@ -6615,6 +6614,31 @@ body:has(.consent) .wa-float {
   }
 }
 
+/* One white studio surface across every product-photo context. */
+.card-media,
+.gallery-item,
+.lightbox,
+.cart-line-media,
+.showcase-panels,
+.product-photo,
+.opt-item--swatch .opt-swatch {
+  background: #fff;
+}
+.product-photo,
+.product-photo > img,
+.cart-line-media img,
+.showcase-panels img,
+.opt-item--swatch .opt-swatch img {
+  mix-blend-mode: normal;
+}
+.opt-item--swatch .opt-swatch .product-photo > img {
+  padding: 0;
+}
+.showcase-panels > .product-photo {
+  position: absolute;
+  inset: 0;
+}
+
 @media (max-width: 23em) {
   .header-inner {
     padding-inline: 10px;
@@ -6638,4 +6662,3 @@ body:has(.consent) .wa-float {
     height: 21px;
   }
 }
-

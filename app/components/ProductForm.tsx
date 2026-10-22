@@ -1,4 +1,5 @@
 import {useState} from 'react';
+import {ProductPhoto} from './ProductPhoto';
 import {track} from '~/lib/tracking';
 import {Link, useNavigate} from 'react-router';
 import {type MappedProductOptions} from '@shopify/hydrogen';
@@ -262,20 +263,15 @@ function OptionSwatch({
         style={{backgroundColor: color || undefined}}
       >
         {image ? (
-          <img
-            src={sized(image, 240)}
+          <ProductPhoto
+            data={{url: image}}
             alt={name}
+            sizes="96px"
             loading="lazy"
-            decoding="async"
           />
         ) : null}
       </span>
       {label ? <span className="opt-swatch-label">{label}</span> : null}
     </>
   );
-}
-
-function sized(url: string, width: number) {
-  if (!url.includes('cdn.shopify.com')) return url;
-  return `${url}${url.includes('?') ? '&' : '?'}width=${width}`;
 }
