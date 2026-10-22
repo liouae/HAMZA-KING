@@ -7,6 +7,7 @@ import {
   type PredictiveSearchReturn,
 } from '~/lib/search';
 import {useAside} from './Aside';
+import {ProductPhoto} from './ProductPhoto';
 
 type PredictiveSearchItems = PredictiveSearchReturn['result']['items'];
 
@@ -219,11 +220,11 @@ function SearchResultsPredictiveProducts({
             <li className="predictive-search-result-item" key={product.id}>
               <Link to={productUrl} onClick={closeSearch}>
                 {image && (
-                  <Image
+                  <ProductPhoto
+                    data={image}
                     alt={image.altText ?? ''}
-                    src={image.url}
-                    width={50}
-                    height={50}
+                    sizes="56px"
+                    className="product-thumb"
                   />
                 )}
                 <div>

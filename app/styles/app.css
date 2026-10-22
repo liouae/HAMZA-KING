@@ -6631,6 +6631,10 @@ body:has(.consent) .wa-float {
   isolation: isolate;
   mix-blend-mode: normal;
 }
+.product-photo.product-thumb {
+  width: 56px;
+  flex: 0 0 56px;
+}
 .product-photo > img,
 .cart-line-media img,
 .showcase-panels img,

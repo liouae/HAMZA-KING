@@ -2,6 +2,7 @@ import {useEffect} from 'react';
 import {Link, useFetcher} from 'react-router';
 import {useAside} from './Aside';
 import {Price} from './Price';
+import {ProductPhoto} from './ProductPhoto';
 import type {CardProduct} from './ProductItem';
 
 /** "Complète ta commande" — small recommendations list inside the cart drawer. */
@@ -16,7 +17,7 @@ export function CartUpsell({
   const {close} = useAside();
   useEffect(() => {
     if (handle)
-      fetcher.load(`/api/recommend?handle=${encodeURIComponent(handle)}`);
+      void fetcher.load(`/api/recommend?handle=${encodeURIComponent(handle)}`);
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [handle]);
   const products = (fetcher.data?.products ?? [])
@@ -35,7 +36,12 @@ export function CartUpsell({
               className="upsell-item"
             >
               {p.featuredImage ? (
-                <img src={p.featuredImage.url} alt="" loading="lazy" />
+                <ProductPhoto
+                  data={p.featuredImage}
+                  alt=""
+                  sizes="56px"
+                  className="product-thumb"
+                />
               ) : (
                 <span />
               )}
