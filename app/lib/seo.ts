@@ -55,11 +55,21 @@ export function isDuplicateVariant(search: string) {
   );
 }
 
-/** Title with the keyword first and the brand last, kept under ~65 chars. */
+/** Keep the primary keyword first AND the HAMZA KING brand visible. */
 export function seoTitle(main: string) {
-  const clean = main.replace(/\s*\|\s*HAMZA KING\s*$/i, '').trim();
-  const withBrand = `${clean} | ${BRAND.name}`;
-  return withBrand.length <= 65 ? withBrand : clean;
+  const suffix = ` | ${BRAND.name}`;
+  const clean = main
+    .replace(/\s*(?:\||[-–—])\s*HAMZA KING\s*$/i, '')
+    .trim();
+  const maxMainLength = 65 - suffix.length;
+  if (clean.length <= maxMainLength) return `${clean}${suffix}`;
+  // Trim an overly long keyword phrase at a word boundary instead of
+  // dropping the brand entirely from Google titles.
+  const fragment = clean.slice(0, maxMainLength);
+  const shortened = fragment
+    .replace(/\s+\S*$/, '')
+    .replace(/[\s.,;:–—-]+$/, '');
+  return `${shortened || fragment}${suffix}`;
 }
 
 export function clip(text: string | null | undefined, max = 155) {
