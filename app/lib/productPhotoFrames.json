@@ -1161,5 +1161,50 @@
   ],
   "asics-gel-nyc-femme-creme-gauche-centre.png": [
     0.01823, 0.35742, 0.96615, 0.31641, 0.75
+  ],
+  "new-balance-9060-noir-profil-gauche-studio.png": [
+    0.013021, 0.261719, 0.980469, 0.490885, 1.0
+  ],
+  "new-balance-9060-noir-profil-oppose-studio.png": [
+    0.013021, 0.266927, 0.967448, 0.473958, 1.0
+  ],
+  "new-balance-9060-noir-arriere-studio.png": [
+    0.02474, 0.1875, 0.947917, 0.619792, 1.0
+  ],
+  "new-balance-9060-noir-semelle-studio.png": [
+    0.029948, 0.31901, 0.945312, 0.380208, 1.0
+  ],
+  "new-balance-9060-gris-profil-gauche-studio.png": [
+    0.022135, 0.272135, 0.964844, 0.477865, 1.0
+  ],
+  "new-balance-9060-gris-paire-studio.png": [
+    0.026042, 0.33724, 0.958333, 0.377604, 0.75
+  ],
+  "new-balance-9060-gris-profil-oppose-studio.png": [
+    0.0, 0.322917, 1.0, 0.378906, 0.75
+  ],
+  "new-balance-9060-creme-gris-profil-gauche-studio.png": [
+    0.011719, 0.289062, 0.979167, 0.453125, 1.0
+  ],
+  "new-balance-9060-creme-gris-paire-studio.png": [
+    0.024348, 0.333333, 0.951304, 0.407552, 0.7486979166666666
+  ],
+  "new-balance-9060-creme-gris-arriere-trois-quarts-studio.png": [
+    0.02474, 0.313802, 0.947917, 0.449219, 1.0
+  ],
+  "new-balance-9060-creme-gris-semelle-studio.png": [
+    0.032552, 0.342448, 0.936198, 0.391927, 1.0
+  ],
+  "new-balance-9060-marron-beige-profil-gauche-studio.png": [
+    0.005208, 0.264323, 0.989583, 0.460938, 1.0
+  ],
+  "new-balance-9060-marron-beige-paire-studio.png": [
+    0.005208, 0.294271, 0.989583, 0.416667, 1.0
+  ],
+  "new-balance-9060-marron-beige-arriere-studio.png": [
+    0.013021, 0.174479, 0.972656, 0.636719, 1.0
+  ],
+  "new-balance-9060-marron-beige-semelle-studio.png": [
+    0.013021, 0.30599, 0.979167, 0.407552, 1.0
   ]
 }
