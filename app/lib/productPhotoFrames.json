@@ -1387,5 +1387,56 @@
   ],
   "adidas-ultraboost-5-kaki-noir-semelle-studio-fond-uniforme.png": [
     0.2959, 0.096291, 0.411765, 0.805278, 0.800285
+  ],
+  "asics-gel-kinsei-max-menthe-argent-profil-gauche.jpg": [
+    0.0625, 0.15625, 0.87375, 0.631434, 1.470588
+  ],
+  "asics-gel-kinsei-max-menthe-argent-paire-profil.jpg": [
+    0.064375, 0.174632, 0.885, 0.605699, 1.470588
+  ],
+  "asics-gel-kinsei-max-menthe-argent-paire-avant.jpg": [
+    0.064375, 0.127757, 0.87125, 0.725184, 1.470588
+  ],
+  "asics-gel-kinsei-max-menthe-argent-arriere.jpg": [
+    0.065, 0.071691, 0.87125, 0.808824, 1.470588
+  ],
+  "asics-gel-kinsei-max-menthe-argent-dessus.jpg": [
+    0.240625, 0.001838, 0.519375, 0.898897, 1.470588
+  ],
+  "asics-gel-kinsei-max-noir-blanc-profil-gauche.jpg": [
+    0.07, 0.332, 0.845, 0.502, 1
+  ],
+  "asics-gel-kinsei-max-noir-blanc-profil-oppose.jpg": [
+    0.057, 0.347, 0.886, 0.482, 1
+  ],
+  "asics-gel-kinsei-max-noir-blanc-paire-avant.jpg": [
+    0.055, 0.304, 0.943, 0.623, 1
+  ],
+  "asics-gel-kinsei-max-noir-or-profil-gauche.jpg": [
+    0.002667, 0.017699, 0.984667, 0.967552, 2.212389
+  ],
+  "asics-gel-kinsei-max-noir-or-profil-oppose.jpg": [
+    0.012857, 0.021407, 0.971429, 0.948012, 2.140673
+  ],
+  "asics-gel-kinsei-max-noir-or-paire-avant.jpg": [
+    0.014667, 0.018182, 0.974, 0.956364, 2.727273
+  ],
+  "asics-gel-kinsei-max-noir-or-arriere.jpg": [
+    0.02075, 0.016774, 0.959298, 0.962581, 1.616774
+  ],
+  "asics-gel-kinsei-max-noir-or-detail.jpg": [
+    0.011429, 0.012469, 0.978571, 0.977556, 1.745636
+  ],
+  "asics-gel-kinsei-max-bleu-marine-vert-fluo-profil-gauche.png": [
+    0.092692, 0.388017, 0.832442, 0.321683, 0.800285
+  ],
+  "asics-gel-kinsei-max-bleu-marine-vert-fluo-dessus.png": [
+    0.0918, 0.388017, 0.388592, 0.376605, 0.800285
+  ],
+  "asics-gel-kinsei-max-bleu-marine-vert-fluo-arriere.png": [
+    0.094474, 0.39087, 0.761141, 0.375178, 0.800285
+  ],
+  "asics-gel-kinsei-max-bleu-marine-vert-fluo-semelle.png": [
+    0.092692, 0.38873, 0.433155, 0.373752, 0.800285
   ]
 }
