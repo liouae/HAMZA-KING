@@ -6699,7 +6699,7 @@ body:has(.consent) .wa-float {
   width: 100%;
   height: 100%;
   aspect-ratio: 1;
-  background: transparent;
+  background: var(--product-studio);
 }
 
 .opt--color .opt-item--swatch .opt-swatch .product-photo > img {
