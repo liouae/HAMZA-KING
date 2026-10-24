@@ -1438,5 +1438,17 @@
   ],
   "asics-gel-kinsei-max-bleu-marine-vert-fluo-semelle.png": [
     0.092692, 0.38873, 0.433155, 0.373752, 0.800285
+  ],
+  "asics-gel-kinsei-max-noir-blanc-profil-gauche-reference-20261024.png": [
+    0.044532, 0.090192, 0.921082, 0.855693, 2
+  ],
+  "asics-gel-kinsei-max-noir-blanc-trois-quarts-avant-reference-20261024.png": [
+    0.039062, 0.080078, 0.947266, 0.848633, 1.5
+  ],
+  "asics-gel-kinsei-max-noir-blanc-paire-avant-reference-20261024.png": [
+    0.033854, 0.167969, 0.952474, 0.707031, 1.5
+  ],
+  "asics-gel-kinsei-max-noir-blanc-dessus-reference-20261024.png": [
+    0.124812, 0.021978, 0.751128, 0.943364, 1.12426
   ]
 }
