@@ -55,8 +55,13 @@ export async function loader(args: Route.LoaderArgs) {
 
 async function loadCriticalData({context}: Route.LoaderArgs) {
   try {
-    const {newest} = await context.storefront.query(HOME_NEWEST_QUERY);
-    return {newest: newest.nodes as CardProduct[]};
+    const {newest, featuredNew} = await context.storefront.query(HOME_NEWEST_QUERY);
+    const products = [...featuredNew.nodes, ...newest.nodes] as CardProduct[];
+    return {
+      newest: products
+        .filter((product, index) => products.findIndex((item) => item.id === product.id) === index)
+        .slice(0, 12),
+    };
   } catch (error) {
     console.error('Homepage Storefront API query failed', error);
     // The campaign has local media and can render without product data.
@@ -627,6 +632,11 @@ function PopularCategories({isLive}: {isLive: (to: string) => boolean}) {
 const HOME_NEWEST_QUERY = `#graphql
   query HomeNewest($country: CountryCode, $language: LanguageCode)
   @inContext(country: $country, language: $language) {
+    featuredNew: products(first: 12, sortKey: UPDATED_AT, reverse: true, query: "tag:nouveaute-prioritaire") {
+      nodes {
+        ...ProductCard
+      }
+    }
     newest: products(first: 12, sortKey: CREATED_AT, reverse: true) {
       nodes {
         ...ProductCard
