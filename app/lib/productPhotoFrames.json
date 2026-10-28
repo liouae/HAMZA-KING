@@ -4604,5 +4604,61 @@
     1,
     0.977671,
     1
+  ],
+  "nike-pegasus-41-gore-tex-gris-noir-profil-gauche.png": [
+    0.032695,
+    0.30622,
+    0.936204,
+    0.407496,
+    1
+  ],
+  "nike-pegasus-41-gore-tex-gris-noir-paire.png": [
+    0.025518,
+    0.324561,
+    0.948166,
+    0.422648,
+    1
+  ],
+  "nike-pegasus-41-gore-tex-gris-noir-arriere.png": [
+    0.085327,
+    0.284689,
+    0.830144,
+    0.500797,
+    1
+  ],
+  "nike-pegasus-41-gore-tex-gris-noir-semelle.png": [
+    0.03748,
+    0.334131,
+    0.926635,
+    0.362839,
+    1
+  ],
+  "nike-pegasus-41-gore-tex-noir-profil-gauche.png": [
+    0.00319,
+    0.241627,
+    0.992823,
+    0.50319,
+    1
+  ],
+  "nike-pegasus-41-gore-tex-noir-paire.png": [
+    0.011962,
+    0.259968,
+    0.977671,
+    0.497608,
+    1
+  ],
+  "nike-pegasus-41-gore-tex-noir-arriere.png": [
+    0.001595,
+    0.211324,
+    0.988038,
+    0.569378,
+    1
+  ],
+  "nike-pegasus-41-gore-tex-noir-semelle.png": [
+    0.00638,
+    0.300638,
+    0.982456,
+    0.378788,
+    1
   ]
 }
