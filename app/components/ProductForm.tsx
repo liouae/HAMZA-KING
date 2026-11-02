@@ -167,6 +167,7 @@ export function ProductForm({
                       name={name}
                       image={isColor ? colorImages[name] : undefined}
                       label={isColor ? name : undefined}
+                      soldOut={colorOut}
                     />
                   </button>
                 );
