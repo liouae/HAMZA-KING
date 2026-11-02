@@ -6735,3 +6735,26 @@ body:has(.consent) .wa-float {
     grid-template-columns: repeat(2, minmax(0, 1fr));
   }
 }
+
+/* Stock state: keep the studio surface and thumbnail geometry unchanged. */
+.opt-item--swatch .opt-swatch { position: relative; }
+.swatch-stock {
+  position: absolute;
+  bottom: 8px;
+  left: 6px;
+  right: 6px;
+  z-index: 2;
+  padding: 5px 3px;
+  background: var(--ink);
+  color: var(--paper);
+  font-size: 10px;
+  font-weight: 600;
+  line-height: 1.2;
+  text-align: center;
+  text-transform: uppercase;
+  letter-spacing: .03em;
+}
+.opt--color .opt-item--swatch.is-out { background: none; }
+.opt-item--swatch.is-out .opt-swatch img { opacity: .5; }
+.card--out .product-photo > img { opacity: .5; }
+.card--out .badge { z-index: 2; }
