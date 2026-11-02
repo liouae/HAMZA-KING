@@ -32,6 +32,7 @@ export type CardProduct = {
   productType?: string;
   tags?: string[];
   publishedAt?: string;
+  availableForSale?: boolean;
   featuredImage?: Img | null;
   images?: {nodes: Img[]};
   priceRange: {minVariantPrice: Money; maxVariantPrice?: Money};
@@ -56,12 +57,14 @@ const NEW_DAYS = 30;
 
 function getBadge(product: CardProduct) {
   const tags = (product.tags ?? []).map((t) => t.toLowerCase());
+  if (product.availableForSale === false)
+    return {label: 'Rupture de stock', tone: 'muted'};
   if (tags.includes('exclusif') || tags.includes('limited'))
     return {label: 'Exclusif', tone: 'ink'};
   const soldOut = product.variants?.nodes?.length
     ? product.variants.nodes.every((v) => !v.availableForSale)
     : false;
-  if (soldOut) return {label: 'Épuisé', tone: 'muted'};
+  if (soldOut) return {label: 'Rupture de stock', tone: 'muted'};
   const price = Number(product.priceRange.minVariantPrice.amount);
   const compare = Number(
     product.compareAtPriceRange?.maxVariantPrice?.amount ?? 0,
@@ -155,12 +158,15 @@ export function ProductItem({
   loading?: 'eager' | 'lazy';
 }) {
   const variantUrl = useVariantUrl(product.handle);
-  const badge = getBadge(product);
+  const productBadge = getBadge(product);
   const colorOpt = product.options?.find((o) => isColorOption(o.name));
   const colorValues = colorOpt?.optionValues ?? [];
   const colors = colorValues.length;
   const subtitle = productSubtitle(product);
-  const firstVariant = product.variants?.nodes?.[0];
+  const firstVariant = product.variants?.nodes.find((v) => v.availableForSale) ?? product.variants?.nodes?.[0];
+  const colorAvailable = (name: string) => product.variants?.nodes.some((v) =>
+    v.availableForSale && v.selectedOptions.some((o) => o.name === colorOpt?.name && o.value === name),
+  );
 
   // Colour-aware images: hovering the card shows the same pair in its next
   // colour; hovering a colour dot switches the card to that colour.
@@ -178,19 +184,21 @@ export function ProductItem({
     (o) => o.name === colorOpt?.name,
   )?.value;
   const [activeColor, setActiveColor] = useState<string | null>(null);
-  const baseImage = product.featuredImage ?? product.images?.nodes?.[0];
+  const baseImage = colorImage(defaultColor) ?? product.featuredImage ?? product.images?.nodes?.[0];
+  const activeSoldOut = Boolean(activeColor && colorAvailable(activeColor) === false);
+  const badge = activeSoldOut ? {label: 'Rupture de stock', tone: 'muted'} : productBadge;
   const image = (activeColor && colorImage(activeColor)) || baseImage;
   const nextColor = colorValues
     .map((v) => v.name)
-    .find((n) => n !== (activeColor ?? defaultColor) && colorImage(n));
+    .find((n) => n !== (activeColor ?? defaultColor) && colorAvailable(n) && colorImage(n));
   const hoverImage = activeColor
     ? null
-    : (nextColor && colorImage(nextColor)) || product.images?.nodes?.[1];
+    : (nextColor && colorImage(nextColor)) || null;
   const to =
-    activeColor && colorOpt
+    (activeColor ?? defaultColor) && colorOpt
       ? `${variantUrl}${variantUrl.includes('?') ? '&' : '?'}${encodeURIComponent(
           colorOpt.name,
-        )}=${encodeURIComponent(activeColor)}`
+        )}=${encodeURIComponent((activeColor ?? defaultColor)!)}`
       : variantUrl;
   const compareAt =
     firstVariant?.compareAtPrice ??
@@ -202,7 +210,7 @@ export function ProductItem({
       product.priceRange.minVariantPrice.amount;
 
   return (
-    <article className="card" onMouseLeave={() => setActiveColor(null)}>
+    <article className={`card ${activeSoldOut || product.availableForSale === false ? 'card--out' : ''}`} onMouseLeave={() => setActiveColor(null)}>
       <div className="card-frame">
         <Link
           className="card-media"
@@ -378,6 +386,7 @@ export const PRODUCT_CARD_FRAGMENT = `#graphql
     productType
     tags
     publishedAt
+    availableForSale
     featuredImage {
       ...CardImage
     }
@@ -408,7 +417,7 @@ export const PRODUCT_CARD_FRAGMENT = `#graphql
         }
       }
     }
-    variants(first: 40) {
+    variants(first: 250) {
       nodes {
         id
         availableForSale
