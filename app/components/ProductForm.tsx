@@ -23,6 +23,7 @@ export function ProductForm({
   fitNote,
   stockMessage,
   colorImages = {},
+  colorAvailability = {},
   productId,
 }: {
   productOptions: MappedProductOptions[];
@@ -32,6 +33,7 @@ export function ProductForm({
   stockMessage?: string;
   /** Colour name → photo for the swatch tiles. */
   colorImages?: Record<string, string>;
+  colorAvailability?: Record<string, boolean>;
   /** Product GID, for ad catalogue matching. */
   productId?: string;
 }) {
@@ -111,9 +113,11 @@ export function ProductForm({
                   isDifferentProduct,
                   swatch,
                 } = value;
+                const colorOut = isColor && colorAvailability[name] === false;
+                const optionOut = isColor ? colorOut : !available;
                 const showSelected = selected && (!isSize || sizeTouched);
                 const cls = `opt-item ${showSelected ? 'is-selected' : ''} ${
-                  !available ? 'is-out' : ''
+                  optionOut ? 'is-out' : ''
                 } ${isColor ? 'opt-item--swatch' : ''}`;
 
                 if (isDifferentProduct) {
@@ -132,6 +136,7 @@ export function ProductForm({
                         name={name}
                         image={isColor ? colorImages[name] : undefined}
                         label={isColor ? name : undefined}
+                        soldOut={colorOut}
                       />
                     </Link>
                   );
@@ -142,7 +147,7 @@ export function ProductForm({
                     className={cls}
                     key={option.name + name}
                     disabled={!exists}
-                    title={available ? name : `${name} — épuisé`}
+                    title={optionOut ? `${name} — rupture de stock` : name}
                     aria-pressed={showSelected}
                     onClick={() => {
                       if (isSize) {
@@ -246,11 +251,13 @@ function OptionSwatch({
   name,
   image: photo,
   label,
+  soldOut = false,
 }: {
   swatch?: Maybe<ProductOptionValueSwatch> | undefined;
   name: string;
   image?: string;
   label?: string;
+  soldOut?: boolean;
 }) {
   const image = photo || swatch?.image?.previewImage?.url;
   const color = swatch?.color;
@@ -270,6 +277,7 @@ function OptionSwatch({
             loading="lazy"
           />
         ) : null}
+        {soldOut ? <span className="swatch-stock">Rupture</span> : null}
       </span>
       {label ? <span className="opt-swatch-label">{label}</span> : null}
     </>
