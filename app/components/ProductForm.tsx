@@ -75,6 +75,11 @@ export function ProductForm({
         if (option.optionValues.length === 1) return null;
         const isSize = isSizeOption(option.name);
         const isColor = isColorOption(option.name);
+        const optionValues = isSize
+          ? [...option.optionValues].sort((a, b) =>
+              a.name.localeCompare(b.name, 'fr', {numeric: true}),
+            )
+          : option.optionValues;
         const current = option.optionValues.find((v) => v.selected)?.name;
 
         return (
@@ -102,7 +107,7 @@ export function ProductForm({
               ) : null}
             </legend>
             <div className={`opt-grid ${isSize ? 'opt-grid--size' : ''}`}>
-              {option.optionValues.map((value) => {
+              {optionValues.map((value) => {
                 const {
                   name,
                   handle,
