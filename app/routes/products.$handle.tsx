@@ -393,6 +393,12 @@ export default function Product() {
     }
   }
 
+  const colorAvailability: Record<string, boolean> = {};
+  for (const variant of product.seoVariants.nodes) {
+    const color = variant.selectedOptions.find((o) => isColorOption(o.name))?.value;
+    if (color) colorAvailability[color] = Boolean(colorAvailability[color] || variant.availableForSale);
+  }
+
   const rating = reviewStats(reviews);
 
   const qty = selectedVariant?.quantityAvailable ?? null;
@@ -545,6 +551,7 @@ export default function Product() {
               productTitle={title}
               fitNote={fit}
               colorImages={colorImages}
+              colorAvailability={colorAvailability}
               productId={product.id}
               stockMessage={
                 !selectedVariant?.availableForSale
