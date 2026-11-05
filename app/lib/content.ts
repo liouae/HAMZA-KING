@@ -37,7 +37,7 @@ export type Campaign = {
 export const CAMPAIGN: Campaign = {
   eyebrow: 'Nouvelle saison',
   title: ['Marche', 'sur ton', 'propre', 'rythme.'],
-  copy: 'Les modèles les plus recherchés, sélectionnés pour toi. Livraison gratuite partout au Maroc, paiement à la livraison.',
+  copy: 'Découvrez notre sélection de sneakers pour homme et femme au Maroc. Explorez les nouveautés, choisissez votre pointure et profitez de la livraison gratuite partout au Maroc et du paiement à la livraison.',
   primary: {
     label: 'Découvrir les nouveautés',
     to: '/collections/all?sort=newest',
