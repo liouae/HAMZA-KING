@@ -26,7 +26,7 @@ export const TRACKING = {
   /** Google Analytics 4 measurement ID, e.g. 'G-ABC123XYZ9'. */
   ga4: '',
   /** Meta (Facebook/Instagram) Pixel / dataset ID, digits only. */
-  metaPixel: '2930184057339708',
+  metaPixel: '1093669673516061',
   /** TikTok Pixel ID, e.g. 'CQ1ABCDEF2GHIJ3KLMN0'. */
   tiktokPixel: '',
   /** Microsoft Clarity project ID (heatmaps + session recordings). */
