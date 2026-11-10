@@ -3,7 +3,7 @@
  * Open Graph and JSON-LD so every route follows the same rules:
  *
  * - The site URL is PUBLIC_SITE_URL if set, otherwise SITE.url
- *   (https://hamzaking.com). Every other host (*.myshopify.dev preview) points
+ *   (https://hkmaroc.store). Every other host (*.myshopify.dev preview) points
  *   its canonicals there and is blocked in robots.txt.
  * - Filtered, sorted, paginated or searched URLs are `noindex, follow` and
  *   canonicalise to the clean path, so Google sees one URL per page.
