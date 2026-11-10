@@ -24,7 +24,7 @@ export const meta: Route.MetaFunction = () => [
   {
     name: 'description',
     content:
-      'Suis ta commande HAMZA KING avec ton numéro de commande et ton téléphone : confirmation, expédition, livraison.',
+      'Suis ta commande HK MAROC avec ton numéro de commande et ton téléphone : confirmation, expédition, livraison.',
   },
   {tagName: 'link', rel: 'canonical', href: '/suivi'},
   {name: 'robots', content: 'noindex, follow'},

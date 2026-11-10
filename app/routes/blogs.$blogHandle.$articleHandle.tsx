@@ -25,7 +25,7 @@ export const meta: Route.MetaFunction = ({data, matches, location}) => {
             headline: a.title,
             datePublished: a.publishedAt,
             image: a.image?.url,
-            author: {'@type': 'Organization', name: 'HAMZA KING'},
+            author: {'@type': 'Organization', name: 'HK MAROC'},
             publisher: {'@id': `${base}/#organization`},
             mainEntityOfPage: `${base}${path}`,
             inLanguage: 'fr-MA',

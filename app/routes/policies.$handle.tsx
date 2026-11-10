@@ -14,7 +14,7 @@ export const meta: Route.MetaFunction = ({data, matches, location}) =>
     matches,
     location,
     title: data?.policy.title ?? 'Conditions',
-    description: `${data?.policy.title ?? 'Conditions'} de HAMZA KING : livraison gratuite au Maroc, paiement à la livraison, échange de pointure gratuit sous 7 jours.`,
+    description: `${data?.policy.title ?? 'Conditions'} de HK MAROC : livraison gratuite au Maroc, paiement à la livraison, échange de pointure gratuit sous 7 jours.`,
   });
 
 export async function loader({params, context}: Route.LoaderArgs) {

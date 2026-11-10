@@ -1,14 +1,13 @@
 /**
- * HAMZAKINGSTORE — central store configuration.
+ * HK MAROC — central store configuration.
  * Edit this file to change brand copy, contact details, shipping rules
  * and homepage merchandising without touching component code.
  */
 
 export const BRAND = {
-  name: 'HAMZA KING',
-  legalName: 'HAMZAKINGSTORE',
+  name: 'HK MAROC',
   tagline: 'Sneakers. Livraison gratuite partout au Maroc.',
-  instagram: 'https://www.instagram.com/hamza__king07__/',
+  instagram: 'https://www.instagram.com/hk_maroc_store/',
   tiktok: 'https://www.tiktok.com/@brahmi.hamza4',
   /** Leave empty to hide the link. */
   facebook: '',
@@ -66,7 +65,7 @@ export const SOCIALS = [
   {
     network: 'instagram',
     name: 'Instagram',
-    handle: '@hamza__king07__',
+    handle: '@hk_maroc_store',
     url: BRAND.instagram,
   },
   {
@@ -78,7 +77,7 @@ export const SOCIALS = [
   {
     network: 'facebook',
     name: 'Facebook',
-    handle: 'HAMZA KING',
+    handle: 'HK MAROC',
     url: BRAND.facebook,
   },
 ].filter((s) => s.url) as {

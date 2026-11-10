@@ -316,12 +316,12 @@ export const PAGES: Record<
   'a-propos': {
     title: 'Notre histoire',
     intro:
-      'HAMZA KING est né d’une obsession : trouver les bonnes paires et les rendre accessibles partout au Maroc.',
+      'HK MAROC est né d’une obsession : trouver les bonnes paires et les rendre accessibles partout au Maroc.',
     sections: [
       {
         title: 'Pourquoi nous',
         body: [
-          'On a tous connu la déception d’une paire commandée en ligne qui arrive en retard, dans une boîte abîmée ou dans la mauvaise taille. On a construit HAMZA KING pour que ça n’arrive plus.',
+          'On a tous connu la déception d’une paire commandée en ligne qui arrive en retard, dans une boîte abîmée ou dans la mauvaise taille. On a construit HK MAROC pour que ça n’arrive plus.',
           'Chaque modèle est choisi pour son style et son confort, contrôlé avant de partir, et livré gratuitement. Tu payes seulement quand tu l’as entre les mains.',
         ],
       },
