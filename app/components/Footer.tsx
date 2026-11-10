@@ -140,7 +140,7 @@ export function Footer(_props: FooterProps) {
         <div className="footer-brand">
           <BrandLogo variant="hk" tone="white" height={20} decorative />
           <span>
-            © {year} {BRAND.legalName} — Casablanca, Maroc
+            © {year} {BRAND.name} — Casablanca, Maroc
           </span>
         </div>
         <div className="footer-pay">

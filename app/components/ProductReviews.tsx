@@ -156,7 +156,7 @@ export function ReviewCard({
       ) : null}
       {r.reply ? (
         <div className="review-reply">
-          <strong>Réponse de HAMZA KING</strong>
+          <strong>Réponse de HK MAROC</strong>
           <p>{r.reply}</p>
         </div>
       ) : null}

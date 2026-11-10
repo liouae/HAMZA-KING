@@ -23,7 +23,7 @@ export const meta: Route.MetaFunction = ({matches, location}) =>
     path: '/collections/all',
     title: 'Toutes les sneakers au Maroc',
     description:
-      'Toutes les sneakers HAMZA KING : running, lifestyle, basket, outdoor. Livraison gratuite partout au Maroc, paiement à la livraison, échange gratuit sous 7 jours.',
+      'Toutes les sneakers HK MAROC : running, lifestyle, basket, outdoor. Livraison gratuite partout au Maroc, paiement à la livraison, échange gratuit sous 7 jours.',
   });
 
 /**

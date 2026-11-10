@@ -42,7 +42,7 @@ export const meta: Route.MetaFunction = ({matches, location}) => {
     path: '/',
     title: 'Sneakers Maroc : Nike, Adidas, New Balance',
     description:
-      'Découvrez les sneakers Nike, Adidas, New Balance et ASICS chez HAMZA KING. Livraison gratuite au Maroc, paiement à la livraison et échange de pointure.',
+      'Découvrez les sneakers Nike, Adidas, New Balance et ASICS chez HK MAROC. Livraison gratuite au Maroc, paiement à la livraison et échange de pointure.',
     jsonLd: base ? [organizationLd(base), websiteLd(base)] : [],
   });
 };

@@ -12,7 +12,7 @@ export const meta: Route.MetaFunction = ({data, matches, location}) =>
     location,
     title: `${data?.blog.title ?? 'Journal'} — guides sneakers et running`,
     description:
-      'Guides pointure, entretien, running et nouveautés sneakers au Maroc, par HAMZA KING.',
+      'Guides pointure, entretien, running et nouveautés sneakers au Maroc, par HK MAROC.',
   });
 
 export async function loader(args: Route.LoaderArgs) {

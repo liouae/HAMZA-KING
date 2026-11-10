@@ -1,5 +1,5 @@
 /**
- * HAMZA KING — SEO helpers. One place builds titles, canonicals, robots,
+ * HK MAROC — SEO helpers. One place builds titles, canonicals, robots,
  * Open Graph and JSON-LD so every route follows the same rules:
  *
  * - The site URL is PUBLIC_SITE_URL if set, otherwise SITE.url
@@ -55,11 +55,11 @@ export function isDuplicateVariant(search: string) {
   );
 }
 
-/** Keep the primary keyword first AND the HAMZA KING brand visible. */
+/** Keep the primary keyword first AND the HK MAROC brand visible. */
 export function seoTitle(main: string) {
   const suffix = ` | ${BRAND.name}`;
   const clean = main
-    .replace(/\s*(?:\||[-–—])\s*HAMZA KING\s*$/i, '')
+    .replace(/\s*(?:\||[-–—])\s*(?:HK MAROC|HAMZA KING)\s*$/i, '')
     .trim();
   const maxMainLength = 65 - suffix.length;
   if (clean.length <= maxMainLength) return `${clean}${suffix}`;
@@ -105,7 +105,7 @@ export function seoMeta(a: MetaArgs) {
   const image = a.image
     ? a.image
     : base
-      ? `${base}/brand/og-image.jpg`
+      ? `${base}/brand/og-image.jpg?v=hk-maroc`
       : undefined;
 
   const tags: Record<string, unknown>[] = [
@@ -188,7 +188,7 @@ export function organizationLd(base: string) {
     name: BRAND.name,
     url: base,
     logo: `${base}/brand/icon-512.png`,
-    image: `${base}/brand/og-image.jpg`,
+    image: `${base}/brand/og-image.jpg?v=hk-maroc`,
     description: BRAND.tagline,
     email: BRAND.email || undefined,
     telephone: `+${WHATSAPP_NUMBER}`,

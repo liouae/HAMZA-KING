@@ -1,11 +1,11 @@
 import {BRAND} from '~/lib/config';
 
 /**
- * HAMZA KING logo system. Files live in /public/brand/ in black and white.
+ * HK MAROC logo system. Files live in /public/brand/ in black and white.
  *
- * - lockup:          HK mark + stacked wordmark  → header, mobile menu
+ * - lockup:          HK mark + MAROC wordmark    → header, mobile menu
  * - hk:              HK monogram only             → small marks, footer bar, icons
- * - wordmark:        stacked "HAMZA KING"         → footer signature
+ * - wordmark:        stacked "HK MAROC"         → footer signature
  * - crown-wordmark:  crown + italic wordmark      → error page, about, social image
  * - crown:           crown only                   → empty states, small accents
  */
@@ -37,9 +37,10 @@ export function BrandLogo({
   eager?: boolean;
 }) {
   const {file, ratio} = FILES[variant];
+  const version = variant === 'hk' || variant === 'crown' ? '' : '?v=hk-maroc';
   return (
     <img
-      src={`/brand/${file}-${tone}.png`}
+      src={`/brand/${file}-${tone}.png${version}`}
       alt={decorative ? '' : BRAND.name}
       width={Math.round(height * ratio)}
       height={height}

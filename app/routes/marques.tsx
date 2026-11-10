@@ -18,7 +18,7 @@ export const meta: Route.MetaFunction = ({matches, location}) =>
     path: '/marques',
     title: 'Marques de sneakers au Maroc',
     description:
-      'Toutes les marques de sneakers disponibles chez HAMZA KING. Livraison gratuite partout au Maroc, paiement à la livraison.',
+      'Toutes les marques de sneakers disponibles chez HK MAROC. Livraison gratuite partout au Maroc, paiement à la livraison.',
   });
 
 export default function BrandsPage() {

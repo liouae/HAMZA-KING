@@ -8,7 +8,7 @@ import {useWhatsAppLink, useWhatsAppTopic, type WaTopic} from '~/lib/whatsapp';
 import {RecentlyViewed} from '~/components/RecentlyViewed';
 
 export const meta: Route.MetaFunction = () => [
-  {title: 'HAMZA KING | Ma wishlist'},
+  {title: 'HK MAROC | Ma wishlist'},
 ];
 
 export default function WishlistPage() {
