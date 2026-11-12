@@ -47,6 +47,30 @@ export const meta: Route.MetaFunction = ({matches, location}) => {
   });
 };
 
+/**
+ * Discover the responsive hero image while the document head is parsed.
+ * SmartImage uses the same srcSet and sizes, avoiding a second image download.
+ * This hint is homepage-only and is skipped when the campaign uses a video.
+ */
+export function links() {
+  if (CAMPAIGN.video || !CAMPAIGN.image) return [];
+  const image = localPhoto(CAMPAIGN.image);
+  if (!('width' in image) || !image.width || !image.url.endsWith('.webp')) {
+    return [];
+  }
+  const mobile = image.url.replace(/\.webp$/, '-800.webp');
+  return [
+    {
+      rel: 'preload',
+      as: 'image',
+      href: image.url,
+      imageSrcSet: `${mobile} 800w, ${image.url} ${image.width}w`,
+      imageSizes: '(min-width: 64em) 60vw, 100vw',
+      fetchPriority: 'high' as const,
+    },
+  ];
+}
+
 export async function loader(args: Route.LoaderArgs) {
   const deferredData = loadDeferredData(args);
   const criticalData = await loadCriticalData(args);

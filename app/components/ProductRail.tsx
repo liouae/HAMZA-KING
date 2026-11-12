@@ -76,9 +76,10 @@ export function ProductRail({
         </div>
       </header>
       <div className="rail-track" ref={ref}>
-        {products.map((p, i) => (
+        {products.map((p) => (
           <div className="rail-cell" key={p.id}>
-            <ProductItem product={p} loading={i < 4 ? 'eager' : 'lazy'} />
+            {/* Rails sit below the hero: defer image bytes until near viewport. */}
+            <ProductItem product={p} loading="lazy" />
           </div>
         ))}
       </div>
