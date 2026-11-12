@@ -11,7 +11,7 @@ export const SITE = {
    * Public domain once connected (no trailing slash), e.g. 'https://hamzaking.ma'.
    * Leave '' to use PUBLIC_SITE_URL or the address the site is served from.
    */
-  url: 'https://hamzaking.com',
+  url: 'https://hkmaroc.store',
   locale: 'fr_MA',
   city: 'Casablanca',
   /** Opening hours shown on the contact page. */

@@ -11,10 +11,14 @@ export default {
     env: Env,
     executionContext: ExecutionContext,
   ): Promise<Response> {
-    // www → apex, one address for Google and customers.
+    // Keep old advertising links and www URLs on the primary domain.
     const incoming = new URL(request.url);
-    if (incoming.hostname === 'www.hamzaking.com') {
-      incoming.hostname = 'hamzaking.com';
+    if (
+      ['hamzaking.com', 'www.hamzaking.com', 'www.hkmaroc.store'].includes(
+        incoming.hostname,
+      )
+    ) {
+      incoming.hostname = 'hkmaroc.store';
       incoming.protocol = 'https:';
       return Response.redirect(incoming.toString(), 301);
     }
