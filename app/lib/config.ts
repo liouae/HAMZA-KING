@@ -88,9 +88,9 @@ export const SOCIALS = [
 }[];
 
 /** WhatsApp number in international format, digits only (e.g. 2126XXXXXXXX). */
-export const WHATSAPP_NUMBER = '212614719446';
+export const WHATSAPP_NUMBER = '212605546506';
 /** Same number, formatted for display. */
-export const WHATSAPP_DISPLAY = '+212 614-719446';
+export const WHATSAPP_DISPLAY = '+212 605-546506';
 
 export const SHIPPING = {
   /** Delivery is free for every order, everywhere in Morocco. */
