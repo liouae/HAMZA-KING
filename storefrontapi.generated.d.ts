@@ -576,6 +576,82 @@ export type HomeNewestQueryVariables = StorefrontAPI.Exact<{
 }>;
 
 export type HomeNewestQuery = {
+  featured: {
+    nodes: Array<
+      Pick<
+        StorefrontAPI.Product,
+        | 'id'
+        | 'handle'
+        | 'title'
+        | 'vendor'
+        | 'productType'
+        | 'tags'
+        | 'publishedAt'
+        | 'availableForSale'
+      > & {
+        featuredImage?: StorefrontAPI.Maybe<
+          Pick<
+            StorefrontAPI.Image,
+            'id' | 'url' | 'altText' | 'width' | 'height'
+          >
+        >;
+        images: {
+          nodes: Array<
+            Pick<
+              StorefrontAPI.Image,
+              'id' | 'url' | 'altText' | 'width' | 'height'
+            >
+          >;
+        };
+        priceRange: {
+          minVariantPrice: Pick<
+            StorefrontAPI.MoneyV2,
+            'amount' | 'currencyCode'
+          >;
+          maxVariantPrice: Pick<
+            StorefrontAPI.MoneyV2,
+            'amount' | 'currencyCode'
+          >;
+        };
+        compareAtPriceRange: {
+          maxVariantPrice: Pick<
+            StorefrontAPI.MoneyV2,
+            'amount' | 'currencyCode'
+          >;
+        };
+        options: Array<
+          Pick<StorefrontAPI.ProductOption, 'name'> & {
+            optionValues: Array<
+              Pick<StorefrontAPI.ProductOptionValue, 'name'> & {
+                swatch?: StorefrontAPI.Maybe<
+                  Pick<StorefrontAPI.ProductOptionValueSwatch, 'color'>
+                >;
+              }
+            >;
+          }
+        >;
+        variants: {
+          nodes: Array<
+            Pick<StorefrontAPI.ProductVariant, 'id' | 'availableForSale'> & {
+              selectedOptions: Array<
+                Pick<StorefrontAPI.SelectedOption, 'name' | 'value'>
+              >;
+              price: Pick<StorefrontAPI.MoneyV2, 'amount' | 'currencyCode'>;
+              compareAtPrice?: StorefrontAPI.Maybe<
+                Pick<StorefrontAPI.MoneyV2, 'amount' | 'currencyCode'>
+              >;
+              image?: StorefrontAPI.Maybe<
+                Pick<
+                  StorefrontAPI.Image,
+                  'id' | 'url' | 'altText' | 'width' | 'height'
+                >
+              >;
+            }
+          >;
+        };
+      }
+    >;
+  };
   newest: {
     nodes: Array<
       Pick<
@@ -587,6 +663,7 @@ export type HomeNewestQuery = {
         | 'productType'
         | 'tags'
         | 'publishedAt'
+        | 'availableForSale'
       > & {
         featuredImage?: StorefrontAPI.Maybe<
           Pick<
@@ -2583,7 +2660,7 @@ interface GeneratedQueryTypes {
     return: SitemapRestQuery;
     variables: SitemapRestQueryVariables;
   };
-  '#graphql\n  query HomeNewest($country: CountryCode, $language: LanguageCode)\n  @inContext(country: $country, language: $language) {\n    newest: products(first: 12, sortKey: CREATED_AT, reverse: true) {\n      nodes {\n        ...ProductCard\n      }\n    }\n  }\n  #graphql\n  fragment CardMoney on MoneyV2 {\n    amount\n    currencyCode\n  }\n  fragment CardImage on Image {\n    id\n    url\n    altText\n    width\n    height\n  }\n  fragment ProductCard on Product {\n    id\n    handle\n    title\n    vendor\n    productType\n    tags\n    publishedAt\n    featuredImage {\n      ...CardImage\n    }\n    images(first: 2) {\n      nodes {\n        ...CardImage\n      }\n    }\n    priceRange {\n      minVariantPrice {\n        ...CardMoney\n      }\n      maxVariantPrice {\n        ...CardMoney\n      }\n    }\n    compareAtPriceRange {\n      maxVariantPrice {\n        ...CardMoney\n      }\n    }\n    options(first: 3) {\n      name\n      optionValues {\n        name\n        swatch {\n          color\n        }\n      }\n    }\n    variants(first: 40) {\n      nodes {\n        id\n        availableForSale\n        selectedOptions {\n          name\n          value\n        }\n        price {\n          ...CardMoney\n        }\n        compareAtPrice {\n          ...CardMoney\n        }\n        image {\n          ...CardImage\n        }\n      }\n    }\n  }\n\n': {
+  '#graphql\n  query HomeNewest($country: CountryCode, $language: LanguageCode)\n  @inContext(country: $country, language: $language) {\n    featured: products(first: 1, sortKey: UPDATED_AT, reverse: true, query: "tag:nouveaute-prioritaire") {\n      nodes {\n        ...ProductCard\n      }\n    }\n    newest: products(first: 12, sortKey: CREATED_AT, reverse: true) {\n      nodes {\n        ...ProductCard\n      }\n    }\n  }\n  #graphql\n  fragment CardMoney on MoneyV2 {\n    amount\n    currencyCode\n  }\n  fragment CardImage on Image {\n    id\n    url\n    altText\n    width\n    height\n  }\n  fragment ProductCard on Product {\n    id\n    handle\n    title\n    vendor\n    productType\n    tags\n    publishedAt\n    availableForSale\n    featuredImage {\n      ...CardImage\n    }\n    images(first: 2) {\n      nodes {\n        ...CardImage\n      }\n    }\n    priceRange {\n      minVariantPrice {\n        ...CardMoney\n      }\n      maxVariantPrice {\n        ...CardMoney\n      }\n    }\n    compareAtPriceRange {\n      maxVariantPrice {\n        ...CardMoney\n      }\n    }\n    options(first: 3) {\n      name\n      optionValues {\n        name\n        swatch {\n          color\n        }\n      }\n    }\n    variants(first: 250) {\n      nodes {\n        id\n        availableForSale\n        selectedOptions {\n          name\n          value\n        }\n        price {\n          ...CardMoney\n        }\n        compareAtPrice {\n          ...CardMoney\n        }\n        image {\n          ...CardImage\n        }\n      }\n    }\n  }\n\n': {
     return: HomeNewestQuery;
     variables: HomeNewestQueryVariables;
   };

@@ -55,18 +55,18 @@ export async function loader(args: Route.LoaderArgs) {
 
 async function loadCriticalData({context}: Route.LoaderArgs) {
   try {
-    const {newest, featuredNew} = await context.storefront.query(HOME_NEWEST_QUERY);
-    const products = [...featuredNew.nodes, ...newest.nodes] as CardProduct[];
+    const {newest, featured} = await context.storefront.query(HOME_NEWEST_QUERY);
     return {
-      newest: products
-        .filter((product, index) => products.findIndex((item) => item.id === product.id) === index)
-        .slice(0, 12),
+      newest: newest.nodes as CardProduct[],
+      heroProduct: (featured.nodes[0] ?? newest.nodes[0]) as
+        | CardProduct
+        | undefined,
     };
   } catch (error) {
     console.error('Homepage Storefront API query failed', error);
     // The campaign has local media and can render without product data.
     // Avoid taking the entire storefront down on a transient upstream failure.
-    return {newest: [] as CardProduct[]};
+    return {newest: [] as CardProduct[], heroProduct: undefined};
   }
 }
 
@@ -100,11 +100,10 @@ function loadDeferredData({context}: Route.LoaderArgs) {
 }
 
 export default function Homepage() {
-  const {newest, bestSellers, icons, promos, reviews} =
+  const {newest, heroProduct, bestSellers, icons, promos, reviews} =
     useLoaderData<typeof loader>();
   const root = useRouteLoaderData<RootLoader>('root');
   const menuImages = root?.menuImages ?? Promise.resolve({} as MenuImages);
-  const heroProduct = newest[0];
   const live = useLive();
   const universes = CATEGORIES.filter((c) =>
     live.isLive(`/collections/${c.handle}`),
@@ -632,7 +631,7 @@ function PopularCategories({isLive}: {isLive: (to: string) => boolean}) {
 const HOME_NEWEST_QUERY = `#graphql
   query HomeNewest($country: CountryCode, $language: LanguageCode)
   @inContext(country: $country, language: $language) {
-    featuredNew: products(first: 12, sortKey: UPDATED_AT, reverse: true, query: "tag:nouveaute-prioritaire") {
+    featured: products(first: 1, sortKey: UPDATED_AT, reverse: true, query: "tag:nouveaute-prioritaire") {
       nodes {
         ...ProductCard
       }
