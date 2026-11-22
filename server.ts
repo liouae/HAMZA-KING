@@ -14,11 +14,15 @@ export default {
     // Keep old advertising links and www URLs on the primary domain.
     const incoming = new URL(request.url);
     if (
-      ['hamzaking.com', 'www.hamzaking.com', 'www.hkmaroc.store'].includes(
-        incoming.hostname,
-      )
+      [
+        'hamzaking.com',
+        'www.hamzaking.com',
+        'hkmaroc.store',
+        'www.hkmaroc.store',
+        'www.hkmaroc.com',
+      ].includes(incoming.hostname)
     ) {
-      incoming.hostname = 'hkmaroc.store';
+      incoming.hostname = 'hkmaroc.com';
       incoming.protocol = 'https:';
       return Response.redirect(incoming.toString(), 301);
     }
