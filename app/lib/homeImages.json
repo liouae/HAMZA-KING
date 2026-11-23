@@ -1,0 +1,114 @@
+{
+  "/home/hero.webp": [
+    {
+      "url": "/home/optimized/hero-400-323058758b.avif",
+      "width": 400
+    },
+    {
+      "url": "/home/optimized/hero-800-99909c516c.avif",
+      "width": 800
+    },
+    {
+      "url": "/home/optimized/hero-1200-bb7aaa4259.avif",
+      "width": 1200
+    }
+  ],
+  "/home/tile-running.webp": [
+    {
+      "url": "/home/optimized/tile-running-400-6963cd431b.avif",
+      "width": 400
+    },
+    {
+      "url": "/home/optimized/tile-running-800-ca21793ce1.avif",
+      "width": 800
+    },
+    {
+      "url": "/home/optimized/tile-running-1122-554a363e21.avif",
+      "width": 1122
+    }
+  ],
+  "/home/tile-lifestyle.webp": [
+    {
+      "url": "/home/optimized/tile-lifestyle-400-a7f7eb61c5.avif",
+      "width": 400
+    },
+    {
+      "url": "/home/optimized/tile-lifestyle-800-23dd872479.avif",
+      "width": 800
+    },
+    {
+      "url": "/home/optimized/tile-lifestyle-1122-4c4a2bfc28.avif",
+      "width": 1122
+    }
+  ],
+  "/home/tile-basketball.webp": [
+    {
+      "url": "/home/optimized/tile-basketball-400-1ca7c2a50e.avif",
+      "width": 400
+    },
+    {
+      "url": "/home/optimized/tile-basketball-800-074f6a537d.avif",
+      "width": 800
+    },
+    {
+      "url": "/home/optimized/tile-basketball-1122-41b2ac18ea.avif",
+      "width": 1122
+    }
+  ],
+  "/home/tile-outdoor.webp": [
+    {
+      "url": "/home/optimized/tile-outdoor-400-b7979455df.avif",
+      "width": 400
+    },
+    {
+      "url": "/home/optimized/tile-outdoor-800-aa3919ba75.avif",
+      "width": 800
+    },
+    {
+      "url": "/home/optimized/tile-outdoor-1122-15942f91db.avif",
+      "width": 1122
+    }
+  ],
+  "/home/story-running.webp": [
+    {
+      "url": "/home/optimized/story-running-400-e6efd4396c.avif",
+      "width": 400
+    },
+    {
+      "url": "/home/optimized/story-running-800-b9ce46ad12.avif",
+      "width": 800
+    },
+    {
+      "url": "/home/optimized/story-running-1200-db9f0ea34d.avif",
+      "width": 1200
+    }
+  ],
+  "/home/story-lifestyle.webp": [
+    {
+      "url": "/home/optimized/story-lifestyle-400-5fc4b637b9.avif",
+      "width": 400
+    },
+    {
+      "url": "/home/optimized/story-lifestyle-800-93910fc23a.avif",
+      "width": 800
+    },
+    {
+      "url": "/home/optimized/story-lifestyle-1200-31bfd8e89a.avif",
+      "width": 1200
+    }
+  ],
+  "/home/band-authenticite.webp": [
+    {
+      "url": "/home/optimized/band-authenticite-400-70b0b3717d.avif",
+      "width": 400
+    },
+    {
+      "url": "/home/optimized/band-authenticite-800-8f10c03f46.avif",
+      "width": 800
+    },
+    {
+      "url": "/home/optimized/band-authenticite-1200-7cffeb423d.avif",
+      "width": 1200
+    }
+  ]
+}

@@ -23,13 +23,11 @@ import {CookieConsent} from './components/CookieConsent';
 import {ToastProvider} from './lib/ui';
 import {BRAND} from './lib/config';
 import {SITE} from './lib/content';
-import resetStyles from '~/styles/reset.css?url';
 import appStyles from '~/styles/app.css?url';
 import {PageLayout} from './components/PageLayout';
 import {BrandLogo} from './components/BrandLogo';
 import {Tracking} from './components/Tracking';
 import {TRACKING} from '~/lib/config';
-import fontStyles from '~/styles/fonts.css?url';
 import {COLLECTION_IMAGES} from '~/lib/content';
 
 export type RootLoader = typeof loader;
@@ -260,11 +258,9 @@ export function Layout({children}: {children?: React.ReactNode}) {
           type="font/woff2"
           crossOrigin="anonymous"
         />
-        <link rel="stylesheet" href={fontStyles}></link>
-        <link rel="stylesheet" href={resetStyles}></link>
-        <link rel="stylesheet" href={appStyles}></link>
         <Meta />
         <Links />
+        <link rel="stylesheet" href={appStyles}></link>
         <VerificationTags />
         <script
           nonce={nonce}

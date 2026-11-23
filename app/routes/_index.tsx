@@ -33,6 +33,26 @@ import {
 } from '~/lib/content';
 import type {RootLoader} from '~/root';
 import type {MenuImages} from '~/components/Header';
+import {editorialSrcSet} from '~/lib/responsiveImages';
+
+const HERO_SIZES = '(min-width: 64em) 60vw, 100vw';
+
+// Discover the LCP image in the head, before stylesheets and streamed content.
+export const links: Route.LinksFunction = () => {
+  const srcSet = CAMPAIGN.image && editorialSrcSet(CAMPAIGN.image);
+  return srcSet && !CAMPAIGN.video
+    ? [
+        {
+          rel: 'preload',
+          as: 'image',
+          type: 'image/avif',
+          imageSrcSet: srcSet,
+          imageSizes: HERO_SIZES,
+          fetchPriority: 'high',
+        },
+      ]
+    : [];
+};
 
 export const meta: Route.MetaFunction = ({matches, location}) => {
   const base = siteUrl(matches);
@@ -55,12 +75,12 @@ export async function loader(args: Route.LoaderArgs) {
 
 async function loadCriticalData({context}: Route.LoaderArgs) {
   try {
-    const {newest, featured} = await context.storefront.query(HOME_NEWEST_QUERY);
+    const {newest, featured} =
+      await context.storefront.query(HOME_NEWEST_QUERY);
     return {
       newest: newest.nodes as CardProduct[],
       heroProduct: (featured.nodes[0] ?? newest.nodes[0]) as
-        | CardProduct
-        | undefined,
+        CardProduct | undefined,
     };
   } catch (error) {
     console.error('Homepage Storefront API query failed', error);
@@ -287,7 +307,7 @@ function CampaignHero({product}: {product?: CardProduct}) {
             className="hero-media"
             data={localPhoto(c.image)}
             alt="Coureur sur un sentier de l’Atlas au coucher du soleil"
-            sizes="(min-width: 64em) 60vw, 100vw"
+            sizes={HERO_SIZES}
             priority
           />
         ) : image ? (

@@ -1,4 +1,5 @@
 import {Image} from '@shopify/hydrogen';
+import {editorialSrcSet} from '~/lib/responsiveImages';
 
 export type SmartImageData = {
   url: string;
@@ -9,8 +10,7 @@ export type SmartImageData = {
 
 /**
  * Renders a Shopify CDN image through Hydrogen's <Image> (responsive srcset),
- * and a local /public photo as a plain <img> using the "-800" variant we ship
- * next to every file in /public/home/ (see scripts in the README).
+ * and local editorial photos with AVIF sources and the original WebP fallback.
  */
 export function SmartImage({
   data,
@@ -32,7 +32,8 @@ export function SmartImage({
   if (data.url.startsWith('/')) {
     const small = data.url.replace(/\.(webp|jpe?g|png)$/, '-800.$1');
     const hasVariant = small !== data.url && data.url.startsWith('/home/');
-    return (
+    const avifSrcSet = editorialSrcSet(data.url);
+    const image = (
       <img
         src={data.url}
         srcSet={
@@ -51,6 +52,18 @@ export function SmartImage({
         style={aspectRatio ? {aspectRatio} : undefined}
       />
     );
+    return avifSrcSet ? (
+      <picture className="editorial-picture">
+        <source
+          type="image/avif"
+          srcSet={avifSrcSet}
+          sizes={sizes ?? '100vw'}
+        />
+        {image}
+      </picture>
+    ) : (
+      image
+    );
   }
   return (
     <Image
@@ -59,6 +72,7 @@ export function SmartImage({
       className={className}
       sizes={sizes}
       loading={priority ? 'eager' : loading}
+      fetchPriority={priority ? 'high' : undefined}
       aspectRatio={aspectRatio}
     />
   );
