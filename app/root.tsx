@@ -24,6 +24,8 @@ import {ToastProvider} from './lib/ui';
 import {BRAND} from './lib/config';
 import {SITE} from './lib/content';
 import appStyles from '~/styles/app.css?url';
+import archivoFont from '~/assets/fonts/archivo-latin-wdth-normal.woff2?url';
+import interFont from '~/assets/fonts/inter-latin-wght-normal.woff2?url';
 import {PageLayout} from './components/PageLayout';
 import {BrandLogo} from './components/BrandLogo';
 import {Tracking} from './components/Tracking';
@@ -246,14 +248,14 @@ export function Layout({children}: {children?: React.ReactNode}) {
         <meta name="theme-color" content="#12100e" />
         <link
           rel="preload"
-          href="/fonts/archivo-latin-wdth-normal.woff2"
+          href={archivoFont}
           as="font"
           type="font/woff2"
           crossOrigin="anonymous"
         />
         <link
           rel="preload"
-          href="/fonts/inter-latin-wght-normal.woff2"
+          href={interFont}
           as="font"
           type="font/woff2"
           crossOrigin="anonymous"
