@@ -1308,7 +1308,7 @@ main {
 }
 .badge--muted {
   background: var(--stone);
-  color: var(--ash);
+  color: var(--ink-2);
 }
 .card-body {
   display: grid;
@@ -5106,6 +5106,9 @@ body:has(.consent) .wa-float {
   grid-template-columns: minmax(220px, 0.32fr) 1fr;
   gap: clamp(28px, 4vw, 64px);
   align-items: start;
+}
+.promise-head .eyebrow {
+  color: var(--ink-2);
 }
 .promise-heading {
   margin-top: 12px;
