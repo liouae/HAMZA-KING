@@ -1,3 +1,6 @@
+@import './fonts.css';
+@import './reset.css';
+
 /* =========================================================================
    HAMZA KING — design system
    Warm monochrome · technical · premium sport
@@ -1069,9 +1072,11 @@ main {
   object-fit: cover;
   animation: hero-zoom 1.6s var(--ease-out) both;
 }
+.editorial-picture {
+  display: contents;
+}
 @keyframes hero-zoom {
   from {
-    opacity: 0;
     transform: scale(1.08);
   }
 }
@@ -1303,7 +1308,7 @@ main {
 }
 .badge--muted {
   background: var(--stone);
-  color: var(--ash);
+  color: var(--ink-2);
 }
 .card-body {
   display: grid;
@@ -3122,7 +3127,8 @@ ul.mega-col,
 
 /* When a photo fills the hero, hide the decorative grid */
 .hero-product ~ .hero-grid,
-.hero-media ~ .hero-grid {
+.hero-media ~ .hero-grid,
+.editorial-picture:has(.hero-media) ~ .hero-grid {
   display: none;
 }
 
@@ -3440,7 +3446,6 @@ body:has(.consent) .wa-float {
 }
 @keyframes hero-zoom {
   from {
-    opacity: 0;
     transform: translateY(var(--parallax)) scale(1.14);
   }
 }
@@ -5102,6 +5107,9 @@ body:has(.consent) .wa-float {
   gap: clamp(28px, 4vw, 64px);
   align-items: start;
 }
+.promise-head .eyebrow {
+  color: var(--ink-2);
+}
 .promise-heading {
   margin-top: 12px;
   font-family: var(--font-display);
@@ -6737,7 +6745,9 @@ body:has(.consent) .wa-float {
 }
 
 /* Stock state: keep the studio surface and thumbnail geometry unchanged. */
-.opt-item--swatch .opt-swatch { position: relative; }
+.opt-item--swatch .opt-swatch {
+  position: relative;
+}
 .swatch-stock {
   position: absolute;
   bottom: 8px;
@@ -6752,9 +6762,17 @@ body:has(.consent) .wa-float {
   line-height: 1.2;
   text-align: center;
   text-transform: uppercase;
-  letter-spacing: .03em;
+  letter-spacing: 0.03em;
 }
-.opt--color .opt-item--swatch.is-out { background: none; }
-.opt-item--swatch.is-out .opt-swatch img { opacity: .5; }
-.card--out .product-photo > img { opacity: .5; }
-.card--out .badge { z-index: 2; }
+.opt--color .opt-item--swatch.is-out {
+  background: none;
+}
+.opt-item--swatch.is-out .opt-swatch img {
+  opacity: 0.5;
+}
+.card--out .product-photo > img {
+  opacity: 0.5;
+}
+.card--out .badge {
+  z-index: 2;
+}

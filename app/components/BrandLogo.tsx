@@ -38,9 +38,11 @@ export function BrandLogo({
 }) {
   const {file, ratio} = FILES[variant];
   const version = variant === 'hk' || variant === 'crown' ? '' : '?v=hk-maroc';
+  const compact =
+    variant === 'lockup' ? `/brand/${file}-${tone}-480.webp` : undefined;
   return (
     <img
-      src={`/brand/${file}-${tone}.png${version}`}
+      src={compact ?? `/brand/${file}-${tone}.png${version}`}
       alt={decorative ? '' : BRAND.name}
       width={Math.round(height * ratio)}
       height={height}

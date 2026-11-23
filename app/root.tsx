@@ -23,13 +23,11 @@ import {CookieConsent} from './components/CookieConsent';
 import {ToastProvider} from './lib/ui';
 import {BRAND} from './lib/config';
 import {SITE} from './lib/content';
-import resetStyles from '~/styles/reset.css?url';
 import appStyles from '~/styles/app.css?url';
 import {PageLayout} from './components/PageLayout';
 import {BrandLogo} from './components/BrandLogo';
 import {Tracking} from './components/Tracking';
 import {TRACKING} from '~/lib/config';
-import fontStyles from '~/styles/fonts.css?url';
 import {COLLECTION_IMAGES} from '~/lib/content';
 
 export type RootLoader = typeof loader;
@@ -123,7 +121,7 @@ export async function loader(args: Route.LoaderArgs) {
       publicStorefrontId: env.PUBLIC_STOREFRONT_ID,
     }),
     consent: {
-      checkoutDomain: env.PUBLIC_CHECKOUT_DOMAIN,
+      checkoutDomain: env.PUBLIC_CHECKOUT_DOMAIN || env.PUBLIC_STORE_DOMAIN,
       storefrontAccessToken: env.PUBLIC_STOREFRONT_API_TOKEN,
       withPrivacyBanner: false,
       // localize the privacy banner
@@ -260,11 +258,9 @@ export function Layout({children}: {children?: React.ReactNode}) {
           type="font/woff2"
           crossOrigin="anonymous"
         />
-        <link rel="stylesheet" href={fontStyles}></link>
-        <link rel="stylesheet" href={resetStyles}></link>
-        <link rel="stylesheet" href={appStyles}></link>
         <Meta />
         <Links />
+        <link rel="stylesheet" href={appStyles}></link>
         <VerificationTags />
         <script
           nonce={nonce}
