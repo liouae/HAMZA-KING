@@ -148,6 +148,7 @@ export const meta: Route.MetaFunction = ({data, matches, location}) => {
           '@type': 'Product',
           sku: v.sku || numeric(v.id),
           name: `${p.title} — ${v.title}`,
+          description: clip(p.description || description, 5000),
           image: v.image?.url ?? image,
           color: opt(v, isColorOption),
           size: opt(v, isSizeOption),
