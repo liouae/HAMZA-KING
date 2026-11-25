@@ -221,12 +221,13 @@ function loadDeferredData({context}: Route.LoaderArgs) {
   };
 }
 
-/** Google Search Console + Meta Business domain verification tags. */
+/** Domain verification tags for Google Search Console, Meta and Pinterest. */
 function VerificationTags() {
   const data = useRouteLoaderData<RootLoader>('root');
   const v = data?.verification;
   return (
     <>
+      <meta name="p:domain_verify" content="4079b8ecae45841de9dbc99b4f8f8e94" />
       {v?.google ? (
         <meta name="google-site-verification" content={v.google} />
       ) : null}
