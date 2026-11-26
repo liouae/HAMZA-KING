@@ -6,10 +6,15 @@ import {formatMoney} from '~/components/Price';
 import {IconArrow, IconClose, IconHeart} from '~/components/Icons';
 import {useWhatsAppLink, useWhatsAppTopic, type WaTopic} from '~/lib/whatsapp';
 import {RecentlyViewed} from '~/components/RecentlyViewed';
+import {seoMeta} from '~/lib/seo';
 
-export const meta: Route.MetaFunction = () => [
-  {title: 'HK MAROC | Ma wishlist'},
-];
+export const meta: Route.MetaFunction = ({matches, location}) =>
+  seoMeta({
+    matches,
+    location,
+    title: 'Ma wishlist',
+    noindex: true,
+  });
 
 export default function WishlistPage() {
   const {items, remove} = useWishlist();
