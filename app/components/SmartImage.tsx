@@ -1,5 +1,5 @@
 import {Image} from '@shopify/hydrogen';
-import {editorialSrcSet} from '~/lib/responsiveImages';
+import {editorialAssetUrl, editorialSrcSet} from '~/lib/responsiveImages';
 
 export type SmartImageData = {
   url: string;
@@ -35,10 +35,10 @@ export function SmartImage({
     const avifSrcSet = editorialSrcSet(data.url);
     const image = (
       <img
-        src={data.url}
+        src={editorialAssetUrl(data.url)}
         srcSet={
           hasVariant
-            ? `${small} 800w, ${data.url} ${data.width ?? 1600}w`
+            ? `${editorialAssetUrl(small)} 800w, ${editorialAssetUrl(data.url)} ${data.width ?? 1600}w`
             : undefined
         }
         sizes={hasVariant ? sizes : undefined}
