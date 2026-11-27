@@ -23,7 +23,7 @@ import {CookieConsent} from './components/CookieConsent';
 import {ToastProvider} from './lib/ui';
 import {BRAND} from './lib/config';
 import {SITE} from './lib/content';
-import appStyles from '~/styles/app.css?inline';
+import compiledAppStyles from '~/styles/app.css?inline';
 import archivoFont from '~/assets/fonts/archivo-latin-wdth-normal.woff2?url';
 import interFont from '~/assets/fonts/inter-latin-wght-normal.woff2?url';
 import {PageLayout} from './components/PageLayout';
@@ -31,6 +31,13 @@ import {BrandLogo} from './components/BrandLogo';
 import {Tracking} from './components/Tracking';
 import {TRACKING} from '~/lib/config';
 import {COLLECTION_IMAGES} from '~/lib/content';
+
+// Reuse the server-rendered CSS during hydration instead of downloading it
+// again inside the client bundle. The development import still supports HMR.
+const appStyles =
+  import.meta.env.SSR || import.meta.env.DEV
+    ? compiledAppStyles
+    : (document.getElementById('hk-app-styles')?.textContent ?? '');
 
 export type RootLoader = typeof loader;
 
@@ -256,7 +263,11 @@ export function Layout({children}: {children?: React.ReactNode}) {
         <Links />
         {/* Vite resolves imports and font URLs before inlining the shared CSS.
             First visits can paint without another render-blocking CDN request. */}
-        <style nonce={nonce} dangerouslySetInnerHTML={{__html: appStyles}} />
+        <style
+          id="hk-app-styles"
+          nonce={nonce}
+          dangerouslySetInnerHTML={{__html: appStyles}}
+        />
         <VerificationTags />
         <script
           nonce={nonce}
