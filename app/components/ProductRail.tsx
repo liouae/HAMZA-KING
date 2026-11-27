@@ -76,9 +76,9 @@ export function ProductRail({
         </div>
       </header>
       <div className="rail-track" ref={ref}>
-        {products.map((p, i) => (
+        {products.map((p) => (
           <div className="rail-cell" key={p.id}>
-            <ProductItem product={p} loading={i < 4 ? 'eager' : 'lazy'} />
+            <ProductItem product={p} loading="lazy" />
           </div>
         ))}
       </div>

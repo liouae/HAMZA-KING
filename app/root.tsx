@@ -23,7 +23,7 @@ import {CookieConsent} from './components/CookieConsent';
 import {ToastProvider} from './lib/ui';
 import {BRAND} from './lib/config';
 import {SITE} from './lib/content';
-import appStyles from '~/styles/app.css?url';
+import appStyles from '~/styles/app.css?inline';
 import archivoFont from '~/assets/fonts/archivo-latin-wdth-normal.woff2?url';
 import interFont from '~/assets/fonts/inter-latin-wght-normal.woff2?url';
 import {PageLayout} from './components/PageLayout';
@@ -56,16 +56,7 @@ export const shouldRevalidate: ShouldRevalidateFunction = ({
   return false;
 };
 
-/**
- * The main and reset stylesheets are added in the Layout component
- * to prevent a bug in development HMR updates.
- *
- * This avoids the "failed to execute 'insertBefore' on 'Node'" error
- * that occurs after editing and navigating to another page.
- *
- * It's a temporary fix until the issue is resolved.
- * https://github.com/remix-run/remix/issues/9242
- */
+/** Shared external resources; page styles are rendered directly by Layout. */
 export function links() {
   return [
     {
@@ -263,7 +254,9 @@ export function Layout({children}: {children?: React.ReactNode}) {
         />
         <Meta />
         <Links />
-        <link rel="stylesheet" href={appStyles}></link>
+        {/* Vite resolves imports and font URLs before inlining the shared CSS.
+            First visits can paint without another render-blocking CDN request. */}
+        <style nonce={nonce} dangerouslySetInnerHTML={{__html: appStyles}} />
         <VerificationTags />
         <script
           nonce={nonce}
